@@ -13,9 +13,9 @@ This model works with
 
 Pending:
 
--Implementation on missing data.
+- Implementation on missing data.
 
-Based on the next code and papers:
+-> Based on the next code and papers:
 
 HMM implementation based on guyz´s one: https://github.com/guyz/HMM
 
