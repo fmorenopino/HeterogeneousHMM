@@ -1,7 +1,7 @@
 HMM
 ===
 
-Full implementation made on Python, hmmlearn is used just to generate synthetic data to test the model. 
+Full implementation made on Python, hmmlearn is just used to generate synthetic data to test the model. 
 
 This model works with 
 
