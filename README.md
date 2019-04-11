@@ -3,11 +3,11 @@ HMM
 
 Full implementation made on Python, hmmlearn is just used to generate synthetic data to test the model. 
 
-This model works with 
+This model works with: 
 
 - Gaussian observations.
 
-- Multiple features per observations. 
+- Multiple features per observation. 
 
 - Multiple sequences (look at "main_multiple_sequences.py" to see an example).
 
