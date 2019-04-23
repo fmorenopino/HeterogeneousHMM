@@ -336,8 +336,6 @@ class _BaseHMM(object):
 
             # induction
             for t in xrange(1,len(observations)):
-                if (t == 500):
-                    print ("entrando en zona peligrosa")
                 for j in xrange(self.n):
                     for i in xrange(self.n):
                         if (delta[t][j] < delta[t-1][i]*self.A[i][j]):
