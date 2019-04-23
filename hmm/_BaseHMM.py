@@ -12,22 +12,102 @@ This code is based on:
 
 import numpy
 import math
+from sklearn import preprocessing
+
 
 class _BaseHMM(object):
 
     '''
     Basics of the HMM.
     '''
-    
+
     def __init__(self,n,m,precision=numpy.double,verbose=False):
         self.n = n
         self.m = m
-        
+
         self.precision = precision
         self.verbose = verbose
         self._eta = self._eta1
 
         self.old_stats = None
+
+    def train(self, observations, iterations=1, epsilon=0.0001,
+              thres=(0.0015 / 100)):  # poner el número en tanto por ciento
+        '''
+        Updates the HMMs parameters given a new set of observed sequences.
+
+        observations can either be a single (1D) array of observed symbols, or when using
+        a continuous HMM, a 2D array (matrix), where each row denotes a multivariate
+        time sample (multiple features).
+
+        Training is repeated 'iterations' times, or until log likelihood of the model
+        increases by less than 'epsilon'.
+
+        'thres' denotes the algorithms sensitivity to the log likelihood decreasing
+        from one iteration to the other.
+        '''
+
+        self._mapB(observations)
+
+        for i in xrange(iterations):
+            (prob_old, prob_new, Q_value_tmp) = self.trainiter(observations)
+
+            if (self.verbose):
+                # print "iter: ", i, ", L(model|O) =", prob_old, ", L(model_new|O) =", prob_new, ", converging =", ( abs( (prob_new-prob_old) / prob_old) < thres ) #converging =", ( prob_new-prob_old > thres )
+                print "iter: ", i, ", L(model|O) =", prob_old, ", L(model_new|O) =", prob_new  # converging =", ( prob_new-prob_old > thres )
+
+                """
+                if (i == 0):
+                    Q_value_new = Q_value_tmp
+                    Q_value_old = None
+                else:
+                    Q_value_old = Q_value_new
+                    Q_value_new = Q_value_tmp
+
+                    print "iter: ", i, ", L(model|O) =", Q_value_old, ", L(model_new|O) =", Q_value_new  # converging =", ( prob_new-prob_old > thres )
+                """
+
+            # if ( abs( (prob_new-prob_old) / prob_old) < thres ): #if ( abs(prob_new-prob_old) < epsilon ):
+            # converged
+            # break
+            if (prob_new == prob_old):
+                break
+
+
+
+    def trainiter(self, observations):
+        '''
+        A single iteration of an EM algorithm, which given the current HMM,
+        computes new model parameters and internally replaces the old model
+        with the new one.
+
+        Returns the log likelihood of the old model (before the update),
+        and the one for the new model.
+        '''
+        # call the EM algorithm
+        (new_model, stats) = self._baumwelch(observations)
+
+        # calculate the log likelihood of the previous model
+        prob_old = self.forwardbackward(observations,
+                                        cache=True)  # we compute the P(O|model) for the set of old parameters
+
+        # update the model with the new estimation
+        self._updatemodel(new_model)
+
+        # calculate the log likelihood of the new model. Cache set to false in order to recompute probabilities of the observations give the model.
+        prob_new = self.forwardbackward(observations, cache=False)
+
+        # Q_value = self.Q_computation(stats, new_model, observations)
+        Q_value = None
+
+        return (prob_old, prob_new, Q_value)
+
+    def _updatemodel(self, new_model):
+        '''
+        Replaces the current model parameters with the new ones.
+        '''
+        self.pi = new_model['pi']
+        self.A = new_model['A']
 
     def _eta1(self,t,T):
         '''
@@ -36,7 +116,7 @@ class _BaseHMM(object):
         i.e: this is a 'normal' HMM.
         '''
         return 1.
-      
+
     def forwardbackward(self,observations_sequences, cache=False):
         '''
         Forward-Backward procedure is used to efficiently calculate the probability of the observation, given the model - P(O|model)
@@ -46,9 +126,12 @@ class _BaseHMM(object):
 
         '''
 
-        if (cache==False):
-            self._mapB(observations_sequences)
-        
+        """
+        PENDIENTE: las dos líneas siguientes las he quitado: hay que checkear que no está afectando al algoritmo
+        """
+        #if (cache==False):
+        #    self._mapB(observations_sequences)
+
         (alpha, normalization_coefficients) = self._calcalpha(observations_sequences)
 
 
@@ -169,7 +252,7 @@ class _BaseHMM(object):
                         tmp *= self.B_map_list[sn][j][
                             t + 1]  # B_map es la variable, mientras que _mapB es la función (implementada en _ContinuousHMM
                         tmp *= beta[sn][t + 1][j]
-                        # tmp *= normalization_coefficients[t+1]
+                        tmp *= normalization_coefficients[sn][t+1]
                         denom += tmp
                 for i in xrange(self.n):
                     for j in xrange(self.n):
@@ -216,10 +299,10 @@ class _BaseHMM(object):
         Find the best state sequence (path), given the model and an observation. i.e: max(P(Q|O,model)).
         
         This method is usually used to predict the next state after training. 
-        '''        
+        '''
         # use Viterbi's algorithm. It is possible to add additional algorithms in the future.
         return self._viterbi(observations)
-    
+
     def _viterbi(self, observations_sequences):
         '''
         Find the best state sequence (path) using viterbi algorithm - a method of dynamic programming,
@@ -253,12 +336,21 @@ class _BaseHMM(object):
 
             # induction
             for t in xrange(1,len(observations)):
+                if (t == 500):
+                    print ("entrando en zona peligrosa")
                 for j in xrange(self.n):
                     for i in xrange(self.n):
                         if (delta[t][j] < delta[t-1][i]*self.A[i][j]):
                             delta[t][j] = delta[t-1][i]*self.A[i][j]
                             psi[t][j] = i
                     delta[t][j] *= self.B_map_list[sn][j][t]
+
+                """
+                We perform the next normalization to avoid underflow problems:
+                """
+                delta[t] = preprocessing.normalize(delta[t].reshape(1, -1))
+
+
 
             # termination: find the maximum probability for the entire sequence (=highest prob path)
             p_max = 0 # max value in time T (max)
@@ -275,82 +367,8 @@ class _BaseHMM(object):
             path_list.append(path)
         return path_list
 
-    def train(self, observations, iterations=1,epsilon=0.0001,thres=(0.0015/100)): #poner el número en tanto por ciento
-        '''
-        Updates the HMMs parameters given a new set of observed sequences.
-        
-        observations can either be a single (1D) array of observed symbols, or when using
-        a continuous HMM, a 2D array (matrix), where each row denotes a multivariate
-        time sample (multiple features).
-        
-        Training is repeated 'iterations' times, or until log likelihood of the model
-        increases by less than 'epsilon'.
-        
-        'thres' denotes the algorithms sensitivity to the log likelihood decreasing
-        from one iteration to the other.
-        '''
-
-        self._mapB(observations)
-        
-        for i in xrange(iterations):
-            (prob_old, prob_new, Q_value_tmp) = self.trainiter(observations)
-
-            if (self.verbose):      
-                #print "iter: ", i, ", L(model|O) =", prob_old, ", L(model_new|O) =", prob_new, ", converging =", ( abs( (prob_new-prob_old) / prob_old) < thres ) #converging =", ( prob_new-prob_old > thres )
-                print "iter: ", i, ", L(model|O) =", prob_old, ", L(model_new|O) =", prob_new #converging =", ( prob_new-prob_old > thres )
-
-                """
-                if (i == 0):
-                    Q_value_new = Q_value_tmp
-                    Q_value_old = None
-                else:
-                    Q_value_old = Q_value_new
-                    Q_value_new = Q_value_tmp
-
-                    print "iter: ", i, ", L(model|O) =", Q_value_old, ", L(model_new|O) =", Q_value_new  # converging =", ( prob_new-prob_old > thres )
-                """
-
-            #if ( abs( (prob_new-prob_old) / prob_old) < thres ): #if ( abs(prob_new-prob_old) < epsilon ):
-                # converged
-                #break
-            if (prob_new == prob_old):
-                break
-
-    def _updatemodel(self,new_model):
-        '''
-        Replaces the current model parameters with the new ones.
-        '''
-        self.pi = new_model['pi']
-        self.A = new_model['A']
-                
-    def trainiter(self,observations):
-        '''
-        A single iteration of an EM algorithm, which given the current HMM,
-        computes new model parameters and internally replaces the old model
-        with the new one.
-        
-        Returns the log likelihood of the old model (before the update),
-        and the one for the new model.
-        '''        
-        # call the EM algorithm
-        (new_model, stats) = self._baumwelch(observations)
 
 
-
-        # calculate the log likelihood of the previous model
-        prob_old = self.forwardbackward(observations, cache=True) #we compute the P(O|model) for the set of old parameters
-        
-        # update the model with the new estimation
-        self._updatemodel(new_model)
-        
-        # calculate the log likelihood of the new model. Cache set to false in order to recompute probabilities of the observations give the model.
-        prob_new = self.forwardbackward(observations, cache=False)
-
-        #Q_value = self.Q_computation(stats, new_model, observations)
-        Q_value= None
-        
-        return (prob_old, prob_new, Q_value)
-    
     def M_stepA(self,observations_sequences,xi,gamma):
         '''
         Reestimation of the transition matrix (part of the 'M' step of Baum-Welch).
@@ -387,14 +405,14 @@ class _BaseHMM(object):
         Returns 'stat's, a dictionary containing required statistics.
         '''
         stats = {}
-        
+
         (stats['alpha'], normalization_coefficients) = self._calcalpha(observations)
         stats['beta'] = self._calcbeta(observations, normalization_coefficients)
         stats['xi'] = self._calcxi(observations, normalization_coefficients, stats['alpha'],stats['beta'])
         stats['gamma'] = self._calcgamma(stats['xi'], observations)
-        
+
         return stats
-    
+
     def M_step(self,stats,observations_sequences):
         '''
         Performs the 'M' step of the Baum-Welch algorithm.
@@ -404,9 +422,9 @@ class _BaseHMM(object):
         
         Returns 'new_model', a dictionary containing the new maximized
         model's parameters.
-        '''        
+        '''
         new_model = {}
-        
+
         # new init vector is set to the frequency of being in each step at t=0 
         #new_model['pi'] = stats['gamma'][0] #PENDIENTE: ÉSTO HAY QUE CAMBIARLO, AHORA PI SE CALCULA CON TODAS LAS SECUENCIAS
 
@@ -417,19 +435,19 @@ class _BaseHMM(object):
         new_model['pi'] = numpy.mean(gamma_0_each_sequence, axis=0)
 
         new_model['A'] = self.M_stepA(observations_sequences,stats['xi'],stats['gamma'])
-        
+
         return new_model
-    
+
     def _baumwelch(self,observations):
         '''
         An EM(expectation-modification) algorithm devised by Baum-Welch. Finds a local maximum
         that outputs the model that produces the highest probability, given a set of observations.
         
         Returns the new maximized model parameters
-        '''        
+        '''
         # E step - calculate statistics
         stats = self.E_step(observations)
-        
+
         # M step
         return (self.M_step(stats,observations), stats)
 

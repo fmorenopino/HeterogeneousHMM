@@ -175,9 +175,10 @@ class Data(object):
 
 
 
-    def generateSyntheticDataSeveralSequences(self, n_sequences = 2):
+    def generateSyntheticDataSeveralSequences(self, n_sequences = 5):
 
-        list_of_lenghts = [100, 150]
+        list_of_lenghts = [600, 400]
+        #list_of_lenghts = [1000, 1500, 2000, 1355, 4000]
         obs_sequences = []
         labels_sequences = []
 
