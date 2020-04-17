@@ -1,13 +1,15 @@
 # Heterogenous-HMM (HMM with labels)
 
 
-This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies are used. The main contributions of this libraries with respect to other available APIs are:
+This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of this libraries with respect to other available APIs are:
 
-- **Heterogeneous HMM (HMM with labels)**: here we implement this version of the HMM which allow us to manage each of the observations with different probability distributions (*also, the simpler cases: Gaussian and Discrete/multinomial HMMs are implemented*).
+NOTE: this README file is still under construction.
 
-- **Missing values support**: our implementation supports both partial and complete missing data per observation.
+- **Heterogeneous HMM (HMM with labels)**: here we implement a version of the HMM which allow us to manage each of the features with different probability distributions (*also, the simpler cases: Gaussian and Multinomial HMMs are implemented*).
 
-- **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the Heterogenous-HMM model, it is possible to fix the emission probabilities of the discrete features: the model allow us to fix the complete B matrix of certain feature or just the emission probabilities of some of the states of one feature (while training the emission probabilities of the other states).
+- **Missing values support**: our implementation supports both partial and complete missing data.
+
+- **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the Heterogenous-HMM model, it is possible to fix the emission probabilities of the discrete features: the model allow us to fix the complete B matrix of certain feature or just some states' emission probabilities (while training the other states' emission probabilities).
 
 - **Model selection criteria**: both BIC and AIC are implemented.
 
