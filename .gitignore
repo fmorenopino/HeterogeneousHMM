@@ -129,3 +129,5 @@ dmypy.json
 # Files and folders
 validations/eb2_fernando/data
 validations/eb2_fernando/*.json
+
+.DS_Store
