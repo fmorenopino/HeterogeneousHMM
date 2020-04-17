@@ -13,7 +13,7 @@ NOTE: this README file is still under construction.
 
 - **Model selection criteria**: both BIC and AIC are implemented.
 
-Also, some others aspects like having multiple sequences or several features per observation are supported. This model is easily extendable with other types of probablistic models.
+Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
 
 
 
