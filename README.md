@@ -117,7 +117,7 @@ Using the HeterogenousHMM it is possible to fix the emission probabilities of th
 
 ## Dependencies. 
 
-The required dependencies are specified in *requirements.txt".
+The required dependencies are specified in *requirements.txt*.
 
 ## Authors.
 
@@ -129,7 +129,7 @@ The current project has been developed by:
 ## Acknowledgments.
 
 - Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
--L. R. Rabiner, "A tutorial on hidden Markov models and selected applications in speech recognition," in Proceedings of the IEEE, vol. 77, no. 2, pp. 257-286, Feb. 1989.
+- L. R. Rabiner, "A tutorial on hidden Markov models and selected applications in speech recognition," in Proceedings of the IEEE, vol. 77, no. 2, pp. 257-286, Feb. 1989.
 - K.P. Murphy, "Machine Learning: A Probabilistic Perspective", The MIT Press ©2012, ISBN:0262018020 9780262018029
 - O.Capp, E.Moulines, T.Ryden, "Inference in Hidden Markov Models", Springer Publishing Company, Incorporated, 2010, ISBN:1441923195
 
