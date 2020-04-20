@@ -1,7 +1,7 @@
 """
 Created on Nov 22, 2019
 
-@author: esukei
+@author: semese
 
 This code is based on:
   - HMM implementation by guyz - https://github.com/guyz/HMM

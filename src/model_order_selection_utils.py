@@ -1,7 +1,7 @@
 """
 Created on Feb 04, 2020
 
-@author: esukei
+@author: semese
 
 This code is based on:
  - https://rdrr.io/cran/HMMpa/man/AIC_HMM.html
@@ -77,7 +77,7 @@ def plot_model_selection(n_states, criteria, filename=None):
                 length len(n_states) containing the criteria values for the
                 different number of states.
     """
-    fig, ax = plt.figure(figsize=(7, 4))
+    fig, ax = plt.subplots(figsize=(7, 4))
 
     for key, value in criteria.items():
         ax.plot(n_states, value, marker="o", label=key)

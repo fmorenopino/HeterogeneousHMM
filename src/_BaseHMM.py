@@ -4,7 +4,7 @@
 """
 Created on Nov 20, 2019
 
-@authors: esukei, fmorenopino
+@authors: semese, fmorenopino
 
 This code is based on:
  - HMM implementation by guyz- https://github.com/guyz/HMM

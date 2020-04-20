@@ -1,7 +1,7 @@
 """
 Created on Feb 05, 2020
 
-@author: esukei
+@author: semese
 
 For theoretical bases see:
  - K.P. Murphy, "Machine Learning: A Probabilistic Perspective", The MIT Press

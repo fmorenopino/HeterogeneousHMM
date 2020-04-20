@@ -1,7 +1,7 @@
 """
 Created on Nov 20, 2019
 
-@author: esukei
+@author: semese
 
 Parts of the code come from: https://github.com/hmmlearn/hmmlearn
 """
@@ -275,7 +275,13 @@ def plot_decode(
         fig = plt.figure(figsize=figsize)
         ax = fig.add_subplot(1, 1, 1)
         plot_predictions(
-            obs_seq, data_cols[0], state_seq, ax, time_stamps=time_stamps, state_names=state_names, first=True
+            obs_seq,
+            data_cols[0],
+            state_seq,
+            ax,
+            time_stamps=time_stamps,
+            state_names=state_names,
+            first=True,
         )
         fig.tight_layout()
 
@@ -288,7 +294,9 @@ def plot_decode(
         plt.show()
 
 
-def plot_predictions(data, variable, states, ax, time_stamps = None, state_names=None, first=False):
+def plot_predictions(
+    data, variable, states, ax, time_stamps=None, state_names=None, first=False
+):
     """
         Helper function for plotting the decoded sequence with the corresponding
         states.
