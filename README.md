@@ -1,7 +1,7 @@
 # Heterogenous-HMM (HMM with labels)
 
 
-This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of this libraries with respect to other available APIs are:
+This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of these libraries with respect to other available APIs are:
 
 NOTE: this README file is still under construction.
 
