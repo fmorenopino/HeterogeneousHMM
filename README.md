@@ -1,5 +1,6 @@
 # Heterogenous-HMM (HMM with labels)
 
+[![DOI](https://zenodo.org/badge/180347583.svg)](https://zenodo.org/badge/latestdoi/180347583)
 
 This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of these libraries with respect to other available APIs are:
 
