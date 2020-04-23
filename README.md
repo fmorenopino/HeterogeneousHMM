@@ -2,13 +2,14 @@
 
 [![DOI](https://zenodo.org/badge/180347583.svg)](https://zenodo.org/badge/latestdoi/180347583)
 
-This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of these libraries with respect to other available APIs are:
-
 NOTE: this README file is still under construction.
 
-- **Heterogeneous HMM (HMM with labels)**: here we implement a version of the HMM which allow us to manage each of the features with different probability distributions (*also, the simpler cases: Gaussian and Multinomial HMMs are implemented*).
+
+This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of these libraries with respect to other available APIs are:
 
 - **Missing values support**: our implementation supports both partial and complete missing data.
+
+- **Heterogeneous HMM (HMM with labels)**: here we implement a version of the HMM which allow us to manage each of the features with different probability distributions (*also, the simpler cases: Gaussian and Multinomial HMMs are implemented*).
 
 - **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the Heterogenous-HMM model, it is possible to fix the emission probabilities of the discrete features: the model allow us to fix the complete B matrix of certain feature or just some states' emission probabilities (while training the other states' emission probabilities).
 
@@ -17,6 +18,15 @@ NOTE: this README file is still under construction.
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
 
 
+## How a HMM works?
+
+In this library, we have developed several Hidden Markov Models. In the next section of this readme file we explain how to use then but, before that, we would like to briefly explain how a HMM works. To do so, we will use the Gaussian HMM, which manages the emission probabilities with a gaussian distribution, its block diagram is represented in the next figure:
+
+![alt text](https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hmm.png)
+
+
+The parameters that model a HMM are:
+- $$S=\left\{s_{1}, s_{2}, \ldots, s_{T}: s_{t} \in 1, \ldots, l\right\}$$
 
 ## Available models:
 
@@ -35,7 +45,7 @@ Now, a more detailed explanation of each of them is provided:
 
 ### 1. Multinomial HMM.
 
-In the multinomial HMM, the emission probabilities are discrete, whetever it is binary or categorical.
+In the multinomial HMM the emission probabilities are discrete, whetever it is binary or categorical.
 
 **Parameters:**
 
@@ -108,12 +118,31 @@ The HeterogeneousHMM class uses the following arguments for initialisation:
 
 ### 4. Semi-supervised HMM.
 
-Using the HeterogenousHMM it is possible to fix the emission probabilities of the discrete features by using the *'nr_no_train_de'" variable, which indicates the number of features we don´t want to be trainned by the model but the keep fixed to an original value set by the user and the *'variablestate_no_train_de'*, that can be used to fix just some of the states of that specific feature while training the emission probabilities of the others. **An example to clarify this can be found on the "hmm_tutorials.ipynb" notebook**.
+
+Using the HeterogenousHMM it is possible to fix the emission probabilities of the discrete features. To do so, two parameters of its initialization must be taken into account:  
+
+- *'nr_no_train_de'*: indicates the number of discrete features we don´t want to be trainned by the model but the keep fixed to an original value set by the user. 
+
+Two examples to illustrate how to use this variable:
+
+-- First example: if *nr_no_train_de=1* and *n_d_emissions=1*, the model would just have one discrete feature whose emission probabilities would be fixed (not trainned by the EM algorithm).
+
+-- Second example: if *nr_no_train_de=1* but *n_d_emissions=3*, the model would train the emission probabilities matrices for the two first discrete features but would keep the value of the last emission probabilities matrix to the values set by the user.
+
+- *'variablestate_no_train_de'*, that can be used to fix just some of the states of that specific feature while training the emission probabilities of the others. 
+
+-- For example, if *nr_no_train_de=1*,  *n_d_emissions=2*, *n_states=5* and *variablestate_no_train_de = 2*, the model would train the complete emission probabilities matrix for the first discrete feature. For the second discrete feature, the emission probabilities for the 3 first states would be trainned with the EM algorithm but the emission probabilities for the last 2 states (of the 5 that the model has) would be fixed to the values fixed by the user. 
+
+*This is extremely helpful if we have to have a Semi-Supervised HMM because we can associate certain states to certain labels/discrete values.*
+
+**An example to clarify this can be found on the "hmm_tutorials.ipynb" notebook**.
 
 ## Folder Structure.
 
 - /src: it contains all the classes that implement the models.
-- /notebooks: it contains the "hmm_tutorials.ipynb" notebook, which contains an example code to use each of the available models.
+- /notebooks: it contains:
+-- "hmm_tutorials.ipynb": notebook that contains an example code to use each of the available models.
+-- "model_order_selection.ipynb": notebook that contains an example of how to use the order selection criteria. Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
 - /test: it contains the testing files for each of the HMM models.
 
 ## Dependencies. 
@@ -124,7 +153,7 @@ The required dependencies are specified in *requirements.txt*.
 
 The current project has been developed by:
 
-- Fernando Moreno Pino (http://www.tsc.uc3m.es/~fmoreno/, https://github.com/fmorenopino).
+- Fernando Moreno-Pino (http://www.tsc.uc3m.es/~fmoreno/, https://github.com/fmorenopino).
 - Emese Sukei (https://github.com/semese).
 
 ## Acknowledgments.
