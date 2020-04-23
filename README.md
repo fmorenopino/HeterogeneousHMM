@@ -23,7 +23,7 @@ The information that you can find in this readme file can be seen in the next Ta
       - [The three basic inference problems for HMMs.](#the-three-basic-inference-problems-for-hmms)
     + [1.2. Heterogeneous HMM/HMM with labels.](#12-heterogeneous-hmm-hmm-with-labels)
     + [1.3. Semi-Supervised HMM.](#13-semi-supervised-hmm)
-  * [2. Available models and How to use them.(#2-available-models-)
+  * [2. Available models and How to use them.](#2-available-models-and-how-to-use-them)
     + [2.1. Multinomial HMM.](#21-multinomial-hmm)
     + [2.2. Gaussian HMM.](#22-gaussian-hmm)
     + [2.3. Heterogeneous HMM.](#23-heterogeneous-hmm)
