@@ -214,17 +214,17 @@ The HeterogeneousHMM class uses the following arguments for initialisation:
 ### 2.4. Semi-supervised HMM.
 
 
-Using the HeterogenousHMM it is possible to fix the emission probabilities of the discrete features. To do so, two parameters of its initialization must be taken into account:  
+Using the HeterogenousHMM it is possible to fix the emission probabilities of the discrete features. To do so, two parameters of the initialization must be taken into account:  
 
 - *'nr_no_train_de'*: indicates the number of discrete features we don´t want to be trainned by the model but the keep fixed to an original value set by the user. 
 
 Two examples to illustrate how to use this variable:
 
--- First example: if *nr_no_train_de=1* and *n_d_emissions=1*, the model would just have one discrete feature whose emission probabilities would be fixed (not trainned by the EM algorithm).
+--  If *nr_no_train_de=1* and *n_d_emissions=1*, the model would just have one discrete feature whose emission probabilities would be fixed (not trainned by the EM algorithm).
 
--- Second example: if *nr_no_train_de=1* but *n_d_emissions=3*, the model would train the emission probabilities matrices for the two first discrete features but would keep the value of the last emission probabilities matrix to the values set by the user.
+-- If *nr_no_train_de=1* but *n_d_emissions=3*, the model would train the emission probabilities matrices for the two first discrete features but would keep the value of the last emission probabilities matrix to the values set by the user.
 
-- *'variablestate_no_train_de'*, that can be used to fix just some of the states of that specific feature while training the emission probabilities of the others. 
+- *'variablestate_no_train_de'*, that can be used to fix **just some of the states** (the last *'variablestate_no_train_de'* are the ones fixed) of the *'nr_no_train_de'* features while training the emission probabilities of the others. By default it is set to None, which means that the entire emission probability matrix for that discrete emission will be kept unchanged during training.
 
 -- For example, if *nr_no_train_de=1*,  *n_d_emissions=2*, *n_states=5* and *variablestate_no_train_de = 2*, the model would train the complete emission probabilities matrix for the first discrete feature. For the second discrete feature, the emission probabilities for the 3 first states would be trainned with the EM algorithm but the emission probabilities for the last 2 states (of the 5 that the model has) would be fixed to the values fixed by the user. 
 
