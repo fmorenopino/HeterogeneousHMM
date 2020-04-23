@@ -230,7 +230,7 @@ Two examples to illustrate how to use this variable:
 
 *This is extremely helpful if we have to have a Semi-Supervised HMM because we can associate certain states to certain labels/discrete values.*
 
-**An example to clarify this can be found on the "hmm_tutorials.ipynb" notebook**.
+**An example to clarify how to use these variables this can be found on the "hmm_tutorials.ipynb" notebook**.
 
 ## 3. Folder Structure.
 
