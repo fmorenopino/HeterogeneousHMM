@@ -3,7 +3,7 @@
 [![DOI](https://zenodo.org/badge/180347583.svg)](https://zenodo.org/badge/latestdoi/180347583)
 
 
-This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of these libraries with respect to other available APIs are:
+This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of this library with respect to other available APIs are:
 
 - **Missing values support**: our implementation supports both partial and complete missing data.
 
@@ -11,7 +11,7 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 - **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the Heterogenous-HMM model, it is possible to fix the emission probabilities of the discrete features: the model allow us to fix the complete B matrix of certain feature or just some states' emission probabilities (while training the other states' emission probabilities).
 
-- **Model selection criteria**: both BIC and AIC are implemented.
+- **Model selection criteria**: Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
 
@@ -235,9 +235,9 @@ Two examples to illustrate how to use this variable:
 - /src: it contains all the classes that implement the models.
 - /notebooks: it contains:
 
-> "hmm_tutorials.ipynb": notebook that contains an example code to use each of the available models.
+> "hmm_tutorials.ipynb": an example code to use each of the available models.
 
->  "model_order_selection.ipynb": notebook that contains an example of how to use the order selection criteria. Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
+>  "model_order_selection.ipynb": an example of how to use the order selection criteria. Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
 
 - /test: it contains the testing files for each of the HMM models.
 
