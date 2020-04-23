@@ -2,8 +2,6 @@
 
 [![DOI](https://zenodo.org/badge/180347583.svg)](https://zenodo.org/badge/latestdoi/180347583)
 
-> NOTE: this README file is still under construction.
-
 
 This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of these libraries with respect to other available APIs are:
 
@@ -18,11 +16,11 @@ This repository contains different implementations of the Hidden Markov Model wi
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
 
 
-## How a HMM, a Heterogeneous HMM and a Semi-Supervised HMM work?
+## 1. How a HMM, a Heterogeneous HMM and a Semi-Supervised HMM work?
 
 In this library, we have developed different implementation of the Hidden Markov Model. In the next section of this readme file we explain how to use then but, before that, we would like to briefly explain how our HMM models work.
 
-### Gaussian HMM
+### 1.1. Gaussian HMM
 
 The Gaussian HMM manages the emission probabilities with gaussian distributions, its block diagram is represented in the next figure:
 
@@ -31,7 +29,7 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hmm.png">
 </p>
 
-The parameters that we have on a HMM are:
+The parameters that we have to deal with are:
 
  <p align="center">
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width="30%">
@@ -69,15 +67,15 @@ To solve this third problem we must consider the joint distribution of *S* and *
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/joint.png" width="50%">
 </p>
 
-By using the EM algorithm, the model parameters *θ* {that is, the initial state probability ***π***, the state transition probabilities ***A*** and the gaussian emission probabilities (***μ***, ***Σ***)} are updated.
+By using the EM algorithm, the model parameters *θ* (that is, the initial state probability ***π***, the state transition probabilities ***A*** and the gaussian emission probabilities {***μ***, ***Σ***}) are updated.
 
-> The solution for these problems is nowadays very well known. If you want to get some extra knowledge about how the α, β, γ, δ... are derived you can check the references below.
-
-
-### Heterogeneous HMM/HMM with labels.
+> The solution for these problems is nowadays very well known. If you want to get some extra knowledge about how the α, β, γ, δ... parameters are derived you can check the references below.
 
 
-In the Heterogeneous HMM, we can manage some features' emission probabilities with discrete distributions and some others' emission probabilities with gaussian distributions. Its block diagram is:
+### 1.2. Heterogeneous HMM/HMM with labels.
+
+
+In the Heterogeneous HMM, we can manage some features' emission probabilities with discrete distributions (the labels) and some others' emission probabilities with gaussian distributions. Its block diagram is:
 
  <p align="center">
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm.png">
@@ -91,22 +89,22 @@ In addition to the parameters showed for the gaussian case, we must add:
 
 Where:
 
-- *L* is labels sequence.
+- *L* is the labels sequence.
 - ***D*** are the labels' emission probabilities.
 
 For the Heterogenous HMM, our joint distribution is:
 
 <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm_joint.png" width="80%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm_joint.png" width="70%">
 </p>
 
 As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
 
-### Semi-Supervised HMM.
+### 1.3. Semi-Supervised HMM.
 
 The Semi-Supervised HMM is a version of the Heterogenous HMM where the label emission probabilities are set *a priori*. This allows us to asocciate certain states to certain values of the labels, which provides guidance during the learning process.
 
-## Available models:
+## 2. Available models:
 
 > Several implementations of the HMM have been developed, all these HMM models extend the *_BaseHMM* class.
 
@@ -118,10 +116,7 @@ The Semi-Supervised HMM is a version of the Heterogenous HMM where the label emi
 Now, a more detailed explanation of each of them is provided:
 
 
-
-
-
-### 1. Multinomial HMM.
+### 2.1. Multinomial HMM.
 
 In the multinomial HMM the emission probabilities are discrete, whetever it is binary or categorical.
 
@@ -149,7 +144,7 @@ observation in the observation sequences; defaults to NaN
 - *verbose* (bool, optional) - flag to be set to True if per-iteration
 convergence reports should be printed during training
 
-### 2. Gaussian HMM.
+### 2.2. Gaussian HMM.
 
 In the Gaussian HMM, the emission probabilities are managed with gaussian probabilities distributions.
 
@@ -169,7 +164,7 @@ In the Gaussian HMM, the emission probabilities are managed with gaussian probab
 - *learn_rate* (float, optional) - a value from the $[0,1)$ interval, controlling how much the past values of the model parameters count when computing the new model parameters during training; defaults to 0
 - *verbose* (bool, optional) - flag to be set to True if per-iteration convergence reports should be printed during training
 
-### 3. Heterogeneous HMM.
+### 2.3. Heterogeneous HMM.
 
 In the Heterogeneous HMM, we can manage some of the features' emission probabilities with gaussian distributions and others with discrete distributions.
 
@@ -194,7 +189,7 @@ The HeterogeneousHMM class uses the following arguments for initialisation:
 - *learn_rate* (float, optional) - a value from the $[0,1)$ interval, controlling how much the past values of the model parameters count when computing the new model parameters during training; defaults to 0.
 - *verbose* (bool, optional) - flag to be set to True if per-iteration convergence reports should be printed during training.
 
-### 4. Semi-supervised HMM.
+### 2.4. Semi-supervised HMM.
 
 
 Using the HeterogenousHMM it is possible to fix the emission probabilities of the discrete features. To do so, two parameters of its initialization must be taken into account:  
@@ -215,7 +210,7 @@ Two examples to illustrate how to use this variable:
 
 **An example to clarify this can be found on the "hmm_tutorials.ipynb" notebook**.
 
-## Folder Structure.
+## 3. Folder Structure.
 
 - /src: it contains all the classes that implement the models.
 - /notebooks: it contains:
@@ -223,11 +218,11 @@ Two examples to illustrate how to use this variable:
 -- "model_order_selection.ipynb": notebook that contains an example of how to use the order selection criteria. Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
 - /test: it contains the testing files for each of the HMM models.
 
-## Dependencies. 
+## 4. Dependencies. 
 
 The required dependencies are specified in *requirements.txt*.
 
-## Authors.
+## 5. Authors.
 
 The current project has been developed by:
 
@@ -236,11 +231,11 @@ The current project has been developed by:
 - [Antonio Artés-Rodríguez](http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html).
 
 
-## Contact Information
+## 6. Contact Information
 
 > fmoreno@tsc.uc3m.es
 
-## References.
+## 7. References.
 
 - Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
 - L. R. Rabiner, "A tutorial on hidden Markov models and selected applications in speech recognition," in Proceedings of the IEEE, vol. 77, no. 2, pp. 257-286, Feb. 1989.
