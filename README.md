@@ -24,8 +24,6 @@ In this library, we have developed several Hidden Markov Models. In the next sec
 
 ![alt text](https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hmm.png)
 
-$latex S_1 $
-
 The parameters that model a HMM are:
 
 ## Available models:
