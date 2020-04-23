@@ -20,7 +20,7 @@ Also, some others aspects like having multiple sequences, several features per o
 
 ## How a HMM works?
 
-In this library, we have developed several Hidden Markov Models. In the next section of this readme file we explain how to use then but, before that, we would like to briefly explain how a HMM works. To do so, we will use the Gaussian HMM, which manages the emission probabilities with a gaussian distribution, its block diagram is represented in the next figure:
+In this library, we have developed different implementation of the Hidden Markov Model. In the next section of this readme file we explain how to use then but, before that, we would like to briefly explain how a HMM works. To do so, we will use the Gaussian HMM, which manages the emission probabilities with a gaussian distribution, its block diagram is represented in the next figure:
 
 
  <p align="center">
@@ -30,7 +30,7 @@ In this library, we have developed several Hidden Markov Models. In the next sec
 The parameters that we have on a HMM are:
 
  <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width="35%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width="30%">
 </p>
  
  Where:
@@ -51,12 +51,11 @@ The parameters that we have on a HMM are:
 
 ### The three basic inference problems for HMMs
 
-In order to have a useful model for a real application, there are three basic problems that must be solved:
+In order to have a useful HMM model for a real application, there are three basic problems that must be solved:
 
 - Problem 1: given the observed sequence *Y*, which is the probability of that observed sequence for our model's parameters *θ*, that is, which is p(*Y* | *θ*)?
 
-To solve this first problem, the Forward algorithm can be used. That way, we can derive: 
-
+To solve this first problem, the Forward algorithm can be used.
 
 - Problem 2: given the observed sequence *Y* and the model's parameters *θ*, which is the optimal state sequence *S*?
 
