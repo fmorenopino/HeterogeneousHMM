@@ -124,9 +124,9 @@ As we can observe in the previous equation, now the joint distribution depends o
 
 The Semi-Supervised HMM is a version of the Heterogenous HMM where the label emission probabilities are set *a priori*. This allows us to asocciate certain states to certain values of the labels, which provides guidance during the learning process.
 
-## 2. Available models and How to use them.
+## 2. Available models and how to use them.
 
-> Several implementations of the HMM have been developed, all these HMM models extend the *_BaseHMM* class.
+> Several implementations of the HMM have been developed, all these HMM models extend the *_BaseHMM* class. These models are:
 
 - Multinomial HMMs (Discrete HMM): Hidden Markov Model with multinomial (discrete) emission probabilities.
 - Gaussian HMMs: Hidden Markov Model with Gaussian emission probabilities.
