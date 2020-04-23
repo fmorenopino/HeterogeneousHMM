@@ -48,7 +48,7 @@ In order to have a useful model for a real application, there are three basic pr
 
 -- To solve this first problem, the Forward algorithm can be used. That way, we can derive: 
 
-  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/alpha.png" width="15%">
+  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/alpha.png" width="50%">
 
 - Problem 2: given the observed sequence *Y* and the model's parameters *θ*, which is the optimal state sequence *S*?
 
