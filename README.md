@@ -38,7 +38,7 @@ The parameters that we need on a HMM are.
  
  Finally, the model's parameters of a HMM would be:
  
-  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/theta.png" width="15%">
+  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/theta.png" width="10%">
 
 
 ## Available models:
