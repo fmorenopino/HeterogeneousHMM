@@ -24,7 +24,7 @@ In this library, we have developed several Hidden Markov Models. In the next sec
 
 ![alt text](https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hmm.png)
 
-The parameters that we need on a HMM are.
+The parameters that we have on a HMM are:
 
  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width="35%">
  
@@ -33,13 +33,30 @@ The parameters that we need on a HMM are.
  - *S* is the hidden state sequence, being *I* the number of states of the model.
  - *Y* is the observed continuous sequence (in the discrete case, it would be the observed discrete sequence).
  - ***A*** is the matrix that contains the state transition probabilities.
- - ***B*** are the observation emission probabilities, which for the gaussian case are managed with the mean and covariance.
- - ***pi*** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
+ - ***B*** are the observation emission probabilities, which for the gaussian case are managed with the means and covariances.
+ - ***π*** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
  
  Finally, the model's parameters of a HMM would be:
  
-  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/theta.png" width="10%">
+  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/theta.png" width="15%">
 
+### The three basic inference problems for HMMs
+
+In order to have a useful model for a real application, there are three basic problems that must be solved:
+
+- Problem 1: given the observed sequence *Y*, which is the probability of that observed sequence for our model's parameters *θ*, that is, which is p(*Y* | *θ*)?
+
+-- To solve this first problem, the Forward algorithm can be used. That way, we can derive: 
+
+  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/alpha.png" width="15%">
+
+- Problem 2: given the observed sequence *Y* and the model's parameters *θ*, which is the optimal state sequence *S*?
+
+-- To solve this second problem, several algorithms can be used, like the Viterbi or the Forward-Backward algorithm. If using Viterbi, we will maximize the p(*S*, *Y* | *θ*). Othercase, with the Forward-Backward algorithm, we optimizes the p(*s<sub>T</sub>*, *Y* | *θ*)
+
+<sub>subscript</sub>
+ 
+- Problem 3: which are the optimal *θ* that maximizes p(*Y* | *θ*)?
 
 ## Available models:
 
