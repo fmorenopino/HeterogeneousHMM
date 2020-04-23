@@ -26,7 +26,7 @@ In this library, we have developed several Hidden Markov Models. In the next sec
 
 The parameters that we need on a HMM are.
 
- <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width=35%">
+ <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width="35%">
  
  Where:
  
