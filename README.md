@@ -22,11 +22,16 @@ Also, some others aspects like having multiple sequences, several features per o
 
 In this library, we have developed several Hidden Markov Models. In the next section of this readme file we explain how to use then but, before that, we would like to briefly explain how a HMM works. To do so, we will use the Gaussian HMM, which manages the emission probabilities with a gaussian distribution, its block diagram is represented in the next figure:
 
-![alt text](https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hmm.png)
+
+ <p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hmm.png">
+</p>
 
 The parameters that we have on a HMM are:
 
- <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width="35%">
+ <p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width="35%">
+</p>
  
  Where:
  
@@ -38,7 +43,11 @@ The parameters that we have on a HMM are:
  
  Finally, the model's parameters of a HMM would be:
  
-  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/theta.png" width="15%">
+ <p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/theta.png" width="15%">
+</p>
+
+
 
 ### The three basic inference problems for HMMs
 
@@ -57,7 +66,11 @@ To solve this second problem, several algorithms can be used, like the Viterbi o
 
 To solve this third problem we must consider the joint distribution of *S* and *Y*, that is:
 
-  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/joint.png" width="50%">
+<p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/joint.png" width="50%">
+</p>
+
+
 
 
 ## Available models:
