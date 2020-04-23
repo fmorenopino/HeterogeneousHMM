@@ -26,7 +26,6 @@ In this library, we have developed several Hidden Markov Models. In the next sec
 
 
 The parameters that model a HMM are:
-- $$S=\left\{s_{1}, s_{2}, \ldots, s_{T}: s_{t} \in 1, \ldots, l\right\}$$
 
 ## Available models:
 
