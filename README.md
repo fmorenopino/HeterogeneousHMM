@@ -26,6 +26,11 @@ In this library, we have developed several Hidden Markov Models. In the next sec
 
 The parameters that model a HMM are:
 
+![alt text](https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png)
+
+
+
+
 ## Available models:
 
 > Several implementations of the HMM have been developed, all these HMM models extend the *_BaseHMM* class.
