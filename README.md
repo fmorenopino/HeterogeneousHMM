@@ -24,11 +24,21 @@ In this library, we have developed several Hidden Markov Models. In the next sec
 
 ![alt text](https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hmm.png)
 
-The parameters that model a HMM are:
+The parameters that we need on a HMM are.
 
-![alt text](https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png)
-
-
+ <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width="80%">
+ 
+ Where:
+ 
+ - *S* is the hidden state sequence, being *I* the number of states of the model.
+ - *Y* is the observed continuous sequence (in the discrete case, it would be the observed discrete sequence).
+ - ***A*** is the matrix that contains the state transition probabilities.
+ - ***B*** are the observation emission probabilities, which for the gaussian case are managed with the mean and covariance.
+ - ***pi*** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
+ 
+ Finally, the model's parameters of a HMM would be:
+ 
+  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/theta.png" width="80%">
 
 
 ## Available models:
