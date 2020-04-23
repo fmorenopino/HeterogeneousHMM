@@ -7,9 +7,9 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 - **Missing values support**: our implementation supports both partial and complete missing data.
 
-- **Heterogeneous HMM (HMM with labels)**: here we implement a version of the HMM which allow us to manage each of the features with different probability distributions (*also, the simpler cases: Gaussian and Multinomial HMMs are implemented*).
+- **Heterogeneous HMM (HMM with labels)**: here we implement a version of the HMM which allow us to use different distributions to manage each the emission probabilities of each of the features (*also, the simpler cases: Gaussian and Multinomial HMMs are implemented*).
 
-- **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the Heterogenous-HMM model, it is possible to fix the emission probabilities of the discrete features: the model allow us to fix the complete B matrix of certain feature or just some states' emission probabilities (while training the other states' emission probabilities).
+- **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the Heterogenous-HMM model, it is possible to fix the emission probabilities of the discrete features: the model allow us to fix the complete emission probabilities matrix *B* of certain feature or just some states' emission probabilities (while training the other states' emission probabilities).
 
 - **Model selection criteria**: Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
 
