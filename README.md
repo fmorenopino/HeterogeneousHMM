@@ -5,7 +5,7 @@
 Please, to cite this code, use:
 
 > @article{Moreno2020,
-author = {Moreno-Pino, Fernando  and Art\'es-Rodr\'iguez, Antonio and Sukei, Emese},
+author = {Moreno-Pino, Fernando and Sukei, Emese and Art\'es-Rodr\'iguez, Antonio },
 doi = {10.5281/ZENODO.3759439},
 howpublished = "\url{https://github.com/fmorenopino/HeterogeneousHMM}"
 month = {apr},
