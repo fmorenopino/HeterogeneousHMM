@@ -70,7 +70,9 @@ To solve this third problem we must consider the joint distribution of *S* and *
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/joint.png" width="50%">
 </p>
 
+By using the EM algorithm, the gaussian emission probabilities can be derived.
 
+> The solution for these problems is nowadays very well known. If you want to get some extra knowledge about how the α, β, γ, δ... are derived, you should check the references for some extra information.
 
 
 ## Available models:
@@ -201,7 +203,7 @@ The current project has been developed by:
 - Fernando Moreno-Pino (http://www.tsc.uc3m.es/~fmoreno/, https://github.com/fmorenopino).
 - Emese Sukei (https://github.com/semese).
 
-## Acknowledgments.
+## References.
 
 - Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
 - L. R. Rabiner, "A tutorial on hidden Markov models and selected applications in speech recognition," in Proceedings of the IEEE, vol. 77, no. 2, pp. 257-286, Feb. 1989.
