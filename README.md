@@ -15,10 +15,12 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
 
+The information that you can find in this readme file can be seen in the next Table of Contents:
+
 - [Heterogenous-HMM (HMM with labels)](#heterogenous-hmm--hmm-with-labels-)
   * [1. How a HMM, a Heterogeneous HMM and a Semi-Supervised HMM work?](#1-how-a-hmm--a-heterogeneous-hmm-and-a-semi-supervised-hmm-work-)
-    + [1.1. Gaussian HMM](#11-gaussian-hmm)
-      - [The three basic inference problems for HMMs](#the-three-basic-inference-problems-for-hmms)
+    + [1.1. Gaussian HMM.](#11-gaussian-hmm)
+      - [The three basic inference problems for HMMs.](#the-three-basic-inference-problems-for-hmms)
     + [1.2. Heterogeneous HMM/HMM with labels.](#12-heterogeneous-hmm-hmm-with-labels)
     + [1.3. Semi-Supervised HMM.](#13-semi-supervised-hmm)
   * [2. Available models:](#2-available-models-)
@@ -29,7 +31,7 @@ Also, some others aspects like having multiple sequences, several features per o
   * [3. Folder Structure.](#3-folder-structure)
   * [4. Dependencies.](#4-dependencies)
   * [5. Authors.](#5-authors)
-  * [6. Contact Information](#6-contact-information)
+  * [6. Contact Information.](#6-contact-information)
   * [7. References.](#7-references)
 
 
@@ -38,7 +40,7 @@ Also, some others aspects like having multiple sequences, several features per o
 
 In this library, we have developed different implementation of the Hidden Markov Model. In the section 2 of this readme file we explain how to use then but, before that, we would like to briefly explain how our HMM models work.
 
-### 1.1. Gaussian HMM
+### 1.1. Gaussian HMM.
 
 The Gaussian HMM manages the emission probabilities with gaussian distributions, its block diagram is represented in the next figure:
 
@@ -65,7 +67,7 @@ The parameters that we have to deal with are:
 
 
 
-#### The three basic inference problems for HMMs
+#### The three basic inference problems for HMMs.
 
 In order to have a useful HMM model for a real application, there are three basic problems that must be solved:
 
@@ -254,7 +256,7 @@ The current project has been developed by:
 - [Antonio Artés-Rodríguez](http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html).
 
 
-## 6. Contact Information
+## 6. Contact Information.
 
 > fmoreno@tsc.uc3m.es
 
