@@ -46,17 +46,19 @@ In order to have a useful model for a real application, there are three basic pr
 
 - Problem 1: given the observed sequence *Y*, which is the probability of that observed sequence for our model's parameters *θ*, that is, which is p(*Y* | *θ*)?
 
--- To solve this first problem, the Forward algorithm can be used. That way, we can derive: 
+To solve this first problem, the Forward algorithm can be used. That way, we can derive: 
 
-  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/alpha.png" width="50%">
 
 - Problem 2: given the observed sequence *Y* and the model's parameters *θ*, which is the optimal state sequence *S*?
 
--- To solve this second problem, several algorithms can be used, like the Viterbi or the Forward-Backward algorithm. If using Viterbi, we will maximize the p(*S*, *Y* | *θ*). Othercase, with the Forward-Backward algorithm, we optimizes the p(*s<sub>T</sub>*, *Y* | *θ*)
-
-<sub>subscript</sub>
+To solve this second problem, several algorithms can be used, like the Viterbi or the Forward-Backward algorithm. If using Viterbi, we will maximize the p(*S*, *Y* | *θ*). Othercase, with the Forward-Backward algorithm, we optimizes the p(*s<sub>t</sub>*, *Y* | *θ*).
  
 - Problem 3: which are the optimal *θ* that maximizes p(*Y* | *θ*)?
+
+To solve this third problem we must consider the joint distribution of *S* and *Y*, that is:
+
+  <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/joint.png" width="50%">
+
 
 ## Available models:
 
