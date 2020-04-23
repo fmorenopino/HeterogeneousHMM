@@ -86,7 +86,7 @@ In the Heterogeneous HMM, we can manage some features' emission probabilities wi
 In addition to the parameters showed for the gaussian case, we must add:
 
  <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm_parameters.png" width="20%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm_parameters.png" width="40%">
 </p>
 
 Where:
