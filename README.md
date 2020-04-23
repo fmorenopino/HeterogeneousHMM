@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/180347583.svg)](https://zenodo.org/badge/latestdoi/180347583)
 
-NOTE: this README file is still under construction.
+> NOTE: this README file is still under construction.
 
 
 This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of these libraries with respect to other available APIs are:
@@ -18,9 +18,13 @@ This repository contains different implementations of the Hidden Markov Model wi
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
 
 
-## How a HMM works?
+## How a HMM, a Heterogeneous HMM and a Semi-Supervised HMM work?
 
-In this library, we have developed different implementation of the Hidden Markov Model. In the next section of this readme file we explain how to use then but, before that, we would like to briefly explain how a HMM works. To do so, we will use the Gaussian HMM, which manages the emission probabilities with a gaussian distribution, its block diagram is represented in the next figure:
+In this library, we have developed different implementation of the Hidden Markov Model. In the next section of this readme file we explain how to use then but, before that, we would like to briefly explain how our HMM models work.
+
+### Gaussian HMM
+
+The Gaussian HMM manages the emission probabilities with gaussian distributions, its block diagram is represented in the next figure:
 
 
  <p align="center">
@@ -41,38 +45,66 @@ The parameters that we have on a HMM are:
  - ***B*** are the observation emission probabilities, which for the gaussian case are managed with the means and covariances.
  - ***π*** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
  
- Finally, the model's parameters of a HMM would be:
- 
- <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/theta.png" width="15%">
-</p>
+ Finally, the model's parameters of a HMM would be: *θ*={***A***, ***B***, ***π***}.
 
 
 
-### The three basic inference problems for HMMs
+#### The three basic inference problems for HMMs
 
 In order to have a useful HMM model for a real application, there are three basic problems that must be solved:
 
 - Problem 1: given the observed sequence *Y*, which is the probability of that observed sequence for our model's parameters *θ*, that is, which is p(*Y* | *θ*)?
 
--- To solve this first problem, the Forward algorithm can be used.
+To solve this first problem, the Forward algorithm can be used.
 
 - Problem 2: given the observed sequence *Y* and the model's parameters *θ*, which is the optimal state sequence *S*?
 
--- To solve this second problem, several algorithms can be used, like the Viterbi or the Forward-Backward algorithm. If using Viterbi, we will maximize the p(*S*, *Y* | *θ*). Othercase, with the Forward-Backward algorithm, we optimizes the p(*s<sub>t</sub>*, *Y* | *θ*).
+To solve this second problem several algorithms can be used, for example, the Viterbi or the Forward-Backward algorithm. If using Viterbi, we will maximize the p(*S*, *Y* | *θ*). Othercase, with the Forward-Backward algorithm, we optimizes the p(*s<sub>t</sub>*, *Y* | *θ*).
  
 - Problem 3: which are the optimal *θ* that maximizes p(*Y* | *θ*)?
 
--- To solve this third problem we must consider the joint distribution of *S* and *Y*, that is:
+To solve this third problem we must consider the joint distribution of *S* and *Y*, that is:
 
 <p align="center">
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/joint.png" width="50%">
 </p>
 
-By using the EM algorithm, the gaussian emission probabilities can be derived.
+By using the EM algorithm, the model parameters *θ* {that is, the initial state probability ***π***, the state transition probabilities ***A*** and the gaussian emission probabilities (***μ***, ***Σ***)} are updated.
 
-> The solution for these problems is nowadays very well known. If you want to get some extra knowledge about how the α, β, γ, δ... are derived, you should check the references for some extra information.
+> The solution for these problems is nowadays very well known. If you want to get some extra knowledge about how the α, β, γ, δ... are derived you can check the references below.
 
+
+### Heterogeneous HMM/HMM with labels.
+
+
+In the Heterogeneous HMM, we can manage some features' emission probabilities with discrete distributions and some others' emission probabilities with gaussian distributions. Its block diagram is:
+
+ <p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm.png">
+</p>
+
+In addition to the parameters showed for the gaussian case, we must add:
+
+ <p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm_parameters.png">
+</p>
+
+Where:
+
+- *L* is labels sequence.
+- ***D*** are the labels' emission probabilities.
+
+For the Heterogenous HMM, our joint distribution is:
+
+<p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm_joint.png" width="50%">
+</p>
+
+As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
+
+### Semi-Supervised HMM.
+
+The Semi-Supervised HMM is a version of the Heterogenous HMM where the label emission probabilities are set *a priori*. This allows us to asocciate certain states to certain values of the labels, which provides guidance during the learning process.
 
 ## Available models:
 
@@ -199,8 +231,14 @@ The required dependencies are specified in *requirements.txt*.
 
 The current project has been developed by:
 
-- Fernando Moreno-Pino (http://www.tsc.uc3m.es/~fmoreno/, https://github.com/fmorenopino).
-- Emese Sukei (https://github.com/semese).
+- [Fernando Moreno-Pino](http://www.tsc.uc3m.es/~fmoreno/).
+- [Emese Sukei](https://github.com/semese).
+- [Antonio Artés-Rodríguez](http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html).
+
+
+## Contact Information
+
+> fmoreno@tsc.uc3m.es
 
 ## References.
 
