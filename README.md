@@ -234,8 +234,11 @@ Two examples to illustrate how to use this variable:
 
 - /src: it contains all the classes that implement the models.
 - /notebooks: it contains:
--- "hmm_tutorials.ipynb": notebook that contains an example code to use each of the available models.
--- "model_order_selection.ipynb": notebook that contains an example of how to use the order selection criteria. Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
+
+> "hmm_tutorials.ipynb": notebook that contains an example code to use each of the available models.
+
+>  "model_order_selection.ipynb": notebook that contains an example of how to use the order selection criteria. Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
+
 - /test: it contains the testing files for each of the HMM models.
 
 ## 4. Dependencies. 
