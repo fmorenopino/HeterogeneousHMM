@@ -23,7 +23,7 @@ The information that you can find in this readme file can be seen in the next Ta
       - [The three basic inference problems for HMMs.](#the-three-basic-inference-problems-for-hmms)
     + [1.2. Heterogeneous HMM/HMM with labels.](#12-heterogeneous-hmm-hmm-with-labels)
     + [1.3. Semi-Supervised HMM.](#13-semi-supervised-hmm)
-  * [2. Available models:](#2-available-models-)
+  * [2. Available models and How to use them.(#2-available-models-)
     + [2.1. Multinomial HMM.](#21-multinomial-hmm)
     + [2.2. Gaussian HMM.](#22-gaussian-hmm)
     + [2.3. Heterogeneous HMM.](#23-heterogeneous-hmm)
@@ -124,7 +124,7 @@ As we can observe in the previous equation, now the joint distribution depends o
 
 The Semi-Supervised HMM is a version of the Heterogenous HMM where the label emission probabilities are set *a priori*. This allows us to asocciate certain states to certain values of the labels, which provides guidance during the learning process.
 
-## 2. Available models:
+## 2. Available models and How to use them.
 
 > Several implementations of the HMM have been developed, all these HMM models extend the *_BaseHMM* class.
 
