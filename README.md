@@ -15,10 +15,28 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
 
+- [Heterogenous-HMM (HMM with labels)](#heterogenous-hmm--hmm-with-labels-)
+  * [1. How a HMM, a Heterogeneous HMM and a Semi-Supervised HMM work?](#1-how-a-hmm--a-heterogeneous-hmm-and-a-semi-supervised-hmm-work-)
+    + [1.1. Gaussian HMM](#11-gaussian-hmm)
+      - [The three basic inference problems for HMMs](#the-three-basic-inference-problems-for-hmms)
+    + [1.2. Heterogeneous HMM/HMM with labels.](#12-heterogeneous-hmm-hmm-with-labels)
+    + [1.3. Semi-Supervised HMM.](#13-semi-supervised-hmm)
+  * [2. Available models:](#2-available-models-)
+    + [2.1. Multinomial HMM.](#21-multinomial-hmm)
+    + [2.2. Gaussian HMM.](#22-gaussian-hmm)
+    + [2.3. Heterogeneous HMM.](#23-heterogeneous-hmm)
+    + [2.4. Semi-supervised HMM.](#24-semi-supervised-hmm)
+  * [3. Folder Structure.](#3-folder-structure)
+  * [4. Dependencies.](#4-dependencies)
+  * [5. Authors.](#5-authors)
+  * [6. Contact Information](#6-contact-information)
+  * [7. References.](#7-references)
+
+
 
 ## 1. How a HMM, a Heterogeneous HMM and a Semi-Supervised HMM work?
 
-In this library, we have developed different implementation of the Hidden Markov Model. In the next section of this readme file we explain how to use then but, before that, we would like to briefly explain how our HMM models work.
+In this library, we have developed different implementation of the Hidden Markov Model. In the section 2 of this readme file we explain how to use then but, before that, we would like to briefly explain how our HMM models work.
 
 ### 1.1. Gaussian HMM
 
@@ -111,7 +129,9 @@ The Semi-Supervised HMM is a version of the Heterogenous HMM where the label emi
 - Multinomial HMMs (Discrete HMM): Hidden Markov Model with multinomial (discrete) emission probabilities.
 - Gaussian HMMs: Hidden Markov Model with Gaussian emission probabilities.
 - Heterogeneous HMM (HMM with labels): Hidden Markov Model with mixed discrete and gaussian emission probabilities.
-- Semi-supervised HMM: in the Heterogeneous HMM, it is possible to fix the emission probabilities of the discrete features to guide the learning process of the model. *[An example can be found in the "hmm_tutorials.ipynb" notebook]*.
+- Semi-supervised HMM: in the Heterogeneous HMM, it is possible to fix the emission probabilities of the discrete features to guide the learning process of the model. 
+
+> ***In the notebook "hmm_tutorials.ipynb", an example of use of each of the previous models can be found***.
 
 Now, a more detailed explanation of each of them is provided:
 
