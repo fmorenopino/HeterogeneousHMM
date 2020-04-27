@@ -119,7 +119,7 @@ For the Heterogenous HMM, our joint distribution is:
 
 As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
 
-> Note: The previous graphs and equations have been obtainned from the slides os the Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
+> Note: The previous graphs and equations have been obtainned from the slides of the Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
 
 ### 1.3. Semi-Supervised HMM.
 
