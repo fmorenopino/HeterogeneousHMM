@@ -6,9 +6,9 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 - **Missing values support**: our implementation supports both partial and complete missing data.
 
-- **Heterogeneous HMM (HMM with labels)**: here we implement a version of the HMM which allow us to use different distributions to manage each the emission probabilities of each of the features (*also, the simpler cases: Gaussian and Multinomial HMMs are implemented*).
+- **Heterogeneous HMM (HMM with labels)**: here we implement a version of the HMM which allow us to use different distributions to manage the emission probabilities of each of the features (*also, the simpler cases: Gaussian and Multinomial HMMs are implemented*).
 
-- **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the Heterogenous-HMM model, it is possible to fix the emission probabilities of the discrete features: the model allow us to fix the complete emission probabilities matrix *B* of certain feature or just some states' emission probabilities (while training the other states' emission probabilities).
+- **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the Heterogenous-HMM model, it is possible to fix the emission probabilities of the discrete features: the model allow us to fix the complete emission probabilities matrix *B* of certain feature or just some states' emission probabilities.
 
 - **Model selection criteria**: Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
 
@@ -118,6 +118,8 @@ For the Heterogenous HMM, our joint distribution is:
 </p>
 
 As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
+
+> Note: The previous graphs and equations have been obtainned from the slides os the Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
 
 ### 1.3. Semi-Supervised HMM.
 
