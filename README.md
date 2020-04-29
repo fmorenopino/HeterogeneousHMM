@@ -118,7 +118,7 @@ For the Heterogenous HMM, our joint distribution is:
 
 As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
 
-> Note: The previous graphs and equations have been obtainned from the slides of the Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
+> Note: The previous graphs and equations have been obtained from the slides of the Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
 
 ### 1.3. Semi-Supervised HMM.
 
@@ -141,13 +141,13 @@ The marginals are given by:
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/marginals.png" width="20%">
 </p>
 
-So the posterior conditional for our missing data can be obtainned as:
+So the posterior conditional for our missing data can be obtained as:
 
 <p align="center">
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/posterior_conditional.png" width="35%">
 </p>
 
-> Note: The previous equations have been obtainned from the book "Machine Learning: A Probabilistic Perspective" by K.P. Murphy.
+> Note: The previous equations have been obtained from the book "Machine Learning: A Probabilistic Perspective" by K.P. Murphy.
 
 
 
