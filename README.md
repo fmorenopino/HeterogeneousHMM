@@ -147,6 +147,7 @@ So the posterior conditional for our missing data can be obtainned as:
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/posterior_conditional.png" width="35%">
 </p>
 
+> Note: The previous equations have been obtainned from the book "Machine Learning: A Probabilistic Perspective" by K.P. Murphy.
 
 
 
