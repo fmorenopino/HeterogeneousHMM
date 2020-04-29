@@ -125,7 +125,33 @@ As we can observe in the previous equation, now the joint distribution depends o
 
 The Semi-Supervised HMM is a version of the Heterogenous HMM where the label emission probabilities are set *a priori*. This allows us to asocciate certain states to certain values of the labels, which provides guidance during the learning process.
 
-## 2. Available models and how to use them.
+
+## 2. Missing Data Inference.
+
+Our model is able to work with both complete missing data and partial missing data. The first case is  straight forward, and the mean of the state is used to compute the probability of the observation given a state and a time instant.
+
+For the second case, that is, when we deal with partial missing data, we infer the value of the missed data. To do so, supposing *x=(x<sub>1</sub>, x<sub>2</sub>)* is jointly gaussian, with parameters:
+
+<p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/missing_data_params.png.png" width="70%">
+</p>
+
+The marginals are given by:
+
+<p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/marginals.png" width="70%">
+</p>
+
+So finally, the posterior conditional for our missing data would be:
+
+<p align="center">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/posterior_conditional.png" width="70%">
+</p>
+
+
+
+
+## 3. Available models and how to use them.
 
 > Several implementations of the HMM have been developed, all these HMM models extend the *_BaseHMM* class. These models are:
 
@@ -139,7 +165,7 @@ The Semi-Supervised HMM is a version of the Heterogenous HMM where the label emi
 Now, a more detailed explanation of each of them is provided:
 
 
-### 2.1. Multinomial HMM.
+### 3.1. Multinomial HMM.
 
 In the multinomial HMM the emission probabilities are discrete, whetever it is binary or categorical.
 
@@ -167,7 +193,7 @@ observation in the observation sequences; defaults to NaN
 - *verbose* (bool, optional) - flag to be set to True if per-iteration
 convergence reports should be printed during training
 
-### 2.2. Gaussian HMM.
+### 3.2. Gaussian HMM.
 
 In the Gaussian HMM, the emission probabilities are managed with gaussian probabilities distributions.
 
@@ -187,7 +213,7 @@ In the Gaussian HMM, the emission probabilities are managed with gaussian probab
 - *learn_rate* (float, optional) - a value from the $[0,1)$ interval, controlling how much the past values of the model parameters count when computing the new model parameters during training; defaults to 0
 - *verbose* (bool, optional) - flag to be set to True if per-iteration convergence reports should be printed during training
 
-### 2.3. Heterogeneous HMM.
+### 3.3. Heterogeneous HMM.
 
 In the Heterogeneous HMM, we can manage some of the features' emission probabilities with gaussian distributions and others with discrete distributions.
 
@@ -212,7 +238,7 @@ The HeterogeneousHMM class uses the following arguments for initialisation:
 - *learn_rate* (float, optional) - a value from the $[0,1)$ interval, controlling how much the past values of the model parameters count when computing the new model parameters during training; defaults to 0.
 - *verbose* (bool, optional) - flag to be set to True if per-iteration convergence reports should be printed during training.
 
-### 2.4. Semi-supervised HMM.
+### 3.4. Semi-supervised HMM.
 
 
 Using the HeterogenousHMM it is possible to fix the emission probabilities of the discrete features. To do so, two parameters of the initialization must be taken into account:  
@@ -233,7 +259,7 @@ Two examples to illustrate how to use this variable:
 
 **An example to clarify how to use these variables this can be found on the "hmm_tutorials.ipynb" notebook**.
 
-## 3. Folder Structure.
+## 4. Folder Structure.
 
 - /src: it contains all the classes that implement the models.
 - /notebooks: it contains:
@@ -244,11 +270,11 @@ Two examples to illustrate how to use this variable:
 
 - /test: it contains the testing files for each of the HMM models.
 
-## 4. Dependencies. 
+## 5. Dependencies. 
 
 The required dependencies are specified in *requirements.txt*.
 
-## 5. Authors.
+## 6. Authors.
 
 The current project has been developed by:
 
@@ -257,11 +283,11 @@ The current project has been developed by:
 - [Antonio Artés-Rodríguez](http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html).
 
 
-## 6. Contact Information.
+## 7. Contact Information.
 
 > fmoreno@tsc.uc3m.es
 
-## 7. References.
+## 8. References.
 
 - Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
 - L. R. Rabiner, "A tutorial on hidden Markov models and selected applications in speech recognition," in Proceedings of the IEEE, vol. 77, no. 2, pp. 257-286, Feb. 1989.
