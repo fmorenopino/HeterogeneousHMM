@@ -133,19 +133,19 @@ Our model is able to work with both complete missing data and partial missing da
 For the second case, that is, when we deal with partial missing data, we infer the value of the missed data. To do so, supposing *x=(x<sub>1</sub>, x<sub>2</sub>)* is jointly gaussian, with parameters:
 
 <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/missing_data_params.png.png" width="70%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/missing_data_params.png" width="70%">
 </p>
 
 The marginals are given by:
 
 <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/marginals.png" width="70%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/marginals.png" width="30%">
 </p>
 
 So finally, the posterior conditional for our missing data would be:
 
 <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/posterior_conditional.png" width="70%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/posterior_conditional.png" width="40%">
 </p>
 
 
