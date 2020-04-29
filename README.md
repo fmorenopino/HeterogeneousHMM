@@ -22,18 +22,17 @@ The information that you can find in this readme file can be seen in the next Ta
       - [The three basic inference problems for HMMs.](#the-three-basic-inference-problems-for-hmms)
     + [1.2. Heterogeneous HMM/HMM with labels.](#12-heterogeneous-hmm-hmm-with-labels)
     + [1.3. Semi-Supervised HMM.](#13-semi-supervised-hmm)
-  * [2. Available models and How to use them.](#2-available-models-and-how-to-use-them)
-    + [2.1. Multinomial HMM.](#21-multinomial-hmm)
-    + [2.2. Gaussian HMM.](#22-gaussian-hmm)
-    + [2.3. Heterogeneous HMM.](#23-heterogeneous-hmm)
-    + [2.4. Semi-supervised HMM.](#24-semi-supervised-hmm)
-  * [3. Folder Structure.](#3-folder-structure)
-  * [4. Dependencies.](#4-dependencies)
-  * [5. Authors.](#5-authors)
-  * [6. Contact Information.](#6-contact-information)
-  * [7. References.](#7-references)
-
-
+  * [2. Missing Data Inference.](#2-missing-data-inference)
+  * [3. Available models and how to use them.](#3-available-models-and-how-to-use-them)
+    + [3.1. Multinomial HMM.](#31-multinomial-hmm)
+    + [3.2. Gaussian HMM.](#32-gaussian-hmm)
+    + [3.3. Heterogeneous HMM.](#33-heterogeneous-hmm)
+    + [3.4. Semi-supervised HMM.](#34-semi-supervised-hmm)
+  * [4. Folder Structure.](#4-folder-structure)
+  * [5. Dependencies.](#5-dependencies)
+  * [6. Authors.](#6-authors)
+  * [7. Contact Information.](#7-contact-information)
+  * [8. References.](#8-references)
 
 ## 1. How a HMM, a Heterogeneous HMM and a Semi-Supervised HMM work?
 
@@ -142,7 +141,7 @@ The marginals are given by:
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/marginals.png" width="20%">
 </p>
 
-So finally, the posterior conditional for our missing data would be:
+So the posterior conditional for our missing data can be obtainned as:
 
 <p align="center">
      <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/posterior_conditional.png" width="35%">
