@@ -16,6 +16,8 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 - **Different types of initializations can be used**. Random and K-means initializations are implemented. In the second case, a clustering is performed befored trainning the model to start with an initializations that will converge faster.
 
+- **The models can be used to sample data**, which means that once you have trainned a model (or you have fixed the parameters according to the distributions you want to use) you can generate sequences of data.
+
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
 
