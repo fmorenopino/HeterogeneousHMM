@@ -289,8 +289,7 @@ class MultinomialHMM(_BaseHMM):
                 (stats["B"]["numer"][i] / stats["B"]["denom"][i])
                 for i in range(self.n_emissions)
             ]
-            for i in range(self.n_emissions):
-                normalise(new_model["B"][i], axis=1)
+
         return new_model
 
     def _update_model(self, new_model):
@@ -305,6 +304,9 @@ class MultinomialHMM(_BaseHMM):
                 self.B[i] = (1 - self.learn_rate) * new_model["B"][
                     i
                 ] + self.learn_rate * self.B[i]
+
+            for i in range(self.n_emissions):
+                normalise(new_model["B"][i], axis=1)
 
     def _map_B(self, observations):
         """

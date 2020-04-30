@@ -493,8 +493,6 @@ class HeterogeneousHMM(_BaseHMM):
                 stats["B"]["numer"][i] / stats["B"]["denom"][i]
                 for i in range(self.n_d_emissions)
             ]
-            for i in range(self.n_d_emissions):
-                normalise(new_model["B"][i], axis=1)
 
         return new_model
 
@@ -533,6 +531,8 @@ class HeterogeneousHMM(_BaseHMM):
                             * new_model["B"][i][: -self.state_no_train_de, :]
                             + self.learn_rate * self.B[i][: -self.state_no_train_de, :]
                         )
+            for i in range(self.n_d_emissions):
+                normalise(self.B[i], axis=1)
 
     def _map_B(self, observations):
         """
