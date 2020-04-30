@@ -12,9 +12,9 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 - **Model selection criteria**: Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
 
-- **Several types of covariance matrix implemented** for the gaussian observation: diagonal, full, tied or spherical covariance matrices can be used.
+- **Several types of covariance matrix implemented** for the gaussian observations: diagonal, full, tied or spherical covariance matrices can be used.
 
-- **Different types of initializations can be used**. Random and K-means initializations can be used. In the second case, a clustering is performed befored trainning the model to start with an initializations that will converge faster.
+- **Different types of initializations can be used**. Random and K-means initializations are implemented. In the second case, a clustering is performed befored trainning the model to start with an initializations that will converge faster.
 
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
