@@ -19,7 +19,7 @@ This repository contains different implementations of the Hidden Markov Model wi
 - **The models can be used to sample data**, which means that once you have trainned a model (or you have fixed the parameters according to the distributions you want to use) you can generate sequences of data.
 
 
-Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models.
+Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models. There is also a possibility to run the training using multiprocessing, in order to speed it up when multiple observation sequences are used. 
 
 The information that you can find in this readme file can be seen in the next Table of Contents:
 
