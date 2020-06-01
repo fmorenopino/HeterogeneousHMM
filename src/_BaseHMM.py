@@ -21,6 +21,7 @@ For theoretical bases see:
 
 import numpy as np
 from scipy.special import logsumexp
+from multiprocessing import Pool
 from .utils import (
     plot_log_likelihood_evolution,
     log_normalise,
@@ -119,7 +120,7 @@ class _BaseHMM(object):
     #        Public methods. These are callable when using the class.         #
     # ----------------------------------------------------------------------- #
     # Solution to Problem 1 - compute P(O|model)
-    def forward(self, observations, cache=False):
+    def forward(self, observations, B_map=None):
         """
         Forward-Backward procedure is used to efficiently calculate the probability
         of the observations, given the model - P(O|model)
@@ -130,9 +131,9 @@ class _BaseHMM(object):
         The returned value is the log of the probability, i.e: the log likehood
         model, give the observation - logL(model|O).
         """
-        if not cache:
-            self._map_B(observations)
-        alpha = self._calc_alpha(observations)
+        if B_map is None:
+            B_map = self._map_B(observations)
+        alpha = self._calc_alpha(observations, B_map)
         return logsumexp(alpha[-1])
 
     def score(self, observation_sequences):
@@ -162,10 +163,11 @@ class _BaseHMM(object):
         """
         posteriors = []
         for observations in observation_sequences:
-            self._map_B(observations)
+            B_map = self._map_B(observations)
             posteriors.append(
                 self._calc_gamma(
-                    self._calc_alpha(observations), self._calc_beta(observations)
+                    self._calc_alpha(observations, B_map),
+                    self._calc_beta(observations, B_map),
                 )
             )
         return posteriors
@@ -213,6 +215,8 @@ class _BaseHMM(object):
         plot_log_likelihood=False,
         ignore_conv_crit=False,
         no_init=False,
+        n_processes=None,
+        print_every=1,
     ):
         """
         Updates the HMMs parameters given a new set of observed sequences.
@@ -235,6 +239,10 @@ class _BaseHMM(object):
             no_init (boolean) - flag to indicate wheather to initialise the Parameters
                 before training (it can only be True if the parameters are manually
                 set before or they were already trained)
+            n_processes (int) - number of processes to use if the training should
+                be performed using parallelisation
+            print_every (int) - if verbose is True, print progress info every
+                'print_every' iterations
         Returns:
                 self (object) - the updated model
                 max(log_likelihoods) (float) - the log_likelihood of the best model
@@ -250,11 +258,14 @@ class _BaseHMM(object):
 
             new_model, log_likelihood = self._train(
                 observation_sequences,
+                n_processes=n_processes,
                 n_iter=n_iter,
                 thres=thres,
                 conv_iter=conv_iter,
                 plot_log_likelihood=plot_log_likelihood,
                 ignore_conv_crit=ignore_conv_crit,
+                print_every=print_every,
+                no_init=no_init
             )
             new_models.append(new_model)
             log_likelihoods.append(log_likelihood)
@@ -368,17 +379,17 @@ class _BaseHMM(object):
                 containing the observation sequence
         Returns:
              state_sequence (array) - the optimal path for the observation sequence
-             log_likelihood (float) - the maximum probability for the entire sequence
+             log_likelihood (float) - the maximum log-probability for the entire sequence
         """
         n_samples = len(observations)
 
         # similar to the forward-backward algorithm, we need to make sure that
         # we're using fresh data for the given observations
-        self._map_B(observations)
+        B_map = self._map_B(observations)
 
         log_pi = log_mask_zero(self.pi)
         log_A = log_mask_zero(self.A)
-        log_B_map = log_mask_zero(self.B_map)
+        log_B_map = log_mask_zero(B_map)
 
         # delta[t][i] = max(P[q1..qt=i,O1...Ot|model] - the path ending in Si and
         # until time t, that generates the highest probability.
@@ -406,15 +417,16 @@ class _BaseHMM(object):
                 work_buffer[i] = delta[t, i] + log_A[i, where_from]
             state_sequence[t] = where_from = np.argmax(work_buffer)
 
-        return np.exp(log_likelihood), state_sequence
+        return log_likelihood, state_sequence
 
-    def _calc_alpha(self, observations):
+    def _calc_alpha(self, observations, B_map):
         """
         Calculates 'alpha' the forward variable given an observation sequence.
 
         Args:
             observations (array) - array of shape (n_samples, n_features)
                 containing the observation samples
+            B_map (array) - the observations' mass/density Bj(Ot) to Bj(t)
         Returns:
             alpha (array) - array of shape (n_samples, n_states) containing
                 the forward variables
@@ -427,7 +439,7 @@ class _BaseHMM(object):
         alpha = np.zeros((n_samples, self.n_states))
         log_pi = log_mask_zero(self.pi)
         log_A = log_mask_zero(self.A)
-        log_B_map = log_mask_zero(self.B_map)
+        log_B_map = log_mask_zero(B_map)
 
         # init stage - alpha_1(i) = pi(i)b_i(o_1)
         for i in range(self.n_states):
@@ -443,12 +455,13 @@ class _BaseHMM(object):
 
         return alpha
 
-    def _calc_beta(self, observations):
+    def _calc_beta(self, observations, B_map):
         """
         Calculates 'beta' the backward variable for each observation sequence.
         Args:
             observations (array) - array of shape (n_samples, n_features)
                 containing the observation samples
+            B_map (array) - the observations' mass/density Bj(Ot) to Bj(t)
         Returns:
             beta (array) - array of shape (n_samples, n_states) containing
                 the backward variables
@@ -461,7 +474,7 @@ class _BaseHMM(object):
         beta = np.zeros((n_samples, self.n_states))
 
         log_A = log_mask_zero(self.A)
-        log_B_map = log_mask_zero(self.B_map)
+        log_B_map = log_mask_zero(B_map)
 
         # init stage
         for i in range(self.n_states):
@@ -478,7 +491,7 @@ class _BaseHMM(object):
         return beta
 
     def _calc_xi(
-        self, observations, cache=True, alpha=None, norm_coeffs=None, beta=None
+        self, observations, B_map=None, alpha=None, norm_coeffs=None, beta=None
     ):
         """
         Calculates 'xi', a joint probability from the 'alpha' and 'beta' variables.
@@ -486,7 +499,7 @@ class _BaseHMM(object):
         Args:
             observations (array) - array of shape (n_samples, n_features)
                 containing the observation samples
-            cache (boolean) - indicator if B_map has to be computed or not. If False, it has to.
+            B_map (array, optional) - the observations' mass/density Bj(Ot) to Bj(t)
             alpha (array, optional) - array of shape (n_samples, n_states)
                 containing the forward variables
             beta (array, optional) - array of shape (n_samples, n_states)
@@ -496,12 +509,12 @@ class _BaseHMM(object):
                 the a joint probability from the 'alpha' and 'beta' variables.
 
         """
-        if not cache:
-            self._map_B(observations)
+        if B_map is None:
+            B_map = self._map_B(observations)
         if alpha is None:
-            alpha = self._calc_alpha(observations)
+            alpha = self._calc_alpha(observations, B_map)
         if beta is None:
-            beta = self._calc_beta(observations)
+            beta = self._calc_beta(observations, B_map)
 
         n_samples = len(observations)
 
@@ -513,7 +526,7 @@ class _BaseHMM(object):
 
         # compute the logarithm of the parameters
         log_A = log_mask_zero(self.A)
-        log_B_map = log_mask_zero(self.B_map)
+        log_B_map = log_mask_zero(B_map)
         logprob = logsumexp(alpha[n_samples - 1])
 
         for t in range(n_samples - 1):
@@ -559,6 +572,8 @@ class _BaseHMM(object):
         ignore_conv_crit=False,
         return_log_likelihoods=False,
         no_init=False,
+        print_every=1,
+        n_processes=None,
     ):
         """
         Training is repeated 'n_iter' times, or until log likelihood of the model
@@ -584,6 +599,8 @@ class _BaseHMM(object):
             no_init (boolean, optional) - indicates whether to re-initialise the
                 model parameters or not. It can only be set to True, if the
                 parameters have already been trained or manually set before.
+            n_processes (int, optional) - if not None, multiprocessing is used during
+                training with n_processes parallel processes
         Returns:
             new_model (dictionary) - containing the updated model parameters
             if return_log_likelihoods is True then
@@ -604,29 +621,43 @@ class _BaseHMM(object):
         log_likelihood_iter = []
         old_log_likelihood = np.nan
         for it in range(n_iter):
-            stats = self._initialise_sufficient_statistics()
-            curr_log_likelihood = 0
 
-            for observations in observation_sequences:
-                self._map_B(observations)
-
-                # calculate the log likelihood of the previous model
-                # we compute the P(O|model) for the set of old parameters
-                log_likelihood = self.forward(observations, cache=True)
-                curr_log_likelihood += log_likelihood
-
-                # call the EM algorithm
-                observations_stats = self._E_step(observations)
-
-                # accumulate stats
-                self._accumulate_sufficient_statistics(
-                    stats, observations_stats, observations
+            # if train without multiprocessing
+            if n_processes is None:
+                stats, curr_log_likelihood = self._compute_intermediate_values(
+                    observation_sequences
                 )
+            else:
+                # split up observation sequences between the processes
+                n_splits = int(np.ceil(len(observation_sequences) / n_processes))
+                split_list = [
+                    sl
+                    for sl in list(
+                        (
+                            observation_sequences[
+                                i * n_splits : i * n_splits + n_splits
+                            ]
+                            for i in range(n_processes)
+                        )
+                    )
+                    if sl
+                ]
+                # create pool of processes
+                p = Pool(processes=n_processes)
+                stats_list = p.map(
+                    self._compute_intermediate_values,
+                    [split_i for split_i in split_list],
+                )
+                p.close()
+                stats, curr_log_likelihood = self._sum_up_suffcient_statistics(
+                    stats_list
+                )
+
             # perform the M-step to update the model parameters
             new_model = self._M_step(stats)
             self._update_model(new_model)
 
-            if self.verbose and it % 1 == 0:
+            if self.verbose and it % print_every == 0:
                 print(
                     "iter: {}, log_likelihood = {}, delta = {}".format(
                         it,
@@ -673,7 +704,40 @@ class _BaseHMM(object):
         else:
             return new_model, curr_log_likelihood
 
-    def _E_step(self, observations):
+    def _compute_intermediate_values(self, observation_sequences):
+        """
+        Calculates the various intermediate values for the Baum-Welch on a list
+        of observation sequences.
+        Args:
+            observation_sequences (list) - a list of ndarrays/lists containing
+                the observation sequences. Each sequence can be the same or of
+                different lengths.
+        Returns:
+            stats (dictionary) - dictionary of sufficient statistics required
+                for the M-step
+        """
+        stats = self._initialise_sufficient_statistics()
+        curr_log_likelihood = 0
+
+        for observations in observation_sequences:
+            B_map = self._map_B(observations)
+
+            # calculate the log likelihood of the previous model
+            # we compute the P(O|model) for the set of old parameters
+            log_likelihood = self.forward(observations, B_map)
+            curr_log_likelihood += log_likelihood
+
+            # do the E-step of the Baum-Welch algorithm
+            observations_stats = self._E_step(observations, B_map)
+
+            # accumulate stats
+            self._accumulate_sufficient_statistics(
+                stats, observations_stats, observations
+            )
+
+        return stats, curr_log_likelihood
+
+    def _E_step(self, observations, B_map):
         """
         Calculates required statistics of the current model, as part
         of the Baum-Welch 'E' step.
@@ -688,12 +752,13 @@ class _BaseHMM(object):
         # compute the parameters for the observation
         # compute the parameters for the observation
         observations_stats = {
-            "alpha": self._calc_alpha(observations),
-            "beta": self._calc_beta(observations),
+            "alpha": self._calc_alpha(observations, B_map),
+            "beta": self._calc_beta(observations, B_map),
         }
 
         observations_stats["xi"] = self._calc_xi(
             observations,
+            B_map=B_map,
             alpha=observations_stats["alpha"],
             beta=observations_stats["beta"],
         )
@@ -777,14 +842,36 @@ class _BaseHMM(object):
             with np.errstate(under="ignore"):
                 stats["A"] += np.exp(observations_stats["xi"])
 
+    def _sum_up_suffcient_statistics(self, stats_list):
+        """
+        Sums sufficient statistics from a given sub-set of observation sequences.
+        Args:
+            stats_list (list) - list containing the sufficient statistics from the
+                different processes
+        Returns:
+            stats_all (dictionary) - dictionary of sufficient statistics
+        """
+        stats_all = self._initialise_sufficient_statistics()
+        logL_all = 0
+        for (stat_i, logL_i) in stats_list:
+            logL_all += logL_i
+            for stat in stat_i.keys():
+                if isinstance(stat_i[stat], dict):
+                    for i in range(len(stats_all[stat]["numer"])):
+                        stats_all[stat]["numer"][i] += stat_i[stat]["numer"][i]
+                        stats_all[stat]["denom"][i] += stat_i[stat]["denom"][i]
+                else:
+                    stats_all[stat] += stat_i[stat]
+        return stats_all, logL_all
+
     # Methods that have to be implemented in the deriving classes
     def _map_B(self, observations):
         """
         Deriving classes should implement this method, so that it maps the
         observations' mass/density Bj(Ot) to Bj(t).
-        This method has no explicit return value, but it expects that 'self.B_map'
+        This method has no explicit return value, but it expects that 'B_map'
          is internally computed as mentioned above.
-        'self.B_map' is an (TxN) numpy array.
+        'B_map' is an (TxN) numpy array.
         The purpose of this method is to create a common parameter that will
         conform both to the discrete case where PMFs are used, and the continuous
         case where PDFs are used.

@@ -150,7 +150,7 @@ class TestHeterogeneousHMM:
 
         # Mess up the parameters and see if we can re-learn them.
         h, log_likelihoods = h._train(
-            X, n_iter=10, thres=0.01, return_log_likelihoods=True
+            X, n_iter=10, thres=0.01, return_log_likelihoods=True, n_processes=4
         )
 
         # we consider learning if the log_likelihood increases
@@ -185,7 +185,7 @@ class TestHeterogeneousHMM:
         )
         with pytest.raises(AttributeError):
             h_tst, log_likelihoods = h_tst._train(
-                X, n_iter=100, thres=0.01, return_log_likelihoods=True, no_init=True
+                X, n_iter=100, thres=0.01, return_log_likelihoods=True, no_init=True, n_processes=4
             )
 
     def test_train_sequences_of_different_length(self, params="stmc"):

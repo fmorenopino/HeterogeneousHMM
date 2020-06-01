@@ -71,7 +71,7 @@ class TestMultinomialHMM:
         #  with probability 0.01344."
         X = [[[0], [1], [2]]]
         log_likelihood, state_sequence = self.h.decode(X, algorithm="viterbi")
-        assert round(log_likelihood, 5) == 0.01344
+        assert round(np.exp(log_likelihood), 5) == 0.01344
         assert np.allclose(state_sequence, [1, 0, 0])
 
     def test_decode_map(self):
@@ -111,10 +111,7 @@ class TestMultinomialHMM:
 
     def test_train_without_init(self, n_samples=100, n_sequences=30, params="ste"):
         h = MultinomialHMM(
-            self.n_states,
-            self.n_emissions,
-            self.n_features,
-            params=params,
+            self.n_states, self.n_emissions, self.n_features, params=params
         )
 
         # Generate observation sequences
@@ -122,7 +119,7 @@ class TestMultinomialHMM:
 
         with pytest.raises(AttributeError):
             h, log_likelihoods = h._train(
-                X, n_iter=100, thres=0.01, return_log_likelihoods=True, no_init=True
+                X, n_iter=100, thres=0.01, return_log_likelihoods=True, no_init=True, n_processes=2
             )
 
     def test_only_emission_train(self, n_samples=100, n_sequences=30, params="e"):
@@ -160,10 +157,7 @@ class TestMultinomialHMM:
 
         # Set up the emission probabilities and see if we can re-learn them.
         B_fix = np.asarray(
-            [
-                np.eye(self.n_states, self.n_features[i])
-                for i in range(self.n_emissions)
-            ]
+            [np.eye(self.n_states, self.n_features[i]) for i in range(self.n_emissions)]
         )
 
         h.B = B_fix
@@ -176,7 +170,9 @@ class TestMultinomialHMM:
             # we want that the emissions haven't changed
             assert np.allclose(B_fix, h.B)
 
-    def test_non_trainable_emission_not_set(self, n_samples=100, n_sequences=30, params="ste"):
+    def test_non_trainable_emission_not_set(
+        self, n_samples=100, n_sequences=30, params="ste"
+    ):
         h = MultinomialHMM(
             self.n_states,
             self.n_emissions,

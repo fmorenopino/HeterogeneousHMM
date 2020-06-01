@@ -240,6 +240,7 @@ class MultinomialHMM(_BaseHMM):
                 stats["B"]["numer"][i] += B_new["numer"][i]
                 stats["B"]["denom"][i] += B_new["denom"][i]
 
+
     def _reestimate_B(self, observations, gamma):
         """
         Reestimation of the emission matrix (part of the 'M' step of Baum-Welch).
@@ -312,7 +313,7 @@ class MultinomialHMM(_BaseHMM):
         """
         Required implementation for _map_B. Refer to _BaseHMM for more details.
         """
-        self.B_map = np.ones((self.n_states, len(observations)))
+        B_map = np.ones((self.n_states, len(observations)))
 
         for j in range(self.n_states):
             for t, obs in enumerate(observations):
@@ -321,9 +322,10 @@ class MultinomialHMM(_BaseHMM):
                         temp_symbol = np.argmax(
                             self.B[i][j]
                         )  # the maximum likelihood symbol for that state
-                        self.B_map[j][t] *= self.B[i][j][temp_symbol]
+                        B_map[j][t] *= self.B[i][j][temp_symbol]
                     else:
-                        self.B_map[j][t] *= self.B[i][j][symbol]
+                        B_map[j][t] *= self.B[i][j][symbol]
+        return B_map
 
     def _generate_sample_from_state(self, state):
         """

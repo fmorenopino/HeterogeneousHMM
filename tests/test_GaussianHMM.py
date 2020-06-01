@@ -124,7 +124,7 @@ class TestGaussianHMM:
 
         # Mess up the parameters and see if we can re-learn them.
         h, log_likelihoods = h._train(
-            X, n_iter=10, thres=0.01, return_log_likelihoods=True
+            X, n_iter=10, thres=0.01, return_log_likelihoods=True, n_processes=2,
         )
 
         # we consider learning if the log_likelihood increases
@@ -150,7 +150,7 @@ class TestGaussianHMM:
         ]
 
         h, log_likelihoods = h._train(
-            X, n_iter=10, thres=0.001, return_log_likelihoods=True
+            X, n_iter=10, thres=0.001, return_log_likelihoods=True, n_processes=2,
         )
 
         # we consider learning if the log_likelihood increases (the first one is discarded, because sometimes it drops
@@ -176,7 +176,7 @@ class TestGaussianHMM:
 
         # Mess up the parameters and see if we can re-learn them.
         h, log_likelihoods = h._train(
-            X, n_iter=10, thres=0.01, return_log_likelihoods=True
+            X, n_iter=10, thres=0.01, return_log_likelihoods=True, n_processes=2
         )
 
         # we consider learning if the log_likelihood increases

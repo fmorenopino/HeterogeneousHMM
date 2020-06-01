@@ -565,13 +565,15 @@ class HeterogeneousHMM(_BaseHMM):
                     bjt *= self.B[e][j][int(symbol)]
             return bjt
 
-        self.B_map = np.zeros((self.n_states, len(observations)))
+        B_map = np.zeros((self.n_states, len(observations)))
 
         for j in range(self.n_states):
             for t in range(len(observations)):
                 bjt_gauss = _map_gB(observations[t][: self.n_g_emissions], j)
                 bjt_disc = _map_dB(observations[t][self.n_g_emissions :], j)
-                self.B_map[j][t] = bjt_gauss * bjt_disc
+                B_map[j][t] = bjt_gauss * bjt_disc
+
+        return B_map
 
     def _calc_conditional_posterior(self, obs, state):
 

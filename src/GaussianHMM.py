@@ -380,7 +380,7 @@ class GaussianHMM(_BaseHMM):
         """
         Required implementation for _map_B. Refer to _BaseHMM for more details.
         """
-        self.B_map = np.zeros((self.n_states, len(observations)))
+        B_map = np.zeros((self.n_states, len(observations)))
 
         for j in range(self.n_states):
             for t in range(len(observations)):
@@ -397,8 +397,8 @@ class GaussianHMM(_BaseHMM):
                     _, _, obs = self._calc_conditional_posterior(observations[t], j)
                 else:
                     obs = observations[t]
-                self.B_map[j][t] = self._pdf(obs, self.means[j], self.covars[j])
-        return
+                B_map[j][t] = self._pdf(obs, self.means[j], self.covars[j])
+        return B_map
 
     def _calc_conditional_posterior(self, obs, state):
 
