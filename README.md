@@ -300,6 +300,7 @@ The current project has been developed by:
 - L. R. Rabiner, "A tutorial on hidden Markov models and selected applications in speech recognition," in Proceedings of the IEEE, vol. 77, no. 2, pp. 257-286, Feb. 1989.
 - K.P. Murphy, "Machine Learning: A Probabilistic Perspective", The MIT Press ©2012, ISBN:0262018020 9780262018029
 - O.Capp, E.Moulines, T.Ryden, "Inference in Hidden Markov Models", Springer Publishing Company, Incorporated, 2010, ISBN:1441923195
+- M.V. Anikeev, O.B. Makarevich, "Parallel Implementation of Baum-Welch Algorithm", Workshop on Computer Science and Information Technology CSIT'2006, Karlsruhe, Germany, 2006
 
 This model has been based in previous implementations:
 
