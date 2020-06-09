@@ -5,12 +5,12 @@
 Please, if you use this repository, cite it as:
 
 ```
-@article{Moreno2020, 
-author = {Moreno-Pino, Fernando and Sukei, Emese and Art'es-Rodr'iguez, Antonio }, 
+@misc{ 
+title = {fmorenopino/HeterogeneousHMM: First stable release of HeterogenousHMM},
+author = {Moreno-Pino, Fernando and Sukei, Emese and Art\'es-Rodr\'iguez, Antonio }, 
 doi = {10.5281/ZENODO.3759439}, 
 howpublished = "\url{https://github.com/fmorenopino/HeterogeneousHMM}",
 month = {apr}, 
-title = {{fmorenopino/HeterogeneousHMM: First stable release of HeterogenousHMM}}, 
 year = {2020} 
 }
 ```
