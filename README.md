@@ -27,10 +27,7 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 - **Several types of covariance matrix implemented** for the gaussian observations: diagonal, full, tied or spherical covariance matrices can be used.
 
-- **Different types of initializations can be used**. Random and K-means initializations are implemented. In the second case, a clustering is performed befored trainning the model to start with an initializations that will converge faster.
-
 - **The models can be used to sample data**, which means that once you have trainned a model (or you have fixed the parameters according to the distributions you want to use) you can generate sequences of data.
-
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probablistic models. There is also a possibility to run the training using multiprocessing, in order to speed it up when multiple observation sequences are used. 
 
@@ -64,13 +61,13 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
 
 
  <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hmm.png">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hmm.png">
 </p>
 
 The parameters that we have to deal with are:
 
  <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/parameters.png" width="30%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png" width="30%">
 </p>
  
  Where:
@@ -102,7 +99,7 @@ To solve this second problem several algorithms can be used, for example, the Vi
 To solve this third problem we must consider the joint distribution of *S* and *Y*, that is:
 
 <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/joint.png" width="50%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/joint.png" width="50%">
 </p>
 
 By using the EM algorithm, the model parameters *θ* (that is, the initial state probability ***π***, the state transition probabilities ***A*** and the gaussian emission probabilities {***μ***, ***Σ***}) are updated.
@@ -116,13 +113,13 @@ By using the EM algorithm, the model parameters *θ* (that is, the initial state
 In the Heterogeneous HMM, we can manage some features' emission probabilities with discrete distributions (the labels) and some others' emission probabilities with gaussian distributions. Its block diagram is:
 
  <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm.png">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm.png">
 </p>
 
 In addition to the parameters showed for the gaussian case, we must add:
 
  <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm_parameters.png" width="35%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_parameters.png" width="35%">
 </p>
 
 Where:
@@ -133,7 +130,7 @@ Where:
 For the Heterogenous HMM, our joint distribution is:
 
 <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/hhmm_joint.png" width="70%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_joint.png" width="70%">
 </p>
 
 As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
@@ -152,19 +149,19 @@ Our model is able to work with both complete missing data and partial missing da
 For the second case, that is, when we deal with partial missing data, we infer the value of the missed data. To do so, supposing *x=(x<sub>1</sub>, x<sub>2</sub>)* is jointly gaussian, with parameters:
 
 <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/missing_data_params.png" width="50%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/missing_data_params.png" width="50%">
 </p>
 
 The marginals are given by:
 
 <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/marginals.png" width="20%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/marginals.png" width="20%">
 </p>
 
 So the posterior conditional for our missing data can be obtained as:
 
 <p align="center">
-     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/notebooks/img/posterior_conditional.png" width="35%">
+     <img src="https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/posterior_conditional.png" width="35%">
 </p>
 
 > Note: The previous equations have been obtained from the book "Machine Learning: A Probabilistic Perspective" by K.P. Murphy.
@@ -279,35 +276,30 @@ Two examples to illustrate how to use this variable:
 
 **An example to clarify how to use these variables this can be found on the "hmm_tutorials.ipynb" notebook**.
 
-## 4. Folder Structure.
 
-- /src: it contains all the classes that implement the models.
-- /notebooks: it contains:
+## 4. Dependencies. 
 
-> "hmm_tutorials.ipynb": an example code to use each of the available models.
+The required dependencies to use are:
 
->  "model_order_selection.ipynb": an example of how to use the order selection criteria. Both "Akaike Information Criterion" (AIC) and Bayesian Information Criterion (BIC) are implemented.
+- python >= 3.7
+- numpy >= 1.20
+- scipy >= 1.7
+- scikit-learn >= 0.24
+- prettytable==0.7.2
+- seaborn >= 0.11
 
-- /test: it contains the testing files for each of the HMM models.
+To run the tests pytest >= 6.1 is also needed.
 
-## 5. Dependencies. 
-
-The required dependencies are specified in *requirements.txt*.
-
-## 6. Authors.
+## 5. Authors.
 
 The current project has been developed by:
 
-- [Fernando Moreno-Pino](http://www.tsc.uc3m.es/~fmoreno/).
-- [Emese Sukei](https://github.com/semese).
-- [Antonio Artés-Rodríguez](http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html).
+- [Fernando Moreno-Pino](http://www.tsc.uc3m.es/~fmoreno/). Contact: fmoreno@tsc.uc3m.es
+- [Emese Sukei](http://www.tsc.uc3m.es/~esukei/). Contact: esukei@tsc.uc3m.es
+- [Antonio Artés-Rodríguez](http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html). 
 
 
-## 7. Contact Information.
-
-> fmoreno@tsc.uc3m.es
-
-## 8. References.
+## 6. References.
 
 - Advanced Signal Processing Course, by Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid.
 - L. R. Rabiner, "A tutorial on hidden Markov models and selected applications in speech recognition," in Proceedings of the IEEE, vol. 77, no. 2, pp. 257-286, Feb. 1989.
@@ -315,7 +307,7 @@ The current project has been developed by:
 - O.Capp, E.Moulines, T.Ryden, "Inference in Hidden Markov Models", Springer Publishing Company, Incorporated, 2010, ISBN:1441923195
 - M.V. Anikeev, O.B. Makarevich, "Parallel Implementation of Baum-Welch Algorithm", Workshop on Computer Science and Information Technology CSIT'2006, Karlsruhe, Germany, 2006
 
-This model has been based in previous implementations:
+This model was based on previous implementations:
 
 - https://github.com/guyz/HMM
 - https://github.com/hmmlearn
