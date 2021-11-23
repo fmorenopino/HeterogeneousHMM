@@ -16,17 +16,15 @@ import sys
 for x in os.walk('../../heterogeneoushmm'):
     sys.path.insert(0, x[0])
 
-# The main toctree document.
-main_doc = "contents"
 
 # -- Project information -----------------------------------------------------
 
-project = 'HeterogeneousHMM'
+project = 'PyHHMM'
 copyright = '2021, Fernando Moreno Pino, Emese Sukei'
 author = 'Fernando Moreno Pino, Emese Sukei'
 
 # The full version, including alpha/beta/rc tags
-version = release = '1.0.1'
+release = '1.0.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -58,7 +56,6 @@ napoleon_use_ivar = True
 napolean_use_param = True
 napoleon_use_rtype = False
 
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -69,6 +66,15 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**tests**', '**spi**']
 
 
 # -- Options for HTML output -------------------------------------------------
+
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+#
 html_theme = "sphinx_rtd_theme"
+
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
 htmlhelp_basename = 'pyhhmm_doc'
