@@ -27,9 +27,7 @@ COVARIANCE_TYPES = frozenset(('diagonal', 'full', 'tied', 'spherical'))
 
 
 class HeterogeneousHMM(BaseHMM):
-    """
-    Implementation of HMM with labels. It can manage Gaussian and categorical
-    features.  
+    """Implementation of HMM with labels. It can manage Gaussian and categorical features.  
 
     :param n_states: number of hidden states in the model
     :type n_states: int
@@ -39,79 +37,44 @@ class HeterogeneousHMM(BaseHMM):
     :type n_d_emissions: int
     :param n_d_features: number of distinct observation symbols per state
     :type n_d_features: list
-    :param tr_params: controls which parameters are updated in the
-        training process; can contain any combination of 's' for starting
-        probabilities (pi), 't' for transition matrix, and other characters
-        for subclass-specific emission parameters, defaults to 'stmce'
+    :param tr_params: controls which parameters are updated in thetraining process; can contain any combination of 's' for startingprobabilities (pi), 't' for transition matrix, and other charactersfor subclass-specific emission parameters, defaults to 'stmce'
     :type tr_params: str, optional
-    :param init_params: controls which parameters are initialised
-        prior to training.  Can contain any combination of 's' for starting
-        probabilities (pi), 't' for transition matrix, and other characters
-        for subclass-specific emission parameters, defaults to 'stmce'
+    :param init_params: controls which parameters are initialised prior to training.  Can contain any combination of 's' for starting probabilities (pi), 't' for transition matrix, and other characters for subclass-specific emission parameters, defaults to 'stmce'
     :type init_params: str, optional
-    :param nr_no_train_de: this number indicates the number of discrete
-            emissions whose Matrix Emission Probabilities are fixed and
-            are not trained; it is important to to order the observed variables
-            such that the ones whose emissions aren't trained are the last ones, defaults to 0
+    :param nr_no_train_de: this number indicates the number of discrete emissions whose Matrix Emission Probabilities are fixed and are not trained; it is important to to order the observed variables such that the ones whose emissions aren't trained are the last ones, defaults to 0
     :type nr_no_train_de: int, optional
-    :param state_no_train_de: a state index for nr_no_train_de
-            which shouldn't be updated; defaults to None, which means that the
-            entire emission probability matrix for that discrete emission will
-            be kept unchanged during training, otherwise the last state_no_train_de 
-            states won't be updated, defaults to None
+    :param state_no_train_de: a state index for nr_no_train_de which shouldn't be updated; defaults to None, which means that the entire emission probability matrix for that discrete emission will be kept unchanged during training, otherwise the last state_no_train_de states won't be updated, defaults to None
     :type state_no_train_de: int, optional
-    :param covariance_type: string describing the type of
-            covariance parameters to use.  Must be one of:
-            * 'diagonal' --- each state uses a diagonal covariance matrix.
-            * 'full' --- each state uses a full (i.e. unrestricted)
-            covariance matrix.
-            Defaults to 'full'.
+    :param covariance_type: string describing the type of covariance parameters to use. Defaults to 'full'.
     :type covariance_type: str, optional
-    :param pi_prior: array of shape (n_states, ) setting the parameters of the 
-        Dirichlet prior distribution for the starting probabilities. Defaults to 1.
+    :param pi_prior: array of shape (n_states, ) setting the parameters of the Dirichlet prior distribution for the starting probabilities. Defaults to 1.
     :type pi_prior: array_like, optional 
-    :param pi: array of shape (n_states, ) giving the initial state
-        occupation distribution 'pi'
+    :param pi: array of shape (n_states, ) giving the initial state occupation distribution 'pi'
     :type pi: array_like
-    :param A_prior: array of shape (n_states, ), giving the parameters of the Dirichlet 
-        prior distribution for each row of the transition probabilities 'A'. Defaults to 1.
+    :param A_prior: array of shape (n_states, ), giving the parameters of the Dirichlet prior distribution for each row of the transition probabilities 'A'. Defaults to 1.
     :type A_prior: array_like, optional 
-    :param A: array of shape (n_states, n_states) giving the matrix of
-        transition probabilities between states
+    :param A: array of shape (n_states, n_states) giving the matrix of transition probabilities between states
     :type A: array_like
     :param B: the probabilities of emitting a given discrete symbol when in each state
     :type B: list
-    :param means_prior: array of shape (n_states, 1), the mean of the Normal prior distribution for
-            the means. Defaults to 0.
+    :param means_prior: array of shape (n_states, 1), the mean of the Normal prior distribution for the means. Defaults to 0.
     :type means_prior: array_like, optional 
-    :param means_weight: array of shape (n_states, 1), the precision of the Normal prior distribution for
-            the means. Defaults to 0.
+    :param means_weight: array of shape (n_states, 1), the precision of the Normal prior distribution for the means. Defaults to 0.
     :type means_weight: array_like, optional 
-    :param means: array of shape (n_states, n_emissions) containing the
-        mean parameters for each state
+    :param means: array of shape (n_states, n_emissions) containing the mean parameters for each state
     :type means: array_like 
-    :param covars_prior: array of shape (n_states, 1), the mean of the Normal prior distribution for
-            the covariance matrix. Defaults to 0.
+    :param covars_prior: array of shape (n_states, 1), the mean of the Normal prior distribution for the covariance matrix. Defaults to 0.
     :type covars_prior: array_like, optional 
-    :param covars_weight: array of shape (n_states, 1), the precision of the Normal prior distribution for
-            the covariance. Defaults to 0.
+    :param covars_weight: array of shape (n_states, 1), the precision of the Normal prior distribution for the covariance. Defaults to 0.
     :type covars_weight: array_like, optional 
-    :param min_covar: floor on the diagonal of the covariance
-            matrix to prevent overfitting. Defaults to 1e-3.
+    :param min_covar: floor on the diagonal of the covariance matrix to prevent overfitting. Defaults to 1e-3.
     :type min_covar: float, optional
     :param covars: covariance parameters for each state arranged in an array
-        of shape depends `covariance_type`:
-        (n_states, )                        if 'spherical',
-        (n_states, n_emissions)              if 'diagonal',
-        (n_states, n_emissions, n_emissions)  if 'full'
-        (n_emissions, n_emissions)            if 'tied'
+        of shape depends `covariance_type`.
     :type covars: array_like 
-    :param learning_rate: a value from [0,1), controlling how much
-        the past values of the model parameters count when computing the new
-        model parameters during training; defaults to 0.
+    :param learning_rate: a value from [0,1), controlling how much the past values of the model parameters count when computing the new model parameters during training; defaults to 0.
     :type learning_rate: float, optional
-    :param verbose: flag to be set to True if per-iteration
-        convergence reports should be printed, defaults to True
+    :param verbose: flag to be set to True if per-iteration convergence reports should be printed, defaults to True
     :type verbose: bool, optional
     """
 
@@ -136,8 +99,7 @@ class HeterogeneousHMM(BaseHMM):
         learning_rate=0,
         verbose=False,
     ):
-        """
-        Constructor method.
+        """Constructor method.
 
         :raises ValueError: if covariance_type is not one of ('diagonal', 'full', 'tied', 'spherical')
         :raises ValueError: if init_type is not one of ('uniform', 'random')
@@ -178,9 +140,7 @@ class HeterogeneousHMM(BaseHMM):
         self.min_covar = min_covar
 
     def __str__(self):
-        """
-        Function to allow directly printing the object.
-        """
+        """Function to allow directly printing the object."""
         temp = super().__str__()
         return (
             temp
@@ -197,26 +157,21 @@ class HeterogeneousHMM(BaseHMM):
     # ----------------------------------------------------------------------- #
     @property
     def covars(self):
-        """
-        Return covariances as a full matrix.
-        """
+        """Return covariances as a full matrix."""
         return fill_covars(
             self._covars, self.covariance_type, self.n_states, self.n_g_emissions
         )
 
     @covars.setter
     def covars(self, new_covars):
-        """
-        Setter for covariances. It expects the input to be of a corresponding
-        shape to the 'covariance_type'.
+        """Setter for covariances. It expects the input to be of a corresponding shape to the 'covariance_type'.
         """
         covars = np.array(new_covars, copy=True)
         validate_covars(covars, self.covariance_type, self.n_states)
         self._covars = covars
 
     def get_n_fit_scalars_per_param(self):
-        """
-        Return a dictionary containing the number of trainable variables
+        """ Return a dictionary containing the number of trainable variables
         for each model parameter.
         """
         ns = self.n_states
@@ -240,9 +195,7 @@ class HeterogeneousHMM(BaseHMM):
     #             Private methods. These are used internally only.            #
     # ----------------------------------------------------------------------- #
     def _init_model_params(self, X):
-        """
-        Initialises model parameters prior to fitting.
-        Extends the base classes method. See _BaseHMM.py for more information.
+        """Initialises model parameters prior to fitting. Extends the base classes method. See _BaseHMM.py for more information.
         """
         super()._init_model_params()
 
@@ -270,10 +223,7 @@ class HeterogeneousHMM(BaseHMM):
                 check_if_attributes_set(self, attr='e')
 
     def _initialise_sufficient_statistics(self):
-        """
-        Initialises sufficient statistics required for M-step.
-        Extends the base classes method by adding the emission probability matrix.
-        See _BaseHMM.py for more information.
+        """Initialises sufficient statistics required for M-step. Extends the base classes method by adding the emission probability matrix. See _BaseHMM.py for more information.
         """
         stats = super()._initialise_sufficient_statistics()
 
@@ -300,9 +250,7 @@ class HeterogeneousHMM(BaseHMM):
     def _accumulate_sufficient_statistics(
         self, stats, obs_stats, obs_seq
     ):
-        """
-        Updates sufficient statistics from a given sample.
-        Extends the base classes method. See _BaseHMM.py for more information.
+        """Updates sufficient statistics from a given sample. Extends the base classes method. See _BaseHMM.py for more information.
         """
         super()._accumulate_sufficient_statistics(
             stats, obs_stats
@@ -334,8 +282,7 @@ class HeterogeneousHMM(BaseHMM):
                 stats['B']['denom'][i] += B_new['denom'][i]
 
     def _reestimate_stat_obs(self, gamma, obs_seq):
-        """
-        Helper method for the statistics accumulation. Computes the sum of
+        """Helper method for the statistics accumulation. Computes the sum of
         the posteriors times the observations for the update of the means.
 
         :param gamma: array of shape (n_samples, n_states), the posteriors
@@ -358,8 +305,7 @@ class HeterogeneousHMM(BaseHMM):
         return stat_obs
 
     def _reestimate_stat_obs2(self, gamma, obs_seq):
-        """
-        Helper method for the statistics accumulation. Computes the sum of
+        """Helper method for the statistics accumulation. Computes the sum of
         the posteriors times the square of the observations for the update
         of the covariances.
 
@@ -389,8 +335,7 @@ class HeterogeneousHMM(BaseHMM):
         return stat_obs2
 
     def _infer_missing(self, obs, state):
-        """
-        Helper method for the statistics accumulation. It infers the missing
+        """Helper method for the statistics accumulation. It infers the missing
         observation from the conditional posterior for a given state.
 
         :param obs: a single observation
@@ -410,10 +355,7 @@ class HeterogeneousHMM(BaseHMM):
             return obs_vector
 
     def _reestimate_B(self, obs_seq, gamma):
-        """
-        Reestimation of the emission matrix (part of the 'M' step of Baum-Welch).
-        Computes B_new = expected # times in state s_j with symbol v_k /expected
-         # times in state s_j
+        """Re-estimation of the emission matrix (part of the 'M' step of Baum-Welch). Computes B_new = expected # times in state s_j with symbol v_k /expected # times in state s_j
 
         :param obs_seq: array of shape (n_samples, n_d_features)
                 containing the observation samples
@@ -449,9 +391,7 @@ class HeterogeneousHMM(BaseHMM):
         return B_new
 
     def _M_step(self, stats):
-        """
-        Required extension of M_step.
-        Adds a re-estimation of the parameters 'means', 'covars' and 'B'.
+        """Required extension of M_step. Adds a re-estimation of the parameters 'means', 'covars' and 'B'.
         """
         new_model = super()._M_step(stats)
 
@@ -510,8 +450,7 @@ class HeterogeneousHMM(BaseHMM):
         return new_model
 
     def _update_model(self, new_model):
-        """
-        Required extension of _updatemodel. Adds 'B', 'means' and 'covars',
+        """ Required extension of _updatemodel. Adds 'B', 'means' and 'covars',
         which holds the in-state information.
         """
         super()._update_model(new_model)
@@ -549,8 +488,7 @@ class HeterogeneousHMM(BaseHMM):
                 normalise(self.B[i], axis=1)
 
     def _map_B(self, obs_seq):
-        """
-        Required implementation for _map_B. Refer to _BaseHMM for more details.
+        """Required implementation for _map_B. Refer to _BaseHMM for more details.
         """
 
         def _map_gB(y_t, j):
@@ -568,8 +506,7 @@ class HeterogeneousHMM(BaseHMM):
             return self._pdf(obs, self.means[j], self.covars[j])
 
         def _map_dB(y_t, j):
-            """
-            Implementation of _map_B for the multinomial emissions.
+            """Implementation of _map_B for the multinomial emissions.
             """
             bjt = 1.0
             for e, symbol in enumerate(y_t):
@@ -590,13 +527,7 @@ class HeterogeneousHMM(BaseHMM):
         return B_map
 
     def _calc_conditional_posterior(self, obs, state):
-        """
-        Helper function to compute the posterior conditional probability of the
-        missing features given the not missing ones:
-        p(missing|not_missing) = Gaussian(missing | mean(missing|not_missing),
-            covariance(missing|not_missing).
-        For extra information regarding the mathematical development of this case,
-        you can consult the 4.3.1 section (Inference in jointly Gaussian distributions)
+        """Helper function to compute the posterior conditional probability of the missing features given the not missing ones:  p(missing|not_missing) = Gaussian(missing | mean(missing|not_missing), covariance(missing|not_missing). For extra information regarding the mathematical development of this case, you can consult the 4.3.1 section (Inference in jointly Gaussian distributions)
         of Kevin Murphy´s book: Machine Learning, a probabilistic perspective.
         On the code, we use the '1' to refer to the missing features of the
         observation and the '2' to refer to the not missing features when
@@ -635,8 +566,7 @@ class HeterogeneousHMM(BaseHMM):
         return mu_1_given_2, sigma_1_given_2, obs_vector
 
     def _calc_sigma(self, state, nan_index, sigma_flat):
-        """
-        Helper function for the _calc_conditional_posterior function.
+        """Helper function for the _calc_conditional_posterior function.
 
         :param state: the index of the hidden state to consider
         :type state: int
@@ -683,8 +613,7 @@ class HeterogeneousHMM(BaseHMM):
         return res
 
     def _pdf(self, x, mean, covar):
-        """
-        Multivariate Gaussian PDF function. 
+        """ Multivariate Gaussian PDF function. 
 
         :param x: a multivariate sample 
         :type x: array_like
@@ -700,8 +629,7 @@ class HeterogeneousHMM(BaseHMM):
         return multivariate_normal.pdf(x, mean=mean, cov=covar, allow_singular=True)
 
     def _generate_sample_from_state(self, state):
-        """
-        Generates a random sample from a given component.
+        """ Generates a random sample from a given component.
         :param state: index of the component to condition on
         :type state: int
         :return: array of shape (n_g_features+n_d_features, ) containing a random sample

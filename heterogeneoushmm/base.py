@@ -24,17 +24,14 @@ from .utils import (
     log_normalise, normalise, log_mask_zero,
 )
 
-#: Supported decoder algorithms.
+# Supported decoder algorithms.
 DECODER_ALGORITHMS = frozenset(('viterbi', 'map'))
-#: Supported initialisation methods.
+# Supported initialisation methods.
 INIT_TYPES = frozenset(('uniform', 'random', 'kmeans'))
 
 
 class BaseHMM(object):
-
-    """
-    Base class for the Hidden Markov Models. It allows for training, evaluation and sampling
-    from the HMM. 
+    """Base class for the Hidden Markov Models. It allows for training evaluation and sampling from the HMM. 
 
     :param n_states: number of hidden states in the model
     :type n_states: int, optional
@@ -83,9 +80,7 @@ class BaseHMM(object):
         learning_rate=0.,
         verbose=True,
     ):
-        """
-        Constructor method.
-        """
+        """Constructor method."""
 
         if init_type not in INIT_TYPES:
             raise ValueError('init_type must be one of {}'.format(INIT_TYPES))
@@ -100,9 +95,7 @@ class BaseHMM(object):
         self.verbose = verbose
 
     def __str__(self):
-        """
-            Function to allow directly printing the object.
-        """
+        """Function to allow directly printing the object."""
         return 'Pi: ' + str(self.pi) + '\nA:\n' + str(self.A)
 
     # ----------------------------------------------------------------------- #
@@ -110,9 +103,7 @@ class BaseHMM(object):
     # ----------------------------------------------------------------------- #
     # Solution to Problem 1 - compute P(O|model)
     def forward(self, obs_seq, B_map=None):
-        """
-        Forward-Backward procedure is used to efficiently calculate the probability
-        of the observations, given the model - P(O|model)
+        """Forward-Backward procedure is used to efficiently calculate the probability of the observations, given the model - P(O|model).
 
         :param obs_seq: an observation sequence 
         :type obs_seq: array_like
@@ -133,8 +124,7 @@ class BaseHMM(object):
         return logsumexp(alpha[-1])
 
     def score(self, obs_sequences):
-        """
-        Compute the per-sample average log-likelihood of the given data.
+        """Compute the per-sample average log-likelihood of the given data.
 
         :param obs_sequences: a list of ndarrays containing the
                 observation sequences of different lengths
@@ -145,8 +135,7 @@ class BaseHMM(object):
         return np.mean(self.score_samples(obs_sequences))
 
     def score_samples(self, obs_sequences):
-        """
-        Compute the log-likelihood of each sample.
+        """Compute the log-likelihood of each sample.
 
         :param obs_sequences: a list of ndarrays containing the
                 observation sequences of different lengths
@@ -156,24 +145,22 @@ class BaseHMM(object):
         """
         return [self.forward(obs_seq) for obs_seq in obs_sequences]
 
-    def predict(self, X, lengths=None):
-        """
-        Find the most probable state sequence corresponding to X.
+    def predict(self, X, algorithm='viterbi'):
+        """Find the most probable state sequence corresponding to X.
 
         :param X: feature matrix of individual samples, shape (n_samples, n_features)
         :type X: array-like
-        :param lengths:  lengths of the individual sequences in X. The sum of
-            these should be n_samples, shape (n_sequences, ), defaults to None
-        :type lengths: array-like, optional
+        :param algorithm: name of the decoder algorithm to use;
+            must be one of 'viterbi' or 'map'. Defaults to 'viterbi'.
+        :type algorithm: string, optional
         :return: labels for each sample from X
         :rtype: array-like
         """
-        _, state_sequence = self.decode(X, lengths)
+        _, state_sequence = self.decode(X, algorithm)
         return state_sequence
 
     def predict_proba(self, obs_sequences):
-        """
-        Compute the posterior probability for each state in the model.
+        """Compute the posterior probability for each state in the model.
 
         :param obs_sequences: a list of ndarrays containing the
                 observation sequences of different lengths
@@ -197,8 +184,7 @@ class BaseHMM(object):
     # Solution to Problem 2 - finding the optimal state sequence associated with
     # the given observation sequence -> Viterbi, MAP
     def decode(self, obs_sequences, algorithm='viterbi'):
-        """
-        Find the best state sequence (path), given the model and an observation.
+        """Find the best state sequence (path), given the model and an observation.
          i.e: max(P(Q|O,model)).
 
         :param obs_sequences: a list of ndarrays containing the
@@ -243,13 +229,8 @@ class BaseHMM(object):
         n_processes=None,
         print_every=1,
     ):
-        """
-        Updates the HMMs parameters given a new set of observed sequences.
-        The observations can either be a single (1D) array of observed symbols, or 
-        a 2D array (matrix), where each row denotes a multivariate time sample (multiple features).
-        The model parameters are reinitialised 'n_init' times. For each initialisation the
-        updated model parameters and the log-likelihood is stored and the best model is selected
-        at the end.
+        """Updates the HMMs parameters given a new set of observed sequences.
+        The observations can either be a single (1D) array of observed symbols, or a 2D array (matrix), where each row denotes a multivariate time sample (multiple features). The model parameters are reinitialised 'n_init' times. For each initialisation the updated model parameters and the log-likelihood is stored and the best model is selected at the end.
 
         :param obs_sequences: a list of arrays containing the observation
                 sequences of different lengths
@@ -320,8 +301,7 @@ class BaseHMM(object):
         return self, max(log_likelihoods)
 
     def sample(self, n_sequences=1, n_samples=1, return_states=False):
-        """
-        Generate random samples from the model.
+        """Generate random samples from the model.
 
         :param n_sequences: number of sequences to generate, defeaults to 1.
         :type n_sequences: int, optional
@@ -362,10 +342,7 @@ class BaseHMM(object):
         return samples
 
     def get_stationary_distribution(self):
-        """
-        Compute the stationary distribution of states. The stationary distribution is proportional 
-        to the left-eigenvector associated with the largest eigenvalue (i.e., 1) of the transition
-        matrix.
+        """Compute the stationary distribution of states. The stationary distribution is proportional to the left-eigenvector associated with the largest eigenvalue (i.e., 1) of the transition matrix.
 
         :return: the stationary distribution of states
         :rtype: array_like
@@ -378,14 +355,9 @@ class BaseHMM(object):
     #             Private methods. These are used internally only.            #
     # ----------------------------------------------------------------------- #
     def _init_model_params(self):
-        """
-        Initialises model parameters prior to fitting. If init_type if random,
-        it samples from a Dirichlet distribution according to the given priors.
-        Otherwise it initialises the starting probabilities and transition
-        probabilities uniformly.
+        """Initialises model parameters prior to fitting. If init_type if random, it samples from a Dirichlet distribution according to the given priors. Otherwise it initialises the starting probabilities and transition probabilities uniformly.
 
-        :param X: list of observation sequences used to find the initial state means 
-            and covariances for the Gaussian and Heterogeneous models
+        :param X: list of observation sequences used to find the initial state means and covariances for the Gaussian and Heterogeneous models
         :type X: list, optional
         """
         if self.init_type == 'uniform':
@@ -407,8 +379,7 @@ class BaseHMM(object):
                 )
 
     def _decode_map(self, obs_seq):
-        """
-        Find the best state sequence (path) using MAP.
+        """Find the best state sequence (path) using MAP.
 
         :param obs_seq: an observation sequence 
         :type obs_seq: array_like
@@ -424,8 +395,7 @@ class BaseHMM(object):
         return log_likelihood, state_sequence
 
     def _decode_viterbi(self, obs_seq):
-        """
-        Find the best state sequence (path) using viterbi algorithm - a method
+        """Find the best state sequence (path) using viterbi algorithm - a method
         of dynamic programming, very similar to the forward-backward algorithm,
         with the added step of maximisation and eventual backtracing.
 
@@ -476,15 +446,13 @@ class BaseHMM(object):
         return log_likelihood, state_sequence
 
     def _calc_alpha(self, obs_seq, B_map):
-        """
-        Calculates 'alpha' the forward variable given an observation sequence.
+        """Calculates 'alpha' the forward variable given an observation sequence.
 
         :param obs_seq: an observation sequence 
         :type obs_seq: array_like
         :param B_map: mapping of the observations' mass/density Bj(Ot) to Bj(t)
         :type B_map: array_like, optional
-        :return: array of shape (n_samples, n_states) containing
-                the forward variables
+        :return: array of shape (n_samples, n_states) containing the forward variables
         :rtype: array_like
         """
         n_samples = len(obs_seq)
@@ -512,15 +480,13 @@ class BaseHMM(object):
         return alpha
 
     def _calc_beta(self, obs_seq, B_map):
-        """
-        Calculates 'beta' the backward variable for each observation sequence.
+        """Calculates 'beta', the backward variable for each observation sequence.
 
         :param obs_seq: an observation sequence 
         :type obs_seq: array_like
         :param B_map: mapping of the observations' mass/density Bj(Ot) to Bj(t)
         :type B_map: array_like, optional
-        :return: array of shape (n_samples, n_states) containing
-                the backward variables
+        :return: array of shape (n_samples, n_states) containing the backward variables
         :rtype: array_like
         """
         n_samples = len(obs_seq)
@@ -551,8 +517,7 @@ class BaseHMM(object):
     def _calc_xi(
         self, obs_seq, B_map=None, alpha=None, beta=None
     ):
-        """
-        Calculates 'xi', a joint probability from the 'alpha' and 'beta' variables.
+        """Calculates 'xi', a joint probability from the 'alpha' and 'beta' variables.
 
         :param obs_seq: an observation sequence 
         :type obs_seq: array_like
@@ -560,11 +525,9 @@ class BaseHMM(object):
         :type B_map: array_like, optional
         :param alpha: array of shape (n_samples, n_states) containing the forward variables
         :type alpha: array_like, optional
-        :param beta: array of shape (n_samples, n_states)
-                containing the backward variables
+        :param beta: array of shape (n_samples, n_states) containing the backward variables
         :type beta: array_like, optional
-        :return: array of shape (n_samples, n_states, n_states) conatining
-                the a joint probability from the 'alpha' and 'beta' variables
+        :return: array of shape (n_samples, n_states, n_states) containing the a joint probability from the 'alpha' and 'beta' variables
         :rtype: array_like
         """
         if B_map is None:
@@ -606,8 +569,7 @@ class BaseHMM(object):
         return log_xi_sum
 
     def _calc_gamma(self, alpha, beta):
-        """
-        Calculates 'gamma' from 'alpha' and 'beta'.
+        """Calculates 'gamma' from 'alpha' and 'beta'.
 
         :param alpha: array of shape (n_samples, n_states) containing the forward variables
         :type alpha: array_like
@@ -635,9 +597,7 @@ class BaseHMM(object):
         n_processes=None,
         return_log_likelihoods=False,
     ):
-        """
-        Training is repeated 'n_iter' times, or until log-likelihood of the model
-        increases by less than a threshold.
+        """Training is repeated 'n_iter' times, or until log-likelihood of the model increases by less than a threshold.
 
         :param obs_sequences: a list of arrays containing the observation
                 sequences of different lengths
@@ -646,28 +606,21 @@ class BaseHMM(object):
         :type n_iter: int, optional
         :param conv_thresh: the threshold for the likelihood increase (convergence); defaults to 0.1
         :type conv_thresh: float, optional
-        :param conv_iter: number of iterations for which the convergence criteria has to hold before 
-            early-stopping; defaults to 5
+        :param conv_iter: number of iterations for which the convergence criteria has to hold before early-stopping; defaults to 5
         :type conv_iter: int, optional
-        :param ignore_conv_crit: flag to indicate whether to iterate until
-                n_iter is reached or perform early-stopping; defaults to False
+        :param ignore_conv_crit: flag to indicate whether to iterate until n_iter is reached or perform early-stopping; defaults to False
         :type ignore_conv_crit: bool, optional    
-        :param plot_log_likelihood: parameter to activate plotting the evolution
-                of the log-likelihood after each initialisation; defaults to False
+        :param plot_log_likelihood: parameter to activate plotting the evolution of the log-likelihood after each initialisation; defaults to False
         :type plot_log_likelihood: bool, optional  
-        :param no_init: flag to indicate wheather to initialise the Parameters
-                before training (it can only be True if the parameters are manually
-                set before or they were already trained); defaults to False
+        :param no_init: flag to indicate wheather to initialise the  parameters before training (it can only be True if the parameters are manually set before or they were already trained); defaults to False
         :type no_init: bool, optional    
-        :param n_processes: number of processes to use if the training should
-                be performed using parallelisation; defaults to None
+        :param n_processes: number of processes to use if the training should be performed using parallelisation; defaults to None
         :type n_processes: int, optional
         :param return_log_likelihoods: if True it returns the evolution of the log-likelihoods; used for testing purposes;
         :type return_log_likelihoods: bool, optional
         :return: dictionary containing the updated model parameters
         :rtype: dict
-        :return: the accumulated log-likelihood for all the observations. (if 
-            return_log_likelihoods is True then the list of log-likelihood values from each iteration)
+        :return: the accumulated log-likelihood for all the observations. (if  return_log_likelihoods is True then the list of log-likelihood values from each iteration)
         :rtype: float
 
         """
@@ -710,7 +663,7 @@ class BaseHMM(object):
                     [split_i for split_i in split_list],
                 )
                 p.close()
-                stats, curr_log_likelihood = self._sum_up_suffcient_statistics(
+                stats, curr_log_likelihood = self._sum_up_sufficient_statistics(
                     stats_list
                 )
 
@@ -766,9 +719,7 @@ class BaseHMM(object):
             return new_model, curr_log_likelihood
 
     def _compute_intermediate_values(self, obs_sequences):
-        """
-        Calculates the various intermediate values for the Baum-Welch on a list
-        of observation sequences.
+        """Calculates the various intermediate values for the Baum-Welch on a list of observation sequences.
 
         :param obs_sequences: a list of ndarrays/lists containing
                 the observation sequences. Each sequence can be the same or of
@@ -799,8 +750,7 @@ class BaseHMM(object):
         return stats, curr_log_likelihood
 
     def _E_step(self, obs_seq, B_map):
-        """
-        Calculates required statistics of the current model, as part
+        """Calculates required statistics of the current model, as part
         of the Baum-Welch 'E' step. Deriving classes should override (extend) 
         this method to include any additional computations their model requires.
 
@@ -830,8 +780,7 @@ class BaseHMM(object):
         return obs_stats
 
     def _M_step(self, stats):
-        """
-        Performs the 'M' step of the Baum-Welch algorithm.
+        """Performs the 'M' step of the Baum-Welch algorithm.
         Deriving classes should override (extend) this method to include
         any additional computations their model requires.
 
@@ -855,8 +804,7 @@ class BaseHMM(object):
         return new_model
 
     def _update_model(self, new_model):
-        """
-        Replaces the current model parameters with the new ones.
+        """Replaces the current model parameters with the new ones.
 
         :param new_model: contains the new model parameters
         :type new_model: dict
@@ -871,16 +819,9 @@ class BaseHMM(object):
                 new_model['A'] + self.learning_rate * self.A
 
     def _initialise_sufficient_statistics(self):
-        """
-        Initialises sufficient statistics required for M-step.
+        """Initialises sufficient statistics required for M-step.
 
-        :return: a dictionary having as key-value pairs:
-                nobs (int) - number of samples in the data
-                start (array) - array of shape (n_states, ) where the i-th
-                    element corresponds to the posterior probability of the first
-                    sample being generated by the i-th state
-                trans (dictionary) - containing the numerator and denominator
-                    parts of the new A matrix as arrays of shape (n_states, n_states)
+        :return: a dictionary having as key-value pairs { nobs - number of samples in the data; start - array of shape (n_states, ) where the i-th element corresponds to the posterior probability of the first sample being generated by the i-th state; trans (dictionary) - containing the numerator and denominator parts of the new A matrix as arrays of shape (n_states, n_states)
         :rtype: dict
         """
         stats = {
@@ -893,11 +834,9 @@ class BaseHMM(object):
     def _accumulate_sufficient_statistics(
         self, stats, obs_stats
     ):
-        """
-        Updates sufficient statistics from a given sample.
+        """Updates sufficient statistics from a given sample.
 
-        :param stats: dictionary containing the sufficient statistics for all
-                observation sequences
+        :param stats: dictionary containing the sufficient statistics for all observation sequences
         :type stats: dict
         :param obs_stats: dictionary containing the sufficient statistic for one 
             observation sequence
@@ -911,9 +850,8 @@ class BaseHMM(object):
             with np.errstate(under='ignore'):
                 stats['A'] += np.exp(obs_stats['xi'])
 
-    def _sum_up_suffcient_statistics(self, stats_list):
-        """
-        Sums sufficient statistics from a given sub-set of observation sequences.
+    def _sum_up_sufficient_statistics(self, stats_list):
+        """Sums sufficient statistics from a given sub-set of observation sequences.
 
         :param stats_list: list containing the sufficient statistics from the
                 different processes
@@ -936,12 +874,8 @@ class BaseHMM(object):
 
     # Methods that have to be implemented in the deriving classes
     def _map_B(self, obs_seq):
-        """
-        Deriving classes should implement this method, so that it maps the
-        observations' mass/density Bj(Ot) to Bj(t).
-        The purpose of this method is to create a common parameter that will
-        conform both to the discrete case where PMFs are used, and the continuous
-        case where PDFs are used.
+        """Deriving classes should implement this method, so that it maps the
+        observations' mass/density Bj(Ot) to Bj(t). The purpose of this method is to create a common parameter that will conform both to the discrete case where PMFs are used, and the continuous case where PDFs are used.
 
         :param obs_seq: an observation sequence of shape (n_samples, n_features)
         :type obs_seq: array_like
@@ -953,13 +887,11 @@ class BaseHMM(object):
         )
 
     def _generate_sample_from_state(self, state):
-        """
-        Generates a random sample from a given component.
+        """Generates a random sample from a given component.
 
         :param state: index of the component to condition on
         :type state: int
-        :return: a random sample from the emission distribution corresponding 
-            to the given state.
+        :return: a random sample from the emission distribution corresponding to the given state.
         :rtype: array_like
         """
         raise NotImplementedError(

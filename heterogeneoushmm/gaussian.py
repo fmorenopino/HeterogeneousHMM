@@ -28,71 +28,44 @@ COVARIANCE_TYPES = frozenset(('spherical', 'tied', 'diagonal', 'full'))
 
 
 class GaussianHMM(BaseHMM):
-    """
-    Hidden Markov Model with Gaussian emissions.
+    """Hidden Markov Model with Gaussian emissions.
 
     :param n_states: number of hidden states in the model
     :type n_states: int, optional
     :param n_emissions: number of Gaussian features
     :type n_emissions: int, optional
-    :param tr_params: controls which parameters are updated in the
-            training process. Can contain any combination of 's' for starting
-            probabilities (pi), 't' for transition matrix, 'm' for state means and 
-            'c' for covariances. Defaults to all parameters.
+    :param tr_params: controls which parameters are updated in the training process. Can contain any combination of 's' for starting probabilities (pi), 't' for transition matrix, 'm' for state means and 'c' for covariances. Defaults to all parameters.
     :type params: str, optional
-    :param init_params: controls which parameters are initialised
-            prior to training. Can contain any combination of 's' for starting
-            probabilities (pi), 't' for transition matrix, 'm' for state means and 
-            'c' for covariances. Defaults to all parameters.
+    :param init_params: controls which parameters are initialised prior to training. Can contain any combination of 's' for starting probabilities (pi), 't' for transition matrix, 'm' for state means and 'c' for covariances. Defaults to all parameters.
     :type init_params: str, optional
-    :param covariance_type: string describing the type of
-            covariance parameters to use, defaults to 'full'.
+    :param covariance_type: string describing the type of covariance parameters to use, defaults to 'full'.
     :type covariance_type: str, optional
-    :param pi_prior: array of shape (n_states, ) setting the parameters of the 
-        Dirichlet prior distribution for the starting probabilities. Defaults to 1.
+    :param pi_prior: array of shape (n_states, ) setting the parameters of the Dirichlet prior distribution for the starting probabilities. Defaults to 1.
     :type pi_prior: np.array, optional 
-    :param pi: array of shape (n_states, ) giving the initial state
-            occupation distribution 'pi'
+    :param pi: array of shape (n_states, ) giving the initial state occupation distribution 'pi'
     :type pi: np.array 
-    :param A_prior: array of shape (n_states, ), giving the parameters of the Dirichlet 
-        prior distribution for each row of the transition probabilities 'A'. Defaults to 1.
+    :param A_prior: array of shape (n_states, ), giving the parameters of the Dirichlet  prior distribution for each row of the transition probabilities 'A'. Defaults to 1.
     :type A_prior: np.array, optional 
-    :param A: array of shape (n_states, n_states) giving the matrix of
-            transition probabilities between states
+    :param A: array of shape (n_states, n_states) giving the matrix of transition probabilities between states
     :type A: np.array
-    :param means_prior: array of shape (n_states, 1), the mean of the Normal prior distribution for
-            the means. Defaults to 0.
+    :param means_prior: array of shape (n_states, 1), the mean of the Normal prior distribution for the means. Defaults to 0.
     :type means_prior: np.array, optional 
-    :param means_weight: array of shape (n_states, 1), the precision of the Normal prior distribution for
-            the means. Defaults to 0.
+    :param means_weight: array of shape (n_states, 1), the precision of the Normal prior distribution for the means. Defaults to 0.
     :type means_weight: np.array, optional 
-    :param means: array of shape (n_states, n_emissions) containing the
-            mean parameters for each state
+    :param means: array of shape (n_states, n_emissions) containing the mean parameters for each state
     :type means: np.array 
-    :param covars_prior: array of shape (n_states, 1), the mean of the Normal prior distribution for
-            the covariance matrix. Defaults to 0.
+    :param covars_prior: array of shape (n_states, 1), the mean of the Normal prior distribution for the covariance matrix. Defaults to 0.
     :type covars_prior: np.array, optional 
-    :param covars_weight: array of shape (n_states, 1), the precision of the Normal prior distribution for
-            the covariance. Defaults to 0.
+    :param covars_weight: array of shape (n_states, 1), the precision of the Normal prior distribution for the covariance. Defaults to 0.
     :type covars_weight: np.array, optional 
-    :param min_covar: floor on the diagonal of the covariance
-            matrix to prevent overfitting. Defaults to 1e-3.
+    :param min_covar: floor on the diagonal of the covariance matrix to prevent overfitting. Defaults to 1e-3.
     :type min_covar: float, optional
-    :param covars: covariance parameters for each state arranged in an array
-            of shape depends `covariance_type`:
-            (n_states, )                        if 'spherical',
-            (n_states, n_emissions)              if 'diagonal',
-            (n_states, n_emissions, n_emissions)  if 'full'
-            (n_emissions, n_emissions)            if 'tied'
+    :param covars: covariance parameters for each state arranged in an array of shape depends `covariance_type`: (n_states, ) if 'spherical', (n_states, n_emissions) if 'diagonal', (n_states, n_emissions, n_emissions) if 'full', (n_emissions, n_emissions) if 'tied'
     :type covars: np.array 
-    :param learning_rate: a value from [0,1), controlling how much
-            the past values of the model parameters count when computing the new
-            model parameters during training; defaults to 0.
+    :param learning_rate: a value from [0,1), controlling how much the past values of the model parameters count when computing the new model parameters during training; defaults to 0.
     :type learning_rate: float, optional
-    :param verbose: flag to be set to True if per-iteration convergence reports should 
-        be printed. Defaults to True.
+    :param verbose: flag to be set to True if per-iteration convergence reports should be printed. Defaults to True.
     :type verbose: bool, optional 
-
     """
 
     def __init__(
@@ -137,9 +110,7 @@ class GaussianHMM(BaseHMM):
         self.min_covar = min_covar
 
     def __str__(self):
-        """
-        Function to allow directly printing the object.
-        """
+        """Function to allow directly printing the object."""
         temp = super().__str__()
         return (
             temp
@@ -154,26 +125,20 @@ class GaussianHMM(BaseHMM):
     # ----------------------------------------------------------------------- #
     @property
     def covars(self):
-        """
-        Return covariances as a full matrix.
-        """
+        """Return covariances as a full matrix."""
         return fill_covars(
             self._covars, self.covariance_type, self.n_states, self.n_emissions
         )
 
     @covars.setter
     def covars(self, new_covars):
-        """
-        Setter function for the covariance matrices.
-        """
+        """Setter function for the covariance matrices."""
         covars = np.array(new_covars, copy=True)
         validate_covars(covars, self.covariance_type, self.n_states)
         self._covars = covars
 
     def get_n_fit_scalars_per_param(self):
-        """
-        Return the number of trainable model parameters.
-        """
+        """Return the number of trainable model parameters."""
         ns = self.n_states
         ne = self.n_emissions
 
@@ -193,10 +158,7 @@ class GaussianHMM(BaseHMM):
     #             Private methods. These are used internally only.            #
     # ----------------------------------------------------------------------- #
     def _init_model_params(self, X):
-        """
-        Initialises model parameters prior to fitting. 
-        Extends the base classes method by adding the emission probability matrix.
-        See base.py for more information.
+        """Initialises model parameters prior to fitting. Extends the base classes method by adding the emission probability matrix. See base.py for more information.
 
         :param X: list of observation sequences
         :type X: list
@@ -214,10 +176,7 @@ class GaussianHMM(BaseHMM):
             self._covars = init_covars(cv, self.covariance_type, self.n_states)
 
     def _initialise_sufficient_statistics(self):
-        """
-        Initialises sufficient statistics required for M-step.
-        Extends the base classes method by adding the emission probability matrix.
-        See base.py for more information.
+        """Initialises sufficient statistics required for M-step. Extends the base classes method by adding the emission probability matrix.See base.py for more information.
         """
         stats = super()._initialise_sufficient_statistics()
 
@@ -234,9 +193,7 @@ class GaussianHMM(BaseHMM):
     def _accumulate_sufficient_statistics(
         self, stats, obs_stats, obs_seq
     ):
-        """
-        Updates sufficient statistics from a given sample.
-        Extends the base classes method. See base.py for more information.
+        """Updates sufficient statistics from a given sample.Extends the base classes method. See base.py for more information.
         """
         super()._accumulate_sufficient_statistics(
             stats, obs_stats
@@ -259,8 +216,7 @@ class GaussianHMM(BaseHMM):
                 )
 
     def _reestimate_stat_obs(self, gamma, obs_seq):
-        """
-        Helper method for the statistics accumulation. Computes the sum of
+        """Helper method for the statistics accumulation. Computes the sum of
         the posteriors times the observations for the update of the means.
 
         :param gamma: array of shape (n_samples, n_states), the posteriors
@@ -280,8 +236,7 @@ class GaussianHMM(BaseHMM):
         return stat_obs
 
     def _reestimate_stat_obs2(self, gamma, obs_seq):
-        """
-        Helper method for the statistics accumulation. Computes the sum of
+        """Helper method for the statistics accumulation. Computes the sum of
         the posteriors times the square of the observations for the update
         of the covariances.
 
@@ -308,8 +263,7 @@ class GaussianHMM(BaseHMM):
         return stat_obs2
 
     def _infer_missing(self, obs, state):
-        """
-        Helper method for the statistics accumulation. It infers the missing
+        """Helper method for the statistics accumulation. It infers the missing
         observation from the conditional posterior for a given state.
 
         :param obs: a single observation
@@ -327,11 +281,7 @@ class GaussianHMM(BaseHMM):
             return obs_vector
 
     def _M_step(self, stats):
-        """
-        Required extension of M_step.
-        Adds a re-estimation of the mixture parameters 'means', 'covars'.
-        # Based on Huang, Acero, Hon, 'Spoken Language Processing',
-        # p. 443 - 445
+        """Required extension of M_step. Adds a re-estimation of the mixture parameters 'means', 'covars'. # Based on Huang, Acero, Hon, 'Spoken Language Processing', p. 443 - 445
         """
         new_model = super()._M_step(stats)
 
@@ -383,8 +333,7 @@ class GaussianHMM(BaseHMM):
         return new_model
 
     def _update_model(self, new_model):
-        """
-        Required extension of _updatemodel. Adds 'means' and 'covars',
+        """Required extension of _updatemodel. Adds 'means' and 'covars',
         which holds the in-state information.
         """
         super()._update_model(new_model)
@@ -399,8 +348,7 @@ class GaussianHMM(BaseHMM):
             ] + self.learning_rate * self._covars
 
     def _map_B(self, obs_seq):
-        """
-        Required implementation for _map_B. Refer to _BaseHMM for more details.
+        """Required implementation for _map_B. Refer to _BaseHMM for more details.
         """
         B_map = np.zeros((self.n_states, len(obs_seq)))
 
@@ -423,14 +371,9 @@ class GaussianHMM(BaseHMM):
         return B_map
 
     def _calc_conditional_posterior(self, obs, state):
-        """
-        Helper function to compute the posterior conditional probability of the
-        missing features given the not missing ones:
+        """Helper function to compute the posterior conditional probability of themissing features given the not missing ones:
         p(missing|not_missing) = Gaussian(missing | mean(missing|not_missing),
-            covariance(missing|not_missing).
-        For extra information regarding the mathematical development of this case,
-        you can consult the 4.3.1 section (Inference in jointly Gaussian distributions)
-        of Kevin Murphy´s book: Machine Learning, a probabilistic perspective.
+        covariance(missing|not_missing). For extra information regarding the mathematical development of this case, you can consult the 4.3.1 section (Inference in jointly Gaussian distributions) of Kevin Murphy´s book: Machine Learning, a probabilistic perspective.
         On the code, we use the '1' to refer to the missing features of the
         observation and the '2' to refer to the not missing features when
         naming the variables.
@@ -468,8 +411,7 @@ class GaussianHMM(BaseHMM):
         return mu_1_given_2, sigma_1_given_2, obs_vector
 
     def _calc_sigma(self, state, nan_index, sigma_flat):
-        """
-        Helper function for the _calc_conditional_posterior function.
+        """Helper function for the _calc_conditional_posterior function.
 
         :param state: the index of the hidden state to consider
         :type state: int
@@ -515,8 +457,7 @@ class GaussianHMM(BaseHMM):
         return res
 
     def _pdf(self, x, mean, covar):
-        """
-        Multivariate Gaussian PDF function. 
+        """Multivariate Gaussian PDF function. 
 
         :param x: a multivariate sample 
         :type x: array_like
@@ -532,8 +473,8 @@ class GaussianHMM(BaseHMM):
         return multivariate_normal.pdf(x, mean=mean, cov=covar, allow_singular=True)
 
     def _generate_sample_from_state(self, state):
-        """
-        Generates a random sample from a given component.
+        """Generates a random sample from a given component.
+
         :param state: index of the component to condition on
         :type state: int
         :return: array of shape (n_emissions, ) containing a random sample

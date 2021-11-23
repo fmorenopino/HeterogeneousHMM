@@ -20,65 +20,39 @@ from .utils import check_if_attributes_set, normalise
 
 
 class MultinomialHMM(BaseHMM):
-    """
-    Hidden Markov Model with multiple multinomial (discrete) emissions.
+    """Hidden Markov Model with multiple multinomial (discrete) emissions.
 
     :param n_states: number of hidden states in the model
     :type n_states: int
     :param n_emissions: number of distinct observation symbols per state
     :type n_emissions: int
-    :param n_features: list of the number of possible observable
-        symbols for each emission
+    :param n_features: list of the number of possible observable symbols for each emission
     :type n_features: list
-    :param tr_params: controls which parameters are updated in the
-        training process; can contain any combination of 's' for starting
-        probabilities (pi), 't' for transition matrix, and other characters
-        for subclass-specific emission parameters, defaults to 'ste'
+    :param tr_params: controls which parameters are updated in the training process; can contain any combination of 's' for starting probabilities (pi), 't' for transition matrix, and other characters for subclass-specific emission parameters, defaults to 'ste'
     :type tr_params: str, optional
-    :param init_params: controls which parameters are initialised
-        prior to training.  Can contain any combination of 's' for starting
-        probabilities (pi), 't' for transition matrix, and other characters
-        for subclass-specific emission parameters, defaults to 'ste'
+    :param init_params: controls which parameters are initialised prior to training.  Can contain any combination of 's' for starting probabilities (pi), 't' for transition matrix, and other characters for subclass-specific emission parameters, defaults to 'ste'
     :type init_params: str, optional
-    :param init_type: name of the initialisation
-        method to use for initialising the start, transition and emission
-        matrices, defaults to 'random'
+    :param init_type: name of the initialisation  method to use for initialising the start, transition and emission matrices, defaults to 'random'
     :type init_type: str, optional
-    :param pi_prior: float or array of shape (n_states, ) setting the
-        parameters of the Dirichlet prior distribution for 'pi', defaults to 1.0
+    :param pi_prior: float or array of shape (n_states, ) setting the parameters of the Dirichlet prior distribution for 'pi', defaults to 1.0
     :type pi_prior: float or array_like, optional
-    :param pi: array of shape (n_states, ) giving the initial state
-        occupation distribution 'pi'
+    :param pi: array of shape (n_states, ) giving the initial state occupation distribution 'pi'
     :type pi: array_like
-    :param A_prior: float or array of shape (n_states, n_states),
-        giving the parameters of the Dirichlet prior distribution for each
-        row of the transition probabilities 'A', defaults to 1.0
+    :param A_prior: float or array of shape (n_states, n_states), giving the parameters of the Dirichlet prior distribution for each row of the transition probabilities 'A', defaults to 1.0
     :type A_prior: float or array_like, optional
-    :param A: array of shape (n_states, n_states) giving the matrix of
-        transition probabilities between states
+    :param A: array of shape (n_states, n_states) giving the matrix of transition probabilities between states
     :type A: array_like
     :param B: the probabilities of emitting a given symbol when in each state
     :type B: list
-    :param missing: a value indicating what character indicates a missed
-        observation in the observation sequences, defaults to np.nan
+    :param missing: a value indicating what character indicates a missed observation in the observation sequences, defaults to np.nan
     :type missing: int or np.nan, optional
-    :param nr_no_train_de: this number indicates the number of discrete
-            emissions whose Matrix Emission Probabilities are fixed and
-            are not trained; it is important to to order the observed variables
-            such that the ones whose emissions aren't trained are the last ones, defaults to 0
+    :param nr_no_train_de: this number indicates the number of discrete  emissions whose Matrix Emission Probabilities are fixed and are not trained; it is important to to order the observed variables such that the ones whose emissions aren't trained are the last ones, defaults to 0
     :type nr_no_train_de: int, optional
-    :param state_no_train_de: a state index for nr_no_train_de
-            which shouldn't be updated; defaults to None, which means that the
-            entire emission probability matrix for that discrete emission will
-            be kept unchanged during training, otherwise the last state_no_train_de 
-            states won't be updated, defaults to None
+    :param state_no_train_de: a state index for nr_no_train_de which shouldn't be updated; defaults to None, which means that the entire emission probability matrix for that discrete emission will be kept unchanged during training, otherwise the last state_no_train_de states won't be updated, defaults to None
     :type state_no_train_de: int, optional
-    :param learning_rate: a value from [0,1), controlling how much
-        the past values of the model parameters count when computing the new
-        model parameters during training; defaults to 0.
+    :param learning_rate: a value from [0,1), controlling how much the past values of the model parameters count when computing the new model parameters during training; defaults to 0.
     :type learning_rate: float, optional
-    :param verbose: flag to be set to True if per-iteration
-        convergence reports should be printed, defaults to True
+    :param verbose: flag to be set to True if per-iteration convergence reports should be printed, defaults to True
     :type verbose: bool, optional
     """
 
@@ -98,8 +72,7 @@ class MultinomialHMM(BaseHMM):
         learning_rate=0.1,
         verbose=True,
     ):
-        """
-        Constructor method
+        """Constructor method
 
         :raises ValueError: if init_type is not one of ('uniform', 'random')
         :raises TypeError: if n_features is not a list of length n_emissions
@@ -126,8 +99,7 @@ class MultinomialHMM(BaseHMM):
         self.state_no_train_de = state_no_train_de
 
     def __str__(self):
-        """
-        Function to allow directly printing the object.
+        """Function to allow directly printing the object.
         """
         temp = super().__str__()
         return temp + '\nB:\n' + str(self.B)
@@ -137,15 +109,13 @@ class MultinomialHMM(BaseHMM):
     # ----------------------------------------------------------------------- #
     @property
     def missing(self):
-        """
-        Getter for the missing value character in the data. 
+        """Getter for the missing value character in the data. 
         """
         return self.MISSING
 
     @missing.setter
     def missing(self, value):
-        """
-        Setter for the missing value character in the data. 
+        """Setter for the missing value character in the data. 
 
         :param value: a value indicating what character indicates a missed
             observation in the observation sequences
@@ -154,10 +124,7 @@ class MultinomialHMM(BaseHMM):
         self.MISSING = value
 
     def get_n_fit_scalars_per_param(self):
-        """
-        Return a mapping of trainable model parameters names (as in ``self.tr_params``)
-        to the number of corresponding scalar parameters that will actually be
-        fitted.
+        """Return a mapping of trainable model parameters names (as in ``self.tr_params``) to the number of corresponding scalar parameters that will actually be fitted.
         """
         ns = self.n_states
         ne = self.n_emissions
@@ -173,9 +140,7 @@ class MultinomialHMM(BaseHMM):
     #             Private methods. These are used internally only.            #
     # ----------------------------------------------------------------------- #
     def _init_model_params(self):
-        """
-        Initialises model parameters prior to fitting.
-        Extends the base classes method. See _BaseHMM.py for more information.
+        """Initialises model parameters prior to fitting. Extends the base classes method. See _BaseHMM.py for more information.
         """
         super()._init_model_params()
 
@@ -202,10 +167,7 @@ class MultinomialHMM(BaseHMM):
                     check_if_attributes_set(self, attr='e')
 
     def _initialise_sufficient_statistics(self):
-        """
-        Initialises sufficient statistics required for M-step.
-        Extends the base classes method by adding the emission probability matrix.
-        See _BaseHMM.py for more information.
+        """Initialises sufficient statistics required for M-step. Extends the base classes method by adding the emission probability matrix. See _BaseHMM.py for more information.
         """
         stats = super()._initialise_sufficient_statistics()
 
@@ -225,9 +187,7 @@ class MultinomialHMM(BaseHMM):
     def _accumulate_sufficient_statistics(
         self, stats, obs_stats, obs_seq
     ):
-        """
-        Updates sufficient statistics from a given sample.
-        Extends the base classes method. See _BaseHMM.py for more information.
+        """Updates sufficient statistics from a given sample. Extends the base classes method. See _BaseHMM.py for more information.
         """
         super()._accumulate_sufficient_statistics(
             stats, obs_stats
@@ -241,10 +201,7 @@ class MultinomialHMM(BaseHMM):
                 stats['B']['denom'][i] += B_new['denom'][i]
 
     def _reestimate_B(self, obs_seq, gamma):
-        """
-        Reestimation of the emission matrix (part of the 'M' step of Baum-Welch).
-        Computes B_new = expected # times in state s_j with symbol v_k /expected
-         # times in state s_j
+        """Re-estimation of the emission matrix (part of the 'M' step of Baum-Welch). Computes B_new = expected # times in state s_j with symbol v_k /expected # times in state s_j
 
         :param obs_seq: array of shape (n_samples, n_features)
                 containing the observation samples
@@ -279,9 +236,7 @@ class MultinomialHMM(BaseHMM):
         return B_new
 
     def _M_step(self, stats):
-        """
-        Performs the 'M' step of the Baum-Welch algorithm.
-        Extends the base classes method. See _BaseHMM.py for more information.
+        """Performs the 'M' step of the Baum-Welch algorithm. Extends the base classes method. See _BaseHMM.py for more information.
         """
         new_model = super()._M_step(stats)
 
@@ -294,9 +249,7 @@ class MultinomialHMM(BaseHMM):
         return new_model
 
     def _update_model(self, new_model):
-        """
-        Updates the emission probability matrix.
-        Extends the base classes method. See _BaseHMM.py for more information.
+        """ Updates the emission probability matrix. Extends the base classes method. See _BaseHMM.py for more information.
         """
         super()._update_model(new_model)
 
@@ -324,8 +277,7 @@ class MultinomialHMM(BaseHMM):
                 normalise(new_model['B'][i], axis=1)
 
     def _map_B(self, obs_seq):
-        """
-        Required implementation for _map_B. Refer to _BaseHMM for more details.
+        """Required implementation for _map_B. Refer to _BaseHMM for more details.
         """
         B_map = np.ones((self.n_states, len(obs_seq)))
 
@@ -343,9 +295,7 @@ class MultinomialHMM(BaseHMM):
         return B_map
 
     def _generate_sample_from_state(self, state):
-        """
-        Required implementation for _generate_sample_from_state. 
-        Refer to _BaseHMM for more details.
+        """Required implementation for _generate_sample_from_state. Refer to _BaseHMM for more details.
         """
 
         res = []
