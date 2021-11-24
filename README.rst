@@ -19,6 +19,20 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probabilistic models. There is also a possibility to run the training using multiprocessing, in order to speed it up when multiple observation sequences are used. 
 
+Documentation
+#############
+Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
+
+Authors
+######################
+- `Fernando Moreno-Pino <http://www.tsc.uc3m.es/~fmoreno/>`_
+- `Emese Sukei <http://www.tsc.uc3m.es/~esukei/>`_
+- `Antonio Artés-Rodríguez <http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html>`_
+
+Contributing
+############
+If you like this project and want to help, we would love to have your contribution! Please see `CONTRIBUTING <https://github.com/fmorenopino/HeterogeneousHMM/blob/master/CONTRIBUTING.md>`_ and contact us to get started.
+
 Theoretical Background
 ######################
 
@@ -136,7 +150,7 @@ For the second case, that is, when we deal with partial missing data, we infer t
 The marginals are given by:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/marginals.png
-    :width: 300px
+    :width: 200px
     :align: center
     :height: 30px
     :alt: alternate text
@@ -149,19 +163,6 @@ So the posterior conditional for our missing data can be obtained as:
     :height: 150px
     :alt: alternate text
 
-Documentation
-#############
-Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
-
-Authors
-######################
-- `Fernando Moreno-Pino <http://www.tsc.uc3m.es/~fmoreno/>`_
-- `Emese Sukei <http://www.tsc.uc3m.es/~esukei/>`_
-- `Antonio Artés-Rodríguez <http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html>`_
-
-Contributing
-############
-If you like this project and want to help, we would love to have your contribution! Please see `CONTRIBUTING <https://github.com/fmorenopino/HeterogeneousHMM/blob/master/CONTRIBUTING.md>`_ and contact us to get started.
 
 References
 ##########
