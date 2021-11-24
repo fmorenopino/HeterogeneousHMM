@@ -50,10 +50,9 @@ Where:
 - **B** are the observation emission probabilities, which for the gaussian case are managed with the means and covariances.
 - **π** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
  
- Finally, the model's parameters of a HMM would be: *θ*={**A**, **B**, **π**}.
+ Finally, the model's parameters of a HMM would be: θ={**A**, **B**, **π**}.
  
  
-
 The three basic inference problems for HMMs
 ********************************************
 
@@ -106,6 +105,49 @@ Where:
 - *L* is the labels sequence.
 - **D** are the labels' emission probabilities.
 
+For the Heterogenous HMM, our joint distribution is:
+
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_joint.png
+    :width: 300px
+    :align: center
+    :height: 150px
+    :alt: alternate text
+    
+As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
+
+Semi-Supervised HMM
+*******************
+
+The Semi-Supervised HMM is a version of the Heterogenous HMM where the label emission probabilities are set *a priori*. This allows us to asocciate certain states to certain values of the labels, which provides guidance during the learning process.
+
+Missing Data Inference
+**********************
+
+Our model is able to work with both complete missing data and partial missing data. The first case is  straight forward, and the mean of the state is used to compute the probability of the observation given a state and a time instant.
+
+For the second case, that is, when we deal with partial missing data, we infer the value of the missed data. To do so, supposing *x=(x_1, x_2)* is jointly gaussian, with parameters:
+
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/missing_data_params.png
+    :width: 300px
+    :align: center
+    :height: 150px
+    :alt: alternate text
+
+The marginals are given by:
+
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/marginals.png
+    :width: 300px
+    :align: center
+    :height: 150px
+    :alt: alternate text
+    
+So the posterior conditional for our missing data can be obtained as:
+
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/posterior_conditional.png
+    :width: 300px
+    :align: center
+    :height: 150px
+    :alt: alternate text
 
 Documentation
 #############
