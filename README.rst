@@ -33,6 +33,12 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
     :height: 150px
     :alt: alternate text
     
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
+    :width: 300px
+    :align: center
+    :height: 150px
+    :alt: alternate text
+    
 The parameters that we have to deal with are:
 
  .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
@@ -40,7 +46,6 @@ The parameters that we have to deal with are:
      :align: center
      :height: 150px
      :alt: alternate text
-     :height: 120px
     
     
  Where:
