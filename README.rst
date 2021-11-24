@@ -108,9 +108,9 @@ Where:
 For the Heterogenous HMM, our joint distribution is:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_joint.png
-    :width: 360px
+    :width: 380px
     :align: center
-    :height: 40px
+    :height: 60px
     :alt: alternate text
     
 As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
@@ -130,7 +130,7 @@ For the second case, that is, when we deal with partial missing data, we infer t
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/missing_data_params.png
     :width: 300px
     :align: center
-    :height: 150px
+    :height: 50px
     :alt: alternate text
 
 The marginals are given by:
@@ -138,7 +138,7 @@ The marginals are given by:
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/marginals.png
     :width: 300px
     :align: center
-    :height: 150px
+    :height: 50px
     :alt: alternate text
     
 So the posterior conditional for our missing data can be obtained as:
