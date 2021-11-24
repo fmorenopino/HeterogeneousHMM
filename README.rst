@@ -71,9 +71,9 @@ To solve this second problem several algorithms can be used, for example, the Vi
 To solve this third problem we must consider the joint distribution of *S* and *Y*, that is:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/joint.png
-    :width: 300px
+    :width: 330px
     :align: center
-    :height: 50px
+    :height: 60px
     :alt: alternate text
 
 By using the EM algorithm, the model parameters *θ* (that is, the initial state probability **π**, the state transition probabilities **A** and the gaussian emission probabilities {**μ**, **Σ**}) are updated.
