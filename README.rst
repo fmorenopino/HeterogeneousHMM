@@ -33,6 +33,11 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
     :height: 150px
     :alt: alternate text
 
+.. latex::
+
+  \begin{equation}
+    x<\pi
+  \end{equation}
 Documentation
 #############
 Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
