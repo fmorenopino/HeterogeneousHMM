@@ -28,9 +28,9 @@ Gaussian HMM
 The Gaussian HMM manages the emission probabilities with gaussian distributions, its block diagram is represented in the next figure:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hmm.png
-    :width: 400px
+    :width: 300px
     :align: center
-    :height: 200px
+    :height: 150px
     :alt: alternate text
 
 Documentation
