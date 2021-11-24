@@ -1,7 +1,12 @@
 PyHHMM 
 ======
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3759439.svg)](https://doi.org/10.5281/zenodo.3759439)
+.. code:: rst
+
+    |Maintenance yes|
+
+    .. |Maintenance yes| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3759439.svg
+       :target: https://doi.org/10.5281/zenodo.3759439
 
 This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of this library with respect to other available APIs are:
 
