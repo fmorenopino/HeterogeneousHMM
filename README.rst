@@ -42,13 +42,13 @@ The parameters that we have to deal with are:
    :height: 120px
    :alt: alternate text
 
- Where:
+Where:
  
- * *S* is the hidden state sequence, being *I* the number of states of the model.
- * *Y* is the observed continuous sequence (in the discrete case, it would be the observed discrete sequence).
- * **A** is the matrix that contains the state transition probabilities.
- * **B** are the observation emission probabilities, which for the gaussian case are managed with the means and covariances.
- * **π** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
+- *S* is the hidden state sequence, being *I* the number of states of the model.
+- *Y* is the observed continuous sequence (in the discrete case, it would be the observed discrete sequence).
+- **A** is the matrix that contains the state transition probabilities.
+- **B** are the observation emission probabilities, which for the gaussian case are managed with the means and covariances.
+- **π** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
  
  Finally, the model's parameters of a HMM would be: *θ*={**A**, **B**, **π**}.
  
@@ -65,7 +65,7 @@ To solve this first problem, the Forward algorithm can be used.
 
 * Problem 2: given the observed sequence *Y* and the model's parameters *θ*, which is the optimal state sequence *S*?
 
-To solve this second problem several algorithms can be used, for example, the Viterbi or the Forward-Backward algorithm. If using Viterbi, we will maximize the p(*S*, *Y* | *θ*). Othercase, with the Forward-Backward algorithm, we optimizes the p(*s<sub>t</sub>*, *Y* | *θ*).
+To solve this second problem several algorithms can be used, for example, the Viterbi or the Forward-Backward algorithm. If using Viterbi, we will maximize the p(*S*, *Y* | *θ*). Othercase, with the Forward-Backward algorithm, we optimizes the p(*s_t*, *Y* | *θ*).
  
 * Problem 3: which are the optimal *θ* that maximizes p(*Y* | *θ*)?
 
@@ -76,7 +76,37 @@ To solve this third problem we must consider the joint distribution of *S* and *
     :align: center
     :height: 50px
     :alt: alternate text
- 
+
+By using the EM algorithm, the model parameters *θ* (that is, the initial state probability ***π***, the state transition probabilities ***A*** and the gaussian emission probabilities {***μ***, ***Σ***}) are updated.
+
+> The solution for these problems is nowadays very well known. If you want to get some extra knowledge about how the α, β, γ, δ... parameters are derived you can check the references below.
+
+
+Heterogeneous HMM/HMM with labels
+*********************************
+
+In the Heterogeneous HMM, we can manage some features' emission probabilities with discrete distributions (the labels) and some others' emission probabilities with gaussian distributions. Its block diagram is:
+
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm.png
+    :width: 300px
+    :align: center
+    :height: 50px
+    :alt: alternate text
+    
+In addition to the parameters showed for the gaussian case, we must add:
+
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_parameters.png
+    :width: 300px
+    :align: center
+    :height: 50px
+    :alt: alternate text
+
+Where:
+
+- *L* is the labels sequence.
+- **D** are the labels' emission probabilities.
+
+
 Documentation
 #############
 Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
