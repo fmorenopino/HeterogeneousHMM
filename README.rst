@@ -74,7 +74,7 @@ To solve this third problem we must consider the joint distribution of *S* and *
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/joint.png
     :width: 300px
     :align: center
-    :height: 150px
+    :height: 50px
     :alt: alternate text
  
 Documentation
