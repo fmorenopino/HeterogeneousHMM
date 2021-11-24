@@ -108,7 +108,7 @@ Where:
 For the Heterogenous HMM, our joint distribution is:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_joint.png
-    :width: 330px
+    :width: 360px
     :align: center
     :height: 60px
     :alt: alternate text
