@@ -77,9 +77,9 @@ To solve this third problem we must consider the joint distribution of *S* and *
     :height: 50px
     :alt: alternate text
 
-By using the EM algorithm, the model parameters *θ* (that is, the initial state probability ***π***, the state transition probabilities ***A*** and the gaussian emission probabilities {***μ***, ***Σ***}) are updated.
+By using the EM algorithm, the model parameters *θ* (that is, the initial state probability **π**, the state transition probabilities **A** and the gaussian emission probabilities {**μ**, **Σ**}) are updated.
 
-> The solution for these problems is nowadays very well known. If you want to get some extra knowledge about how the α, β, γ, δ... parameters are derived you can check the references below.
+   The solution for these problems is nowadays very well known. If you want to get some extra knowledge about how the α, β, γ, δ... parameters are derived you can check the references below.
 
 
 Heterogeneous HMM/HMM with labels
@@ -90,13 +90,13 @@ In the Heterogeneous HMM, we can manage some features' emission probabilities wi
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm.png
     :width: 300px
     :align: center
-    :height: 50px
+    :height: 150px
     :alt: alternate text
     
 In addition to the parameters showed for the gaussian case, we must add:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_parameters.png
-    :width: 300px
+    :width:250px
     :align: center
     :height: 50px
     :alt: alternate text
