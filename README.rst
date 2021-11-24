@@ -34,13 +34,13 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
     :alt: alternate text
     
     
-   The parameters that we have to deal with are:
+The parameters that we have to deal with are:
 
-   .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
-      :width: 300px
-      :align: center
-      :height: 120px
-      :alt: alternate text
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
+   :width: 300px
+   :align: center
+   :height: 120px
+   :alt: alternate text
 
  Where:
  
@@ -51,6 +51,24 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
  * **π** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
  
  Finally, the model's parameters of a HMM would be: *θ*={**A**, **B**, **π**}.
+ 
+ 
+
+The three basic inference problems for HMMs
+********************************************
+
+In order to have a useful HMM model for a real application, there are three basic problems that must be solved:
+
+* Problem 1: given the observed sequence *Y*, which is the probability of that observed sequence for our model's parameters *θ*, that is, which is p(*Y* | *θ*)?
+
+To solve this first problem, the Forward algorithm can be used.
+
+* Problem 2: given the observed sequence *Y* and the model's parameters *θ*, which is the optimal state sequence *S*?
+
+To solve this second problem several algorithms can be used, for example, the Viterbi or the Forward-Backward algorithm. If using Viterbi, we will maximize the p(*S*, *Y* | *θ*). Othercase, with the Forward-Backward algorithm, we optimizes the p(*s<sub>t</sub>*, *Y* | *θ*).
+ 
+* Problem 3: which are the optimal *θ* that maximizes p(*Y* | *θ*)?
+
  
 Documentation
 #############
