@@ -15,7 +15,7 @@ Also, some others aspects like having multiple sequences, several features per o
 
 Documentation
 -------------
-Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_
+Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
 
 Authors
 -------
@@ -25,7 +25,7 @@ Authors
 
 Contributing
 ------------
-If you like this project and want to help, we would love to have your contribution! Please see contact us to get started.
+If you like this project and want to help, we would love to have your contribution! Please see `CONTRIBUTING <https://github.com/fmorenopino/HeterogeneousHMM/blob/master/CONTRIBUTING.md>`_ and contact us to get started.
 
 References
 ----------
@@ -36,5 +36,6 @@ References
 - *Parallel Implementation of Baum-Welch Algorithm*, M.V. Anikeev, O.B. Makarevich, Workshop on Computer Science and Information Technology CSIT'2006, Karlsruhe, Germany, 2006
 
 **NOTE:** This model was based on previous implementations:
-- https://github.com/guyz/HMM
-- https://github.com/hmmlearn
+
+- `https://github.com/guyz/HMM <https://github.com/guyz/HMM>`_
+- `https://github.com/hmmlearn <https://github.com/hmmlearn>`_
