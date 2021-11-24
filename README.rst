@@ -1,6 +1,8 @@
 PyHHMM 
 ======
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3759439.svg)](https://doi.org/10.5281/zenodo.3759439)
+
 This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of this library with respect to other available APIs are:
 
 - **Missing values support**: our implementation supports both partial and complete missing data.
