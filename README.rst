@@ -42,7 +42,6 @@ The parameters that we have to deal with are:
      :height: 120px
      :alt: alternate text
     
-    
  Where:
  
  * *S* is the hidden state sequence, being *I* the number of states of the model.
