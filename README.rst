@@ -69,6 +69,13 @@ To solve this second problem several algorithms can be used, for example, the Vi
  
 * Problem 3: which are the optimal *θ* that maximizes p(*Y* | *θ*)?
 
+To solve this third problem we must consider the joint distribution of *S* and *Y*, that is:
+
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/joint.png
+    :width: 300px
+    :align: center
+    :height: 150px
+    :alt: alternate text
  
 Documentation
 #############
