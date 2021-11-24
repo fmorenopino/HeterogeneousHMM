@@ -19,8 +19,8 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probabilistic models. There is also a possibility to run the training using multiprocessing, in order to speed it up when multiple observation sequences are used. 
 
-Theoretical Background: How a HMM, a Heterogeneous HMM and a Semi-Supervised HMM work?
-######################################################################################
+Theoretical Background
+######################
 
 Gaussian HMM
 ************
@@ -31,15 +31,13 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
     :width: 300px
     :align: center
     :height: 150px
-    :alt: alternate text
     
 The parameters that we have to deal with are:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
     :width: 300px
     :align: center
-    :height: 150px
-    :alt: alternate text
+    :height: 120px
     
 Documentation
 #############
