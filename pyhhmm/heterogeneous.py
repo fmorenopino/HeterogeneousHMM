@@ -1,3 +1,4 @@
+""""""
 """
 Created on Jan 15, 2020
 @authors: semese, fmorenopino
@@ -13,15 +14,6 @@ For theoretical bases see:
    ©2012, ISBN:0262018020 9780262018029
 """
 
-import numpy as np
-from sklearn import cluster
-from scipy.stats import multivariate_normal
-
-from .base import BaseHMM
-from .utils import (
-    init_covars, fill_covars, validate_covars, normalise,
-    concatenate_observation_sequences, check_if_attributes_set
-)
 
 COVARIANCE_TYPES = frozenset(('diagonal', 'full', 'tied', 'spherical'))
 
