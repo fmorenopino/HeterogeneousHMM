@@ -33,28 +33,23 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
     :height: 150px
     :alt: alternate text
     
-.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
-    :width: 300px
-    :align: center
-    :height: 150px
-    :alt: alternate text
     
 The parameters that we have to deal with are:
 
  .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
      :width: 300px
      :align: center
-     :height: 150px
+     :height: 120px
      :alt: alternate text
     
     
  Where:
  
- - *S* is the hidden state sequence, being *I* the number of states of the model.
- - *Y* is the observed continuous sequence (in the discrete case, it would be the observed discrete sequence).
- - **A** is the matrix that contains the state transition probabilities.
- - **B** are the observation emission probabilities, which for the gaussian case are managed with the means and covariances.
- - **π** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
+ * *S* is the hidden state sequence, being *I* the number of states of the model.
+ * *Y* is the observed continuous sequence (in the discrete case, it would be the observed discrete sequence).
+ * **A** is the matrix that contains the state transition probabilities.
+ * **B** are the observation emission probabilities, which for the gaussian case are managed with the means and covariances.
+ * **π** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
  
  Finally, the model's parameters of a HMM would be: *θ*={**A**, **B**, **π**}.
  
