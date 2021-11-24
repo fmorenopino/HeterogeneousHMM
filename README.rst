@@ -39,6 +39,17 @@ The parameters that we have to deal with are:
     :align: center
     :height: 120px
     
+    
+ Where:
+ 
+ - *S* is the hidden state sequence, being *I* the number of states of the model.
+ - *Y* is the observed continuous sequence (in the discrete case, it would be the observed discrete sequence).
+ - **A** is the matrix that contains the state transition probabilities.
+ - **B** are the observation emission probabilities, which for the gaussian case are managed with the means and covariances.
+ - **π** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
+ 
+ Finally, the model's parameters of a HMM would be: *θ*={**A**, **B**, **π**}.
+ 
 Documentation
 #############
 Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
