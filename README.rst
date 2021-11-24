@@ -1,6 +1,10 @@
 PyHHMM 
 
 ======
+
+
+--------------
+
 This is a badge to link to a [DOI](https://doi.org/):
 
 |DOI|
@@ -11,6 +15,8 @@ This is a badge to link to a [DOI](https://doi.org/):
 
    .. |DOI| image:: https://zenodo.org/badge/DOI/10.1007/978-3-319-76207-4_15.svg
       :target: https://doi.org/10.1007/978-3-319-76207-4_15
+
+--------------
 
 This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of this library with respect to other available APIs are:
 
