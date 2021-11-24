@@ -32,10 +32,16 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
     :align: center
     :height: 150px
     :alt: alternate text
+    
+extensions.append('sphinx.ext.pngmath')
+:math:`\alpha > \beta`
+
 
 .. math::
 
     n_{\mathrm{offset}} = \sum_{k=0}^{N-1} s_k n_k
+    
+    
 Documentation
 #############
 Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
