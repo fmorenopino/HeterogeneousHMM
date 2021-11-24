@@ -1,20 +1,19 @@
+""""""
 """
- Created on Nov 20, 2019
- @author: semese
+Created on Nov 20, 2019
+@author: semese
 
- Parts of the code come from: https://github.com/hmmlearn/hmmlearn
- """
+Parts of the code come from: https://github.com/hmmlearn/hmmlearn
+"""
 
 
 import pickle
 import numpy as np
 from scipy import linalg, special
 from prettytable import PrettyTable
-
 import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-
 plt.style.use('seaborn-ticks')
 
 COVARIANCE_TYPES = frozenset(('spherical', 'tied', 'diagonal', 'full'))
