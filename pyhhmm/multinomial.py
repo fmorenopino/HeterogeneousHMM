@@ -1,4 +1,3 @@
-""""""
 """
 Created on Nov 22, 2019
 @author: semese
@@ -15,12 +14,11 @@ For theoretical bases see:
    ©2012, ISBN:0262018020 9780262018029
 """
 
-
-
-
 import numpy as np
 from .base import BaseHMM
 from .utils import check_if_attributes_set, normalise
+
+
 class MultinomialHMM(BaseHMM):
     """Hidden Markov Model with multiple multinomial (discrete) emissions.
 

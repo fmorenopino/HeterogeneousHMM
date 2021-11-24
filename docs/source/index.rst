@@ -23,6 +23,7 @@ User guide: table of contents
 .. toctree::
    :maxdepth: 2
 
+   getting_started
    tutorial
    examples
    api
