@@ -29,21 +29,21 @@ In this library, we have developed different implementation of the Hidden Markov
 
 
 Documentation
--------------
+#############
 Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
 
 Authors
--------
+######################
 - `Fernando Moreno-Pino <http://www.tsc.uc3m.es/~fmoreno/>`_
 - `Emese Sukei <http://www.tsc.uc3m.es/~esukei/>`_
 - `Antonio Artés-Rodríguez <http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html>`_
 
 Contributing
-------------
+############
 If you like this project and want to help, we would love to have your contribution! Please see `CONTRIBUTING <https://github.com/fmorenopino/HeterogeneousHMM/blob/master/CONTRIBUTING.md>`_ and contact us to get started.
 
 References
-----------
+##########
 - *Advanced Signal Processing Course*, Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid
 - *A tutorial on hidden Markov models and selected applications in speech recognition*, L.R. Rabiner, in Proceedings of the IEEE, vol. 77, no. 2, pp. 257-286, Feb. 1989
 - *Machine Learning: A Probabilistic Perspective*, K.P. Murphy, The MIT Press ©2012, ISBN:0262018020 9780262018029
