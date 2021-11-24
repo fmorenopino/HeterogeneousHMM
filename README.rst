@@ -37,9 +37,9 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
 The parameters that we have to deal with are:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
-   :width: 300px
+   :width: 90px
    :align: center
-   :height: 120px
+   :height: 90px
    :alt: alternate text
 
 Where:
@@ -50,7 +50,7 @@ Where:
 - **B** are the observation emission probabilities, which for the gaussian case are managed with the means and covariances.
 - **π** is the initial state probability distribution. In our model, both random and k-means can be used to initialize it.
  
- Finally, the model's parameters of a HMM would be: θ={**A**, **B**, **π**}.
+Finally, the model's parameters of a HMM would be: θ={**A**, **B**, **π**}.
  
  
 The three basic inference problems for HMMs
