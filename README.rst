@@ -1,4 +1,4 @@
-`PyHHMM <https://pyhhmm.readthedocs.io/en/latest/index.html#>`_
+PyHHMM [`Read the Docs <https://pyhhmm.readthedocs.io/en/latest/index.html#>`_]
 ======
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3759439.svg
