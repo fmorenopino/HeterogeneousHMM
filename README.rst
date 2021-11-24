@@ -33,14 +33,13 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
     :height: 150px
     :alt: alternate text
     
-extensions.append('sphinx.ext.pngmath')
-:math:`\alpha > \beta`
+The parameters that we have to deal with are:
 
-
-.. math::
-
-    n_{\mathrm{offset}} = \sum_{k=0}^{N-1} s_k n_k
-    
+.. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
+    :width: 300px
+    :align: center
+    :height: 150px
+    :alt: alternate text
     
 Documentation
 #############
