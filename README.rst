@@ -108,9 +108,9 @@ Where:
 For the Heterogenous HMM, our joint distribution is:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_joint.png
-    :width: 300px
+    :width: 330px
     :align: center
-    :height: 50px
+    :height: 60px
     :alt: alternate text
     
 As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
