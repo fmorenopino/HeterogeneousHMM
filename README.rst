@@ -68,7 +68,7 @@ Finally, the model's parameters of a HMM would be: θ={**A**, **B**, **π**}.
  
  
 The three basic inference problems for HMMs
-********************************************
+===========================================
 
 In order to have a useful HMM model for a real application, there are three basic problems that must be solved:
 
