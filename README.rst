@@ -51,9 +51,9 @@ The Gaussian HMM manages the emission probabilities with gaussian distributions,
 The parameters that we have to deal with are:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/parameters.png
-   :width: 200px
+   :width: 220px
    :align: center
-   :height: 120px
+   :height: 100px
    :alt: alternate text
 
 Where:
@@ -87,7 +87,7 @@ To solve this third problem we must consider the joint distribution of *S* and *
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/joint.png
     :width: 330px
     :align: center
-    :height: 60px
+    :height: 50px
     :alt: alternate text
 
 By using the EM algorithm, the model parameters *θ* (that is, the initial state probability **π**, the state transition probabilities **A** and the gaussian emission probabilities {**μ**, **Σ**}) are updated.
@@ -109,7 +109,7 @@ In the Heterogeneous HMM, we can manage some features' emission probabilities wi
 In addition to the parameters showed for the gaussian case, we must add:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_parameters.png
-    :width: 230px
+    :width: 200px
     :align: center
     :height: 50px
     :alt: alternate text
@@ -122,9 +122,9 @@ Where:
 For the Heterogenous HMM, our joint distribution is:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm_joint.png
-    :width: 350px
+    :width: 550px
     :align: center
-    :height: 45px
+    :height: 35px
     :alt: alternate text
     
 As we can observe in the previous equation, now the joint distribution depends on a new term which is the probability of the observed label given a certain state at an instant *t*.
@@ -142,25 +142,25 @@ Our model is able to work with both complete missing data and partial missing da
 For the second case, that is, when we deal with partial missing data, we infer the value of the missed data. To do so, supposing *x=(x_1, x_2)* is jointly gaussian, with parameters:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/missing_data_params.png
-    :width: 300px
+    :width: 350px
     :align: center
-    :height: 40px
+    :height: 35px
     :alt: alternate text
 
 The marginals are given by:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/marginals.png
-    :width: 200px
+    :width: 175px
     :align: center
-    :height: 30px
+    :height: 35px
     :alt: alternate text
     
 So the posterior conditional for our missing data can be obtained as:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/posterior_conditional.png
-    :width: 300px
+    :width: 250px
     :align: center
-    :height: 150px
+    :height: 125px
     :alt: alternate text
 
 
