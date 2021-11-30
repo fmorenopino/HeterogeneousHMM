@@ -42,9 +42,9 @@ Gaussian HMM
 The Gaussian HMM manages the emission probabilities with gaussian distributions, its block diagram is represented in the next figure:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hmm.png
-    :width: 300px
+    :width: 250px
     :align: center
-    :height: 150px
+    :height: 125px
     :alt: alternate text
     
     
@@ -101,9 +101,9 @@ Heterogeneous HMM/HMM with labels
 In the Heterogeneous HMM, we can manage some features' emission probabilities with discrete distributions (the labels) and some others' emission probabilities with gaussian distributions. Its block diagram is:
 
 .. image:: https://raw.githubusercontent.com/fmorenopino/Heterogeneous_HMM/master/examples/img/hhmm.png
-    :width: 300px
+    :width: 250px
     :align: center
-    :height: 150px
+    :height: 125px
     :alt: alternate text
     
 In addition to the parameters showed for the gaussian case, we must add:
