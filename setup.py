@@ -28,8 +28,11 @@ setup(
 
     classifiers=[
         'Intended Audience :: Data Scientists',
-
+        'License :: OSI Approved :: Apache Software License',
+        'Natural Language :: English',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
+        'Topic :: Documentation :: Sphinx',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence'  
     ],
 )
