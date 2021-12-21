@@ -1,4 +1,3 @@
-""""""
 """
 Created on Nov 20, 2019
 @authors: semese, fmorenopino
@@ -15,6 +14,18 @@ For theoretical bases see:
  - K.P. Murphy, Machine Learning: A Probabilistic Perspective, The MIT Press
    ©2012, ISBN:0262018020 9780262018029
 """
+
+import numpy as np
+from scipy.special import logsumexp
+from multiprocessing import Pool
+
+from .utils import (
+    plot_log_likelihood_evolution,
+    check_if_attributes_set,
+    log_normalise,
+    normalise,
+    log_mask_zero,
+)
 
 
 # Supported decoder algorithms.

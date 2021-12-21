@@ -373,7 +373,7 @@ class GaussianHMM(BaseHMM):
     def _calc_conditional_posterior(self, obs, state):
         """Helper function to compute the posterior conditional probability of themissing features given the not missing ones:
         p(missing|not_missing) = Gaussian(missing | mean(missing|not_missing),
-        covariance(missing|not_missing). For extra information regarding the mathematical development of this case, you can consult the 4.3.1 section (Inference in jointly Gaussian distributions) of Kevin Murphy´s book: Machine Learning, a probabilistic perspective.
+        covariance(missing|not_missing). For extra information regarding the mathematical development of this case, you can consult the 4.3.1 section (Inference in jointly Gaussian distributions) of Kevin Murphy's book: Machine Learning, a probabilistic perspective.
         On the code, we use the '1' to refer to the missing features of the
         observation and the '2' to refer to the not missing features when
         naming the variables.
