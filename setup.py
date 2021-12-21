@@ -1,38 +1,168 @@
-from setuptools import setup, find_packages
+
+"""A setuptools based setup module.
+
+See:
+https://packaging.python.org/guides/distributing-packages-using-setuptools/
+https://github.com/pypa/sampleproject
+"""
 
 from pyhhmm import __version__
+import pathlib
+from setuptools import setup, find_packages
 
-extra_test = [
-    'pytest>=6',
-]
+here = pathlib.Path(__file__).parent.resolve()
 
-extra_dev = [
-    *extra_test,
-]
+# Get the long description from the README file
+long_description = (here / 'README.rst').read_text(encoding='utf-8')
+
+# Arguments marked as "Required" below must be included for upload to PyPI.
+# Fields marked as "Optional" may be commented out.
 
 setup(
-    name='pyhhmm',
-    version=__version__,
-    description='PyHHMM - Python implementation of HMM with labels',
+    # This is the name of your project. The first time you publish this
+    # package, this name will be registered for you. It will determine how
+    # users can install this project, e.g.:
+    #
+    # $ pip install pyhhmm
+    #
+    # And where it will live on PyPI: https://pypi.org/project/pyhhmm/
+    #
+    # There are some restrictions on what makes a valid project name
+    # specification here:
+    # https://packaging.python.org/specifications/core-metadata/#name
+    name='pyhhmm',  # Required
 
-    url='https://github.com/fmorenopino/HeterogeneousHMM',
-    author='Emese Sukei, Fernando Moreno-Pino',
-    author_email='esukei@tsc.uc3m.es, fmoreno@tsc.uc3m.es',
+    # Versions should comply with PEP 440:
+    # https://www.python.org/dev/peps/pep-0440/
+    #
+    # For a discussion on single-sourcing the version across setup.py and the
+    # project code, see
+    # https://packaging.python.org/guides/single-sourcing-package-version/
+    version=__version__,  # Required
 
-    packages=find_packages(),
+    # This is a one-line description or tagline of what your project does. This
+    # corresponds to the "Summary" metadata field:
+    # https://packaging.python.org/specifications/core-metadata/#summary
+    description='Python implementation of HMM with labels',  # Optional
 
-    extras_require={
-        'test': extra_test,
-        'dev': extra_dev,
+    # This is an optional longer description of your project that represents
+    # the body of text which users will see when they visit PyPI.
+    #
+    # Often, this is the same as your README, so you can just read it in from
+    # that file directly (as we have already done above)
+    #
+    # This field corresponds to the "Description" metadata field:
+    # https://packaging.python.org/specifications/core-metadata/#description-optional
+    long_description=long_description,  # Optional
+
+    # Denotes that our long_description is in Markdown; valid values are
+    # text/plain, text/x-rst, and text/markdown
+    #
+    # Optional if long_description is written in reStructuredText (rst) but
+    # required for plain-text or Markdown; if unspecified, "applications should
+    # attempt to render [the long_description] as text/x-rst; charset=UTF-8 and
+    # fall back to text/plain if it is not valid rst" (see link below)
+    #
+    # This field corresponds to the "Description-Content-Type" metadata field:
+    # https://packaging.python.org/specifications/core-metadata/#description-content-type-optional
+    long_description_content_type='text/x-rst',  # Optional (see note above)
+
+    # This should be a valid link to your project's main homepage.
+    #
+    # This field corresponds to the "Home-Page" metadata field:
+    # https://packaging.python.org/specifications/core-metadata/#home-page-optional
+    url='https://github.com/fmorenopino/HeterogeneousHMM',  # Optional
+
+    # This should be your name or the name of the organization which owns the
+    # project.
+    author='Emese Sukei and Fernando Moreno-Pino',  # Optional
+
+    # This should be a valid email address corresponding to the author listed
+    # above.
+    author_email='esukei@tsc.uc3m.es',  # Optional
+
+    # Classifiers help users find your project by categorizing it.
+    #
+    # For a list of valid classifiers, see https://pypi.org/classifiers/
+    classifiers=[  # Optional
+        # How mature is this project? Common values are
+        #   3 - Alpha
+        #   4 - Beta
+        #   5 - Production/Stable
+        'Development Status :: 3 - Alpha',
+
+        # Indicate who your project is intended for
+        'Intended Audience :: Science/Research',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
+
+        # Pick your license as you wish
+        'License :: OSI Approved :: Apache Software License',
+
+        # Specify the Python versions you support here. In particular, ensure
+        # that you indicate you support Python 3. These classifiers are *not*
+        # checked by 'pip install'. See instead 'python_requires' below.
+        'Programming Language :: Python ',
+        'Programming Language :: Python :: 3 :: Only',
+    ],
+
+    # This field adds keywords for your project which will appear on the
+    # project page. What does your project relate to?
+    #
+    # Note that this is a list of additional keywords, separated
+    # by commas, to be used to assist searching for the distribution in a
+    # larger catalog.
+    keywords='HMM, Discrete emissions, Gaussian emissions, Mixed emissions',  # Optional
+
+    # You can just specify package directories manually here if your project is
+    # simple. Or you can use find_packages().
+    #
+    # Alternatively, if you just want to distribute a single Python file, use
+    # the `py_modules` argument instead as follows, which will expect a file
+    # called `my_module.py` to exist:
+    #
+    #   py_modules=["my_module"],
+    #
+    packages=find_packages(),  # Required
+
+    # Specify which Python versions you support. In contrast to the
+    # 'Programming Language' classifiers above, 'pip install' will check this
+    # and refuse to install the project if the version does not match. See
+    # https://packaging.python.org/guides/distributing-packages-using-setuptools/#python-requires
+    python_requires='>=3.6, <4',
+
+    # This field lists other packages that your project depends on to run.
+    # Any package you put here will be installed by pip when your project is
+    # installed, so they must be valid existing projects.
+    #
+    # For an analysis of "install_requires" vs pip's requirements files see:
+    # https://packaging.python.org/discussions/install-requires-vs-requirements/
+    install_requires=['numpy', 'scipy', 'scikit-learn',
+                      'prettytable', 'seaborn'],  # Optional
+
+    # List additional groups of dependencies here (e.g. development
+    # dependencies). Users will be able to install these using the "extras"
+    # syntax, for example:
+    #
+    #   $ pip install sampleproject[dev]
+    #
+    # Similar to `install_requires` above, these must be valid existing
+    # projects.
+    extras_require={  # Optional
+        'test': ['pytest'],
     },
 
-    classifiers=[
-        'Intended Audience :: Data Scientists',
-        'License :: OSI Approved :: Apache Software License',
-        'Natural Language :: English',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Topic :: Documentation :: Sphinx',
-        'Topic :: Scientific/Engineering :: Artificial Intelligence'  
-    ],
+    # List additional URLs that are relevant to your project as a dict.
+    #
+    # This field corresponds to the "Project-URL" metadata fields:
+    # https://packaging.python.org/specifications/core-metadata/#project-url-multiple-use
+    #
+    # Examples listed include a pattern for specifying where the package tracks
+    # issues, where the source is hosted, where to say thanks to the package
+    # maintainers, and where to support the project financially. The key is
+    # what's used to render the link text on PyPI.
+    project_urls={  # Optional
+        'Documentation': 'https://pyhhmm.readthedocs.io/en/latest/',
+        'Source': 'https://github.com/fmorenopino/HeterogeneousHMM/',
+        'Bug Reports': 'https://github.com/fmorenopino/HeterogeneousHMM/issues',
+    },
 )
