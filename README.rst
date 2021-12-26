@@ -6,7 +6,20 @@ PyHHMM
    :target: https://doi.org/10.5281/zenodo.3759439
 
 [`Read the Docs <https://pyhhmm.readthedocs.io/en/latest/index.html#>`_]
-   
+
+.. tip::
+
+    * Colored boxes act as paragraphs because anything indented
+      four spaces stay in the text box.
+    * For example, this list!
+
+.. note:: RST lines should be 80 characters long
+
+.. admonition:: As a final thought
+
+    You don't have to use *note* for a blue box. Instead, use
+    your own title!
+    
 This repository contains different implementations of the Hidden Markov Model with just some basic Python dependencies. The main contributions of this library with respect to other available APIs are:
 
 - **Missing values support**: our implementation supports both partial and complete missing data.
