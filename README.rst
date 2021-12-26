@@ -19,9 +19,15 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probabilistic models. There is also a possibility to run the training using multiprocessing, in order to speed it up when multiple observation sequences are used. 
 
-Documentation
+Documentation/Installation
 #############
 Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
+
+.. topic:: Installation instructions
+
+    pip install pyhhmm
+    
+Alternativelly, the library can be directly installed via Github repository: pip install "git+https://github.com/fmorenopino/HeterogeneousHMM"
 
 Authors
 ######################
