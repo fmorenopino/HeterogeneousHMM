@@ -23,8 +23,6 @@ Documentation
 #############
 Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
 
-.. note::  This is a **note** box.
-
 Authors
 ######################
 - `Fernando Moreno-Pino <http://www.tsc.uc3m.es/~fmoreno/>`_
