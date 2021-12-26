@@ -23,7 +23,11 @@ Documentation
 #############
 Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
 
+.. code-block:: bash
 
+   pip install pyhhmm
+   pip install "git+https://github.com/fmorenopino/HeterogeneousHMM"
+   
 Authors
 ######################
 - `Fernando Moreno-Pino <http://www.tsc.uc3m.es/~fmoreno/>`_
