@@ -21,7 +21,7 @@ Also, some others aspects like having multiple sequences, several features per o
 
 Documentation/Installation
 #############
-Introductory tutorials, how-to's and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
+Introductory tutorials, how-to's, and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
 
 PyHHMM can be installed from PyPI as follows:
 
@@ -29,7 +29,7 @@ PyHHMM can be installed from PyPI as follows:
 
    pip install pyhhmm
    
-Alternativelly, the library can be directly installed via Github repository: pip install "git+https://github.com/fmorenopino/HeterogeneousHMM"
+Alternativelly, the library can be directly installed from the Github repository:
 
 .. code-block:: bash
 
