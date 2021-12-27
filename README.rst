@@ -183,8 +183,3 @@ References
 - *Machine Learning: A Probabilistic Perspective*, K.P. Murphy, The MIT Press ©2012, ISBN:0262018020 9780262018029
 - *Inference in Hidden Markov Models*, O.Capp, E.Moulines, T.Ryden, Springer Publishing Company, Incorporated, 2010, ISBN:1441923195
 - *Parallel Implementation of Baum-Welch Algorithm*, M.V. Anikeev, O.B. Makarevich, Workshop on Computer Science and Information Technology CSIT'2006, Karlsruhe, Germany, 2006
-
-**NOTE:** This model was based on previous implementations:
-
-- `https://github.com/guyz/HMM <https://github.com/guyz/HMM>`_
-- `https://github.com/hmmlearn <https://github.com/hmmlearn>`_
