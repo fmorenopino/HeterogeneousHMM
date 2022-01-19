@@ -19,6 +19,19 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probabilistic models. There is also a possibility to run the training using multiprocessing, in order to speed it up when multiple observation sequences are used. 
 
+Please, if you use this code, cite the following `paper <https://arxiv.org/abs/2201.06968>`_.:
+
+.. code-block:: bash
+
+   @misc{morenopino2022pyhhmm,
+      title={PyHHMM: A Python Library for Heterogeneous Hidden Markov Models}, 
+      author={Fernando Moreno-Pino and Emese Sükei and Pablo M. Olmos and Antonio Artés-Rodríguez},
+      year={2022},
+      eprint={2201.06968},
+      archivePrefix={arXiv},
+      primaryClass={cs.MS}
+   }
+
 Documentation/Installation
 #############
 Introductory tutorials, how-to's, and API documentation are available on `Read the Docs <https://pyhhmm.readthedocs.io/en/latest/>`_.
