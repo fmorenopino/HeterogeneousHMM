@@ -19,7 +19,7 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probabilistic models. There is also a possibility to run the training using multiprocessing, in order to speed it up when multiple observation sequences are used. 
 
-Please, if you use this code, cite the following `paper <https://arxiv.org/abs/2201.06968>`_.:
+Please, if you use this code, cite the following `paper <https://arxiv.org/abs/2201.06968>`_:
 
 .. code-block:: bash
 
