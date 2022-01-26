@@ -11,13 +11,13 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 - **Missing values support**: our implementation supports both partial and complete missing data.
 
-- **Heterogeneous HMM (HMM with labels)**: here we implement a version of the HMM which allow us to use different distributions to manage the emission probabilities of each of the features (*also, the simpler cases: Gaussian and Multinomial HMMs are implemented*).
+- **Heterogeneous HMM (HMM with labels)**: our implementation allows the usage of heterogeneous data, merging Gaussian and Multinomial observation models in the HeterogeneousHMM. This variation of HMMs uses different distributions to manage the emission probabilities of each of the features (*also, the simpler cases: Gaussian and Multinomial HMMs are implemented*).
 
-- **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the HeterogenousHMM model, it is possible to fix the emission probabilities of the discrete features: the model allow us to fix the complete emission probabilities matrix *B* of certain feature or just some states' emission probabilities.
+- **Semi-Supervised HMM (Fixing discrete emission probabilities)**: in the HeterogenousHMM model, it is possible to fix the values of the emission probabilities of the discrete features via the emission probabilities matrix *B*. This can be done for certain features or just for some states' emission probabilities, depending on the user's requirements.
 
-- **Model selection criteria**: Both Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) are implemented.
+- **Model selection criteria**: both Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) are implemented.
 
-Also, some others aspects like having multiple sequences, several features per observation or sampling from the models are supported. This model is easily extendable with other types of probabilistic models. There is also a possibility to run the training using multiprocessing, in order to speed it up when multiple observation sequences are used. 
+Also, some others applications like managing multiple sequences, several features per observation, or sampling from the models are supported. This model is easily extendable with other types of probabilistic models. Also, the training can run using multiprocessing. 
 
 Please, if you use this code, cite the following `pre-print <https://arxiv.org/abs/2201.06968>`_:
 
