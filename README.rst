@@ -52,6 +52,7 @@ Authors
 ######################
 - `Fernando Moreno-Pino <http://www.tsc.uc3m.es/~fmoreno/>`_
 - `Emese Sukei <http://www.tsc.uc3m.es/~esukei/>`_
+- `Pablo Martínez Olmos <http://www.tsc.uc3m.es/~olmos/>`_
 - `Antonio Artés-Rodríguez <http://www.tsc.uc3m.es/~antonio/antonio_artes/Home.html>`_
 
 Contributing
