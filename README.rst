@@ -19,7 +19,18 @@ This repository contains different implementations of the Hidden Markov Model wi
 
 Also, some others applications like managing multiple sequences, several features per observation, or sampling from the models are supported. This model is easily extendable with other types of probabilistic models. Also, the training can run using multiprocessing. 
 
+Please, if you use this code, cite the following `pre-print <https://arxiv.org/abs/2201.06968>`_:
 
+.. code-block:: bash
+
+   @misc{morenopino2022pyhhmm,
+      title={PyHHMM: A Python Library for Heterogeneous Hidden Markov Models}, 
+      author={Fernando Moreno-Pino and Emese Sükei and Pablo M. Olmos and Antonio Artés-Rodríguez},
+      year={2022},
+      eprint={2201.06968},
+      archivePrefix={arXiv},
+      primaryClass={cs.MS}
+   }
 
 Documentation/Installation
 #############
@@ -178,20 +189,7 @@ So the posterior conditional for our missing data can be obtained as:
     :height: 125px
     :alt: alternate text
 
-##########
-Please, if you use this code, cite the following `pre-print <https://arxiv.org/abs/2201.06968>`_:
 
-.. code-block:: bash
-
-   @misc{morenopino2022pyhhmm,
-      title={PyHHMM: A Python Library for Heterogeneous Hidden Markov Models}, 
-      author={Fernando Moreno-Pino and Emese Sükei and Pablo M. Olmos and Antonio Artés-Rodríguez},
-      year={2022},
-      eprint={2201.06968},
-      archivePrefix={arXiv},
-      primaryClass={cs.MS}
-   }
-   
 References
 ##########
 - *Advanced Signal Processing Course*, Prof. Dr. Antonio Artés-Rodríguez at Universidad Carlos III de Madrid
