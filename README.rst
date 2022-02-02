@@ -176,7 +176,7 @@ So the posterior conditional for our missing data can be obtained as:
     :height: 125px
     :alt: alternate text
 
-
+#############
 Please, if you use this code, cite the following `pre-print <https://arxiv.org/abs/2201.06968>`_:
 
 .. code-block:: bash
