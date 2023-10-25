@@ -14,7 +14,18 @@ from prettytable import PrettyTable
 import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-plt.style.use('seaborn-ticks')
+import warnings
+
+# Check if a style containing "seaborn-ticks" is available
+# if so, returns the first match
+ticks_style = next(
+    (style for style in plt.style.available \
+        if "seaborn" in style and "ticks" in style), None)
+
+if ticks_style:
+    plt.style.use(ticks_style)
+else:
+    warnings.warn("Seaborn-ticks style not found. Using the default style.")
 
 COVARIANCE_TYPES = frozenset(('spherical', 'tied', 'diagonal', 'full'))
 COLORS = sns.color_palette('colorblind', n_colors=15)
