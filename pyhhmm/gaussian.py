@@ -66,6 +66,7 @@ class GaussianHMM(BaseHMM):
     :type learning_rate: float, optional
     :param verbose: flag to be set to True if per-iteration convergence reports should be printed. Defaults to True.
     :type verbose: bool, optional 
+    :param random_state: seed for the random number generator
     """
 
     def __init__(
@@ -84,6 +85,7 @@ class GaussianHMM(BaseHMM):
         min_covar=1e-3,
         learning_rate=0.,
         verbose=False,
+        random_state=None,
     ):
         if covariance_type not in COVARIANCE_TYPES:
             raise ValueError(
@@ -99,6 +101,7 @@ class GaussianHMM(BaseHMM):
             A_prior=A_prior,
             learning_rate=learning_rate,
             verbose=verbose,
+            random_state=random_state,
         )
 
         self.n_emissions = n_emissions
@@ -168,7 +171,7 @@ class GaussianHMM(BaseHMM):
         X_concat = concatenate_observation_sequences(X)
 
         if 'm' in self.init_params:
-            kmeans = cluster.KMeans(n_clusters=self.n_states)
+            kmeans = cluster.KMeans(n_clusters=self.n_states, random_state=self.random_state)
             kmeans.fit(X_concat)
             self.means = kmeans.cluster_centers_
         if 'c' in self.init_params:
@@ -481,4 +484,4 @@ class GaussianHMM(BaseHMM):
             from the emission distribution corresponding to a given state
         :rtype: array_like
         """
-        return np.random.multivariate_normal(self.means[state], self.covars[state])
+        return self.rng.multivariate_normal(self.means[state], self.covars[state])

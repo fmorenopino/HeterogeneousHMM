@@ -71,6 +71,7 @@ class BaseHMM(object):
     :param verbose: flag to be set to True if per-iteration convergence reports should 
         be printed. Defaults to True.
     :type verbose: bool, optional 
+    :param random_state: seed for the random number generator
     """
 
     def __init__(
@@ -83,6 +84,7 @@ class BaseHMM(object):
         A_prior=1.0,
         learning_rate=0.,
         verbose=True,
+        random_state=None,
     ):
         """Constructor method."""
 
@@ -97,6 +99,8 @@ class BaseHMM(object):
         self.A_prior = A_prior
         self.learning_rate = learning_rate
         self.verbose = verbose
+        self.random_state = random_state
+        self.rng = np.random.default_rng(random_state)
 
     def __str__(self):
         """Function to allow directly printing the object."""
@@ -329,13 +333,13 @@ class BaseHMM(object):
         transmat_cdf = np.cumsum(self.A, axis=1)
 
         for _ in range(n_sequences):
-            currstate = (startprob_cdf > np.random.rand()).argmax()
+            currstate = (startprob_cdf > self.rng.rand()).argmax()
             state_sequence = [currstate]
             X = [self._generate_sample_from_state(currstate)]
 
             for _ in range(n_samples - 1):
                 currstate = (transmat_cdf[currstate]
-                             > np.random.rand()).argmax()
+                             > self.rng.rand()).argmax()
                 state_sequence.append(currstate)
                 X.append(self._generate_sample_from_state(currstate))
             samples.append(np.vstack(X))
@@ -373,12 +377,12 @@ class BaseHMM(object):
                 self.A = np.full((self.n_states, self.n_states), init)
         else:
             if 's' in self.init_params:
-                self.pi = np.random.dirichlet(
+                self.pi = self.rng.dirichlet(
                     alpha=self.pi_prior * np.ones(self.n_states), size=1
                 )[0]
 
             if 't' in self.init_params:
-                self.A = np.random.dirichlet(
+                self.A = self.rng.dirichlet(
                     alpha=self.A_prior * np.ones(self.n_states), size=self.n_states
                 )
 

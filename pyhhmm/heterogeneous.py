@@ -76,6 +76,7 @@ class HeterogeneousHMM(BaseHMM):
     :type learning_rate: float, optional
     :param verbose: flag to be set to True if per-iteration convergence reports should be printed, defaults to True
     :type verbose: bool, optional
+    :param random_state: seed for the random number generator
     """
 
     def __init__(
@@ -98,6 +99,7 @@ class HeterogeneousHMM(BaseHMM):
         min_covar=1e-3,
         learning_rate=0,
         verbose=False,
+        random_state=None,
     ):
         """Constructor method.
 
@@ -125,6 +127,7 @@ class HeterogeneousHMM(BaseHMM):
             A_prior=A_prior,
             learning_rate=learning_rate,
             verbose=verbose,
+            random_state=random_state,
         )
 
         self.n_g_emissions = n_g_emissions
@@ -203,7 +206,7 @@ class HeterogeneousHMM(BaseHMM):
             X, gidx=self.n_g_emissions)
 
         if 'm' in self.init_params:
-            kmeans = cluster.KMeans(n_clusters=self.n_states, random_state=0)
+            kmeans = cluster.KMeans(n_clusters=self.n_states, random_state=self.random_state)
             kmeans.fit(X_concat)
             self.means = kmeans.cluster_centers_
         if 'c' in self.init_params:
@@ -629,20 +632,20 @@ class HeterogeneousHMM(BaseHMM):
         return multivariate_normal.pdf(x, mean=mean, cov=covar, allow_singular=True)
 
     def _generate_sample_from_state(self, state):
-        """ Generates a random sample from a given component.
+        """ Generates a random sample from fa given component.
         :param state: index of the component to condition on
         :type state: int
         :return: array of shape (n_g_features+n_d_features, ) containing a random sample
             from the emission distribution corresponding to a given state
         :rtype: array_like
         """
-        gauss_sample = np.random.multivariate_normal(
+        gauss_sample = self.rng.multivariate_normal(
             self.means[state], self.covars[state]
         )
 
         cat_sample = []
         for e in range(self.n_d_emissions):
             cdf = np.cumsum(self.B[e][state, :])
-            cat_sample.append((cdf > np.random.rand()).argmax())
+            cat_sample.append((cdf > self.rng.rand()).argmax())
 
         return np.concatenate([gauss_sample, cat_sample])
